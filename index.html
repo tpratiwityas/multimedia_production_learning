@@ -1,152 +1,1522 @@
 <!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Multimedia Production Learning</title>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f3f4fa;--sf:#fff;--tx:#1b1f3b;--mu:#5b6082;--pr:#26306b;--pt:#fff;--ac:#f2a93b;--ok:#17794a;--okb:#e0f4e9;--no:#b3294a;--nob:#fbe4ea;--bd:#d7daea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12142a;--sf:#1c2040;--tx:#eceefa;--mu:#a3a8cc;--pr:#8e9cf0;--pt:#12142a;--ac:#f2b552;--ok:#6fdca0;--okb:#17372b;--no:#ff8aa5;--nob:#42202c;--bd:#333865}}
-:root[data-theme="dark"]{--bg:#12142a;--sf:#1c2040;--tx:#eceefa;--mu:#a3a8cc;--pr:#8e9cf0;--pt:#12142a;--ac:#f2b552;--ok:#6fdca0;--okb:#17372b;--no:#ff8aa5;--nob:#42202c;--bd:#333865}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 "Nunito Sans",system-ui,sans-serif}
-h1,h2,h3{font-family:"Bricolage Grotesque",Georgia,sans-serif;line-height:1.15;margin:0 0 .5em}
-header{background:var(--pr);color:var(--pt);padding:10px 16px;position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--pr);z-index:30}
-.bar{max-width:1000px;margin:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.logo{font:800 1.1rem "Bricolage Grotesque",sans-serif}
-nav{display:flex;gap:4px;overflow-x:auto;flex:1}
-nav button{background:none;border:0;color:inherit;padding:6px 11px;border-radius:8px;cursor:pointer;font:600 .9rem inherit;white-space:nowrap;opacity:.8}
-nav button[aria-current=true]{background:var(--ac);color:#1b1f3b;opacity:1}
-button:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
-main{max-width:1000px;margin:auto;padding:20px 16px 60px}
-section{display:none}section.on{display:block}
-.card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:18px;margin:0 0 14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
-.hero{background:#26306b;color:#fff;border-radius:16px;padding:32px 24px;margin-bottom:16px;border-bottom:6px solid var(--ac)}
-.hero h1{font-size:clamp(1.7rem,5.5vw,2.7rem);font-weight:800;max-width:20em}
-.btn{background:var(--pr);color:var(--pt);border:0;border-radius:10px;padding:10px 18px;font:700 1rem inherit;cursor:pointer}
-.btn.ac{background:var(--ac);color:#1b1f3b}.btn.ghost{background:none;border:1px solid var(--bd);color:var(--tx)}
-.prog{height:10px;background:var(--bd);border-radius:9px;overflow:hidden}.prog i{display:block;height:100%;width:0;background:var(--ac);transition:width .3s}
-.tag{display:inline-block;background:var(--bd);border-radius:20px;padding:1px 10px;font-size:.8rem;font-weight:700;margin-right:6px}
-details{border:1px solid var(--bd);border-radius:12px;background:var(--sf);margin-bottom:10px;padding:2px 16px}
-summary{cursor:pointer;font:700 1.05rem "Bricolage Grotesque",sans-serif;padding:12px 0}
-.opt{display:block;width:100%;text-align:left;background:var(--sf);color:var(--tx);border:2px solid var(--bd);border-radius:10px;padding:10px 14px;margin:6px 0;cursor:pointer;font:inherit}
-.opt:hover:not(:disabled){border-color:var(--pr)}
-.opt.ok{background:var(--okb);border-color:var(--ok)}.opt.no{background:var(--nob);border-color:var(--no)}
-.fb{border-radius:10px;padding:10px 14px;margin-top:8px;font-size:.95rem}.fb.ok{background:var(--okb)}.fb.no{background:var(--nob)}
-select,textarea{width:100%;font:inherit;padding:9px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)}
-textarea{min-height:80px;resize:vertical}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)}
-@media(max-width:560px){.row{grid-template-columns:1fr}}
-table{border-collapse:collapse;width:100%;font-size:.93rem}th,td{border:1px solid var(--bd);padding:7px 9px;text-align:left;vertical-align:top}
-.sc{overflow-x:auto}.meter{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.meter span{background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:6px 12px;font-weight:700}
-.note{font-size:.88rem;color:var(--mu)}
-@media print{header,nav,.noprint{display:none!important}section{display:block!important}body::before{display:none}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style></head><body>
-<header><div class="bar"><span class="logo">Multimedia Production Learning</span><nav id="nav" aria-label="Menu utama"></nav></div></header>
-<main>
-<section id="beranda"><div class="hero"><p>Media pembelajaran interaktif · Kelas XI DKV · Fase F</p><h1>Multimedia Production Learning</h1><h2 style="font-size:1.15rem;font-weight:600;opacity:.9">Simulasi alur kerja produksi multimedia berbasis studi kasus industri: proyek video promosi Kopi Senja</h2><p>Pelajari praproduksi, produksi, dan pascaproduksi lewat proyek video promosi kopi botol fiktif. Selesaikan materi, kuis, game, simulasi, dan LKPD.</p><button class="btn ac" data-go="materi">Mulai belajar</button></div>
-<div class="card"><h3>Progres belajarmu</h3><div class="prog"><i id="gp"></i></div><p id="gt" class="note"></p></div>
-<div class="grid" id="peta"></div>
-<div class="card" style="margin-top:14px"><h3>Brief proyek Kopi Senja</h3><p>Video promosi vertikal 30–45 detik dan tiga potongan video pendek untuk media sosial. Audiens: mahasiswa dan pekerja muda usia 18–30 tahun. Tenggat tiga minggu, anggaran Rp15.000.000 termasuk cadangan. Dua putaran revisi sudah termasuk dalam kesepakatan.</p><p class="note">Media ini masih berupa prototipe rancangan. Validasi ahli dan uji coba ke siswa belum dilakukan, dan skor permainan tidak otomatis menjadi nilai rapor.</p></div></section>
+<html lang="id" class="h-full bg-[#14213D] text-[#FFFDF7]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Digital Studio Adventure - Alur Kerja Produksi Multimedia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        midnight: '#14213D',
+                        cyanAccent: '#00C2FF',
+                        coralOrange: '#FF6B4A',
+                        goldenYellow: '#FFC857',
+                        freshTeal: '#20C997',
+                        iceBlue: '#EAF7FF',
+                        warmWhite: '#FFFDF7'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #14213D; }
+        ::-webkit-scrollbar-thumb { background: #00C2FF; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #20C997; }
 
-<section id="cp"><h2>Capaian Pembelajaran, TP, dan ATP</h2>
-<div class="card"><h3>Capaian Pembelajaran</h3><p>Fokus pada elemen <b>Proses Produksi Desain</b> DKV Fase F, dengan <b>Design Brief</b> sebagai elemen pendukung.</p><p class="note">Rumusan CP resmi harus dicocokkan dengan dokumen BSKAP/Kemendikdasmen yang berlaku. Halaman ini tidak mengutip rumusan resmi.</p></div>
-<div class="card sc"><h3>Tujuan dan alur pembelajaran</h3><table id="tptab"><tr><th>TP</th><th>Tujuan Pembelajaran</th><th>Tahap ATP</th><th>JP</th></tr></table><p class="note">Total 12 JP dalam empat pertemuan @3 JP, mengikuti laporan Kelompok 9.</p></div></section>
+        @keyframes cyanGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 194, 255, 0.4); }
+            50% { box-shadow: 0 0 25px rgba(0, 194, 255, 0.8); }
+        }
+        .cyan-glow { animation: cyanGlow 3s infinite; }
 
-<section id="materi"><h2>Materi Pembelajaran</h2><div id="mod"></div></section>
+        /* Media Print Mode (A4 Landscape Certificate Only) */
+        @media print {
+            @page { size: A4 landscape; margin: 0; }
+            body { background: white !important; color: black !important; padding: 0 !important; margin: 0 !important; }
+            body * { visibility: hidden; }
+            #printable-certificate, #printable-certificate * { visibility: visible; }
+            #printable-certificate {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                margin: 0;
+                padding: 2rem;
+                border: 12px double #14213D !important;
+                box-sizing: border-box;
+                background: #ffffff !important;
+            }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="h-full flex flex-col justify-between antialiased selection:bg-cyanAccent selection:text-midnight">
 
-<section id="video"><h2>Video Pembelajaran</h2><p class="note">Tautan di bawah adalah hasil pencarian YouTube, bukan video yang sudah diverifikasi. Guru perlu memilih dan memeriksa video sebelum dipakai. Jika video tidak bisa diakses, pakai ringkasan teks di menu Materi.</p><div class="grid" id="vid"></div></section>
+    <!-- HEADER / NAV BAR -->
+    <header class="no-print bg-midnight/95 backdrop-blur-md border-b border-cyanAccent/30 sticky top-0 z-50 px-4 py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('beranda')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyanAccent to-freshTeal flex items-center justify-center text-midnight font-bold text-xl shadow-lg">
+                    <i class="fa-solid fa-clapperboard"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-wide text-warmWhite">Studio<span class="text-cyanAccent">Adventure</span></h1>
+                    <p class="text-xs text-cyanAccent/80">Alur Kerja Produksi Multimedia - DKV Fase F</p>
+                </div>
+            </div>
 
-<section id="game"><h2>Permainan Mencocokkan</h2><p>Pilih tahap atau kategori yang paling sesuai untuk tiap kegiatan, lalu tekan Periksa.</p><div class="card" id="gm"></div><button class="btn" id="gchk">Periksa pasangan</button> <button class="btn ghost" id="grst">Ulangi</button><div id="gres" class="fb" hidden></div></section>
+            <!-- Player Status Bar -->
+            <div class="flex items-center gap-3 bg-slate-900/90 border border-slate-700 px-4 py-1.5 rounded-full text-sm">
+                <div class="flex items-center space-x-2">
+                    <span id="nav-avatar-icon" class="text-lg">🎬</span>
+                    <span id="nav-player-role" class="font-bold text-goldenYellow">Produser</span>
+                </div>
+                <div class="h-4 w-px bg-slate-700"></div>
+                <div class="flex items-center space-x-1">
+                    <span class="text-xs text-slate-400">Lv.</span>
+                    <span id="nav-player-level" class="font-bold text-cyanAccent">1</span>
+                </div>
+                <div class="h-4 w-px bg-slate-700"></div>
+                <div class="flex items-center space-x-1">
+                    <i class="fa-solid fa-star text-goldenYellow text-xs"></i>
+                    <span id="nav-player-xp" class="font-bold text-warmWhite">0</span>
+                    <span class="text-xs text-slate-400">XP</span>
+                </div>
+            </div>
 
-<section id="kuis"><h2>Kuis Pilihan Ganda</h2><p class="note" id="kinfo"></p><div id="kq"></div><div class="card" id="kres" hidden></div></section>
+            <!-- Audio Controls -->
+            <div class="flex items-center space-x-2">
+                <button id="btn-audio-toggle" onclick="toggleAudio()" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyanAccent transition border border-cyanAccent/20" title="Audio Toggle">
+                    <i id="audio-icon" class="fa-solid fa-volume-high"></i>
+                </button>
+                <input id="volume-slider" type="range" min="0" max="1" step="0.1" value="0.5" onchange="setVolume(this.value)" class="w-16 accent-cyanAccent cursor-pointer">
+            </div>
+        </div>
+    </header>
 
-<section id="sim"><h2>Simulasi Proyek Kopi Senja</h2><p>Tiga misi berurutan. Skor kompetensi (maks 12) dipisahkan dari parameter simulasi.</p><div class="meter"><span>Waktu: <b id="pw">100</b></span><span>Anggaran: <b id="pa">100</b></span><span>Kepuasan klien: <b id="pk">100</b></span><span>Skor kompetensi: <b id="ps">0</b>/12</span></div><div id="sm"></div></section>
+    <!-- NAVIGATION TABS -->
+    <nav class="no-print bg-slate-900/90 border-b border-slate-800 px-4 py-2 sticky top-[61px] z-40 overflow-x-auto">
+        <div class="max-w-7xl mx-auto flex space-x-1 min-w-max text-xs font-semibold">
+            <button onclick="switchTab('beranda')" id="tab-beranda" class="tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 bg-cyanAccent text-midnight font-bold">
+                <i class="fa-solid fa-house"></i> Beranda
+            </button>
+            <button onclick="switchTab('materi')" id="tab-materi" class="tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 hover:bg-slate-800 text-slate-300">
+                <i class="fa-solid fa-book-open text-cyanAccent"></i> SOP Produksi
+            </button>
+            <button onclick="switchTab('misi')" id="tab-misi" class="tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 hover:bg-slate-800 text-slate-300">
+                <i class="fa-solid fa-bullseye text-goldenYellow"></i> Studi Kasus
+            </button>
+            <button onclick="switchTab('minigames')" id="tab-minigames" class="tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 hover:bg-slate-800 text-slate-300">
+                <i class="fa-solid fa-gamepad text-coralOrange"></i> 3 Mini Game Interaktif
+            </button>
+            <button onclick="switchTab('kuis')" id="tab-kuis" class="tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 hover:bg-slate-800 text-slate-300">
+                <i class="fa-solid fa-pen-to-square text-freshTeal"></i> Kuis Evaluasi
+            </button>
+            <button onclick="switchTab('proyek')" id="tab-proyek" class="tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 hover:bg-slate-800 text-slate-300">
+                <i class="fa-solid fa-diagram-project text-cyanAccent"></i> Tugas Proyek
+            </button>
+            <button onclick="switchTab('refleksi')" id="tab-refleksi" class="tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 hover:bg-slate-800 text-slate-300">
+                <i class="fa-solid fa-brain text-goldenYellow"></i> Jurnal Refleksi
+            </button>
+            <button onclick="switchTab('pencapaian')" id="tab-pencapaian" class="tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 hover:bg-slate-800 text-slate-300">
+                <i class="fa-solid fa-trophy text-goldenYellow"></i> Galeri Lencana
+            </button>
+            <button onclick="switchTab('sertifikat')" id="tab-sertifikat" class="tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 hover:bg-slate-800 text-slate-300">
+                <i class="fa-solid fa-certificate text-freshTeal"></i> Sertifikat
+            </button>
+        </div>
+    </nav>
 
-<section id="lkpd"><h2>LKPD Digital</h2><div class="card"><p><b>Kelas/Fase:</b> XI / Fase F · <b>Konsentrasi:</b> DKV · <b>Studi kasus:</b> Video Promosi Kopi Senja (fiktif)</p><p><b>Petunjuk:</b> baca brief, kerjakan berurutan, beri alasan di setiap keputusan, periksa sumber dan lisensi aset, lalu diskusikan dengan kelompok dan guru. Jawaban tersimpan otomatis di peramban ini.</p></div><div id="lk"></div>
-<div class="card noprint"><input id="nm" placeholder="Nama / kelompok" style="width:100%;padding:9px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit;margin-bottom:10px"><button class="btn" id="cp1">Salin semua jawaban</button> <button class="btn ghost" id="pr">Cetak / simpan PDF</button> <button class="btn ghost" id="lrs">Hapus isian</button><p class="note" id="lmsg"></p></div></section>
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
 
-<section id="eval"><h2>Evaluasi dan Refleksi</h2>
-<div class="card"><h3>Rubrik penilaian LKPD (usulan)</h3><table><tr><th>Aspek</th><th>Bobot</th></tr><tr><td>Ketepatan analisis brief</td><td>20%</td></tr><tr><td>Kelengkapan kebutuhan aset dan lisensi</td><td>20%</td></tr><tr><td>Kelayakan jadwal dan pengelolaan risiko</td><td>20%</td></tr><tr><td>Ketepatan keputusan serta alasan</td><td>20%</td></tr><tr><td>Kelengkapan alur kerja dan etika profesional</td><td>20%</td></tr></table><p class="note">Rubrik rancangan ini perlu ditinjau dan disesuaikan dengan kebijakan asesmen satuan pendidikan.</p></div>
-<div class="card"><h3>Rekap hasil</h3><div id="rekap"></div><p class="note">Penilaian dipisah menjadi pengetahuan (kuis), keterampilan (LKPD dan proyek), dan sikap profesional (keputusan simulasi). Pre-test dan post-test dapat memakai kuis ini: catat skor sebelum dan sesudah belajar, lalu bandingkan.</p></div>
-<div class="card"><h3>Refleksi</h3><div id="refl"></div></div></section>
+        <!-- TAB 1: BERANDA -->
+        <section id="content-beranda" class="tab-content block space-y-6">
+            <div class="relative bg-gradient-to-r from-midnight via-slate-900 to-midnight border border-cyanAccent/40 rounded-2xl p-6 md:p-10 overflow-hidden shadow-2xl cyan-glow">
+                <div class="relative z-10 max-w-3xl space-y-4">
+                    <span class="px-3 py-1 bg-coralOrange/20 border border-coralOrange text-coralOrange font-semibold text-xs rounded-full uppercase tracking-wider">
+                        Studi Kasus Gamifikasi: Iklan Commercial Video "Kopi Senja"
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-warmWhite">
+                        Creative Digital Studio <span class="text-cyanAccent">Adventure</span>
+                    </h2>
+                    <p class="text-slate-300 leading-relaxed text-sm md:text-base">
+                        Simulasi alur kerja produksi multimedia profesional. Kelola proyek video komersial UMKM <strong class="text-goldenYellow">"Kopi Senja"</strong> melewati tahapan Praproduksi, Produksi, dan Pascaproduksi dengan 3 Mini Game Interaktif!
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button onclick="switchTab('minigames')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-coralOrange to-goldenYellow text-midnight font-extrabold hover:brightness-110 transition shadow-lg flex items-center gap-2">
+                            <i class="fa-solid fa-gamepad"></i> Mainkan 3 Mini Game
+                        </button>
+                        <button onclick="switchTab('materi')" class="px-6 py-3 rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700 text-warmWhite font-semibold transition flex items-center gap-2">
+                            <i class="fa-solid fa-book-open"></i> Pelajari SOP Produksi
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-<section id="pustaka"><h2>Daftar Pustaka dan Sumber Belajar</h2><div class="card sc"><table><tr><th>Jenis</th><th>Sumber</th><th>Pemanfaatan</th></tr>
-<tr><td>Kurikulum</td><td>Dokumen resmi CP DKV Fase F, BSKAP/Kemendikdasmen</td><td>Memeriksa kesesuaian CP dan elemen</td></tr>
-<tr><td>Buku/modul</td><td>Buku atau modul Proses Produksi Desain yang dipakai satuan pendidikan (judul, penulis, dan tahun diisi sesuai buku pegangan)</td><td>Bacaan utama dan rujukan LKPD</td></tr>
-<tr><td>Regulasi</td><td>UU No. 28 Tahun 2014 tentang Hak Cipta</td><td>Etika penggunaan aset</td></tr>
-<tr><td>Regulasi</td><td>UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi</td><td>Pelindungan data</td></tr>
-<tr><td>Video</td><td>Lihat menu Video (tautan pencarian, belum diverifikasi)</td><td>Pengayaan modul</td></tr></table><p class="note">Judul buku, penulis, tahun, dan tautan sengaja tidak dikarang. Lengkapi setelah sumber diperiksa.</p></div></section>
-<p class="note" style="text-align:center;margin-top:28px">Multimedia Production Learning · Prototipe media pembelajaran untuk SMK kelas XI DKV (Fase F) · Kelompok 9</p></main>
-<script>
-const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-const S={done:{},quiz:null,sim:0};
-const store={g(k){try{return localStorage.getItem(k)}catch(e){return null}},s(k,v){try{localStorage.setItem(k,v)}catch(e){}},d(k){try{localStorage.removeItem(k)}catch(e){}}};
-const menu=[["beranda","Beranda"],["cp","CP·TP·ATP"],["materi","Materi"],["video","Video"],["game","Game"],["kuis","Kuis"],["sim","Simulasi"],["lkpd","LKPD"],["eval","Evaluasi"],["pustaka","Pustaka"]];
-$("#nav").innerHTML=menu.map(m=>`<button data-go="${m[0]}">${m[1]}</button>`).join("");
-function go(id){$$("section").forEach(s=>s.classList.toggle("on",s.id===id));$$("#nav button").forEach(b=>b.setAttribute("aria-current",b.dataset.go===id));scrollTo(0,0);if(id==="eval")rekap()}
-document.addEventListener("click",e=>{const b=e.target.closest("[data-go]");if(b)go(b.dataset.go)});
-function mark(k){S.done[k]=1;const n=Object.keys(S.done).length;$("#gp").style.width=n/4*100+"%";$("#gt").textContent=n+" dari 4 aktivitas utama selesai (materi, game, kuis, simulasi)."}
-mark("x");delete S.done.x;mark("x");delete S.done.x;$("#gp").style.width="0";$("#gt").textContent="0 dari 4 aktivitas utama selesai (materi, game, kuis, simulasi).";
-$("#peta").innerHTML=[["materi","Materi","6 modul belajar"],["game","Game","Cocokkan kegiatan"],["video","Video","Rekomendasi tutorial"],["sim","Simulasi","3 misi Kopi Senja"],["lkpd","LKPD","Tugas proyek digital"]].map(c=>`<div class="card"><h3>${c[1]}</h3><p>${c[2]}</p><button class="btn ghost" data-go="${c[0]}">Buka</button></div>`).join("");
-// CP TP ATP
-const TP=[["TP1","Mengidentifikasi dan menjelaskan tahapan produksi multimedia serta keterkaitannya","Memahami tahapan produksi multimedia",2],["TP2","Menganalisis informasi dalam design brief dan mengidentifikasi kebutuhan proyek","Menganalisis design brief dan target audiens",2],["TP3","Menyusun urutan kerja, jadwal, dan kebutuhan aset berdasarkan design brief","Merencanakan aset, jadwal, dan anggaran",2],["TP4","Menganalisis penyebab keterlambatan, pembengkakan anggaran, atau penurunan kualitas","Menganalisis kendala dan menentukan tindakan perbaikan",2],["TP5","Mengevaluasi keputusan berdasarkan kualitas, revisi, risiko, dan hak cipta","Mengevaluasi revisi, kualitas, risiko, dan hak cipta",2],["TP6","Menyusun rencana alur kerja produksi multimedia berdasarkan design brief baru dengan etika profesional","Menyusun rencana alur kerja produksi multimedia",2]];
-$("#tptab").insertAdjacentHTML("beforeend",TP.map(t=>`<tr><td>${t[0]}</td><td>${t[1]}</td><td>${t[2]}</td><td>${t[3]}</td></tr>`).join(""));
-// Materi
-const MOD=[["Modul 1. Tahapan Produksi Multimedia","TP1 · C1–C2",["Praproduksi: menentukan tujuan, target audiens, konsep, naskah, storyboard, aset, jadwal, dan rencana kerja.","Produksi: merealisasikan rencana lewat pengambilan gambar dan perekaman audio.","Pascaproduksi: menyunting video, mengolah audio, menambah teks dan grafis, kontrol kualitas, dan ekspor.","Pengelolaan proyek dan etika profesional berlaku selama proses."],"Tim Kopi Senja menyusun storyboard dan daftar adegan sebelum merekam agar tidak terjadi pengambilan gambar berulang.","Susun urutan kegiatan dari brief hingga penyerahan video."],
-["Modul 2. Analisis Design Brief","TP2 · C4",["Design brief menjelaskan latar belakang, tujuan, target audiens, pesan, ruang lingkup, media, tenggat, dan pihak terlibat.","Brief Kopi Senja: usaha kopi botol fiktif; tujuan memperkenalkan varian baru dan mendorong kunjungan ke gerai; audiens 18–30 tahun; video vertikal 30–45 detik plus tiga potongan pendek; tenggat tiga minggu; anggaran Rp15.000.000 termasuk cadangan."],"Brief belum menyebut lokasi pengambilan gambar, jadi tim perlu mengonfirmasinya ke klien.","Tandai informasi yang sudah ada dan catat yang perlu dikonfirmasi."],
-["Modul 3. Aset, Jadwal, dan Anggaran","TP3 · C3",["Aset: rekaman video, foto, musik, ilustrasi, huruf, logo, dan grafis. Catat sumber, lisensi, dan penanggung jawab.","Jadwal disusun dari tenggat dan ketergantungan pekerjaan. Anggaran dibagi per tahap dengan cadangan risiko."],"Pengambilan gambar tidak bisa dimulai sebelum storyboard dan izin lokasi beres.","Buat tabel aset, pembagian tugas, jadwal tiga minggu, dan rancangan anggaran."],
-["Modul 4. Produksi dan Pengendalian Kualitas","TP4 · C4",["Produksi mencakup pengambilan gambar dan audio sesuai storyboard.","Kualitas dipengaruhi pencahayaan, komposisi, kestabilan gambar, kualitas suara, alat, dan kesiapan lokasi."],"Hujan turun saat adegan luar ruangan, talenta hanya tersedia satu kali.","Bandingkan: pindah ke dalam ruangan, menunda, atau tetap merekam. Jelaskan dampak pada jadwal, biaya, dan kualitas."],
-["Modul 5. Pascaproduksi dan Revisi","TP5 · C5",["Pascaproduksi: penyuntingan, olah audio, teks dan grafis, pemeriksaan kualitas, ekspor ke format yang dibutuhkan.","Revisi dinilai dari kesepakatan awal, waktu, biaya tambahan, dan dampak kualitas. Kopi Senja: dua putaran revisi tanpa biaya tambahan."],"Klien meminta revisi ketiga dengan sisa waktu dua hari.","Pilih respons profesional dan nilai alternatifnya."],
-["Modul 6. Hak Cipta dan Etika Profesional","TP5–TP6 · C5–C6",["Musik, foto, video, dan aset pihak lain harus memperhatikan hak cipta dan lisensinya. Data pribadi pihak yang terlibat juga dilindungi.","Keputusan yang diharapkan: tawarkan musik berlisensi yang sesuai, jelaskan konsekuensi biaya dan waktu, dokumentasikan persetujuan revisi."],"Klien meminta lagu populer yang tidak berizin.","Susun prosedur pemeriksaan lisensi dan rencana alur kerja untuk brief baru."]];
-$("#mod").innerHTML=MOD.map((m,i)=>`<details ${i?"":"open"}><summary>${m[0]} <span class="tag">${m[1]}</span></summary><ul>${m[2].map(x=>`<li>${x}</li>`).join("")}</ul><p><b>Contoh kasus:</b> ${m[3]}</p><p><b>Aktivitas:</b> ${m[4]}</p></details>`).join("")+`<button class="btn" id="mdone">Saya sudah membaca semua modul</button>`;
-$("#mdone").onclick=()=>{mark("materi");$("#mdone").textContent="Tercatat. Lanjut ke game."};
-// Video
-const V=[["Storyboard dan praproduksi","Modul 1–2 · TP1–TP3","tutorial storyboard praproduksi video bahasa Indonesia"],["Teknik pengambilan gambar dan pencahayaan","Modul 4 · TP4","tutorial teknik pengambilan gambar pencahayaan video bahasa Indonesia"],["Penyuntingan, audio, dan ekspor","Modul 5 · TP5","tutorial editing video audio rendering ekspor bahasa Indonesia"],["Hak cipta dan lisensi aset digital","Modul 6 · TP5–TP6","hak cipta lisensi musik gambar video pembelajaran Indonesia"]];
-$("#vid").innerHTML=V.map(v=>`<div class="card"><h3>${v[0]}</h3><span class="tag">${v[1]}</span><p>Tujuan menonton: memahami praktik ${v[0].toLowerCase()} sebelum mengerjakan misi dan LKPD.</p><a class="btn ghost" style="display:inline-block;text-decoration:none" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(v[2])}">Cari di YouTube (belum diverifikasi)</a></div>`).join("");
-// Game
-const G=[["Menyusun storyboard","Praproduksi"],["Menganalisis design brief","Praproduksi"],["Merekam video produk","Produksi"],["Merekam narasi audio","Produksi"],["Menyunting urutan adegan","Pascaproduksi"],["Melakukan rendering dan ekspor","Pascaproduksi"],["Memeriksa lisensi musik","Etika profesional"],["Menyusun jadwal tim","Pengelolaan proyek"]];
-const CAT=["Praproduksi","Produksi","Pascaproduksi","Etika profesional","Pengelolaan proyek"];
-function gbuild(){$("#gm").innerHTML=G.map((g,i)=>`<div class="row"><label for="g${i}"><b>${i+1}.</b> ${g[0]}</label><select id="g${i}"><option value="">Pilih kategori</option>${CAT.map(c=>`<option>${c}</option>`).join("")}</select></div>`).join("");$("#gres").hidden=true}
-gbuild();
-$("#grst").onclick=gbuild;
-$("#gchk").onclick=()=>{let n=0;const out=[];G.forEach((g,i)=>{const s=$("#g"+i),ok=s.value===g[1];if(ok)n++;s.style.borderColor=ok?"var(--ok)":"var(--no)";if(!ok)out.push(`${g[0]} → ${g[1]}`)});const r=$("#gres");r.hidden=false;r.className="fb "+(n===8?"ok":"no");r.innerHTML=`<b>Skor: ${n*12.5}/100</b> · Benar: ${n} dari 8.`+(out.length?`<br>Pembahasan, jawaban yang tepat: ${out.join("; ")}.`:" Semua pasangan tepat.");S.game=n;mark("game")};
-// Kuis
-const Q=[["Modul 1","C1","Menyebutkan tahap yang memuat storyboard","Penyusunan storyboard dan jadwal kerja terutama dilakukan pada tahap …",["Praproduksi","Produksi","Pascaproduksi","Distribusi"],0,"Storyboard dan jadwal adalah perencanaan, sehingga masuk praproduksi."],
-["Modul 1","C2","Mengklasifikasikan kegiatan pascaproduksi","Kegiatan yang termasuk pascaproduksi adalah …",["Menganalisis brief","Merekam adegan","Melakukan rendering dan ekspor","Menyusun anggaran awal"],2,"Rendering dan ekspor dilakukan setelah penyuntingan. Pilihan lain termasuk praproduksi atau produksi."],
-["Modul 2","C2","Menjelaskan fungsi analisis audiens","Mengapa target audiens perlu dianalisis sebelum membuat video promosi?",["Agar video selalu berdurasi panjang","Agar pesan dan gaya visual sesuai dengan calon penonton","Agar tim tidak perlu membuat storyboard","Agar seluruh revisi dapat dihilangkan"],1,"Audiens menentukan pesan, gaya visual, dan platform. Analisis tidak menghapus storyboard atau revisi."],
-["Modul 3","C3","Menerapkan pemeriksaan lisensi aset","Tim ingin menggunakan foto dari internet. Langkah paling tepat adalah …",["Langsung menggunakan foto jika terlihat bagus","Memeriksa lisensi, izin, dan kewajiban atribusi","Mengubah sedikit gambar tanpa memeriksa izin","Menghapus watermark"],1,"Setiap aset perlu dicek lisensinya. Mengedit sedikit atau menghapus watermark tidak memberi izin."],
-["Modul 4","C4","Menganalisis tindakan saat kendala cuaca","Hujan turun saat pengambilan gambar luar ruangan dan talenta hanya tersedia satu kali. Tindakan yang paling masuk akal adalah …",["Tetap merekam tanpa menilai kualitas","Menghapus seluruh adegan","Mempertimbangkan pemindahan adegan ke dalam ruangan dan menyesuaikan storyboard","Mengabaikan tenggat proyek"],2,"Memindahkan adegan menjaga jadwal dan kualitas dengan penyesuaian yang terkendali."],
-["Modul 5","C5","Mengevaluasi respons terhadap revisi tambahan","Klien meminta revisi ketiga di luar kesepakatan, sisa waktu dua hari. Respons profesional adalah …",["Menerima semua perubahan tanpa pembahasan","Menjelaskan kesepakatan dan menawarkan pilihan dengan penyesuaian waktu atau biaya","Mengabaikan klien","Langsung membatalkan proyek"],1,"Komunikasi yang jelas menjaga hubungan sambil melindungi kesepakatan."],
-["Modul 6","C5","Mengevaluasi keputusan terkait hak cipta","Tim diminta menggunakan lagu populer yang belum berizin. Tindakan terbaik adalah …",["Menggunakannya karena klien yang meminta","Menggunakan lagu tanpa mencantumkan sumber","Menawarkan musik berlisensi yang sesuai dan menjelaskan konsekuensinya","Mengubah kecepatan lagu agar tidak dikenali"],2,"Permintaan klien tidak menggugurkan hak cipta. Alternatif berlisensi menjaga etika dan kebutuhan klien."],
-["Modul 3","C4","Menganalisis penyebab keterlambatan","Proyek terlambat karena storyboard dibuat saat produksi berjalan dan adegan harus direkam ulang. Penyebab utama yang paling mungkin adalah …",["Perencanaan praproduksi kurang matang","Jumlah anggota tim terlalu banyak","Format ekspor terlalu kecil","Semua revisi sudah sesuai kesepakatan"],0,"Storyboard terlambat berarti perencanaan awal kurang matang sehingga terjadi rekam ulang."]];
-$("#kinfo").textContent="8 soal contoh (C1–C5), satu jawaban terbaik tiap soal. Bank soal minimal lima per modul masih perlu dilengkapi oleh kelompok.";
-let kans=[];
-$("#kq").innerHTML=Q.map((q,i)=>`<div class="card"><span class="tag">${q[0]}</span><span class="tag">${q[1]}</span><p><b>${i+1}.</b> ${q[3]}</p>${q[4].map((o,j)=>`<button class="opt" data-q="${i}" data-o="${j}">${"ABCD"[j]}. ${o}</button>`).join("")}<div class="fb" hidden></div><p class="note">Indikator: ${q[2]}</p></div>`).join("");
-$("#kq").onclick=e=>{const b=e.target.closest(".opt");if(!b||b.disabled)return;const i=+b.dataset.q,o=+b.dataset.o,q=Q[i],c=b.parentElement;kans[i]=o;c.querySelectorAll(".opt").forEach((x,j)=>{x.disabled=true;if(j===q[5])x.classList.add("ok");else if(j===o)x.classList.add("no")});const f=c.querySelector(".fb");f.hidden=false;const ok=o===q[5];f.className="fb "+(ok?"ok":"no");f.innerHTML=`<b>${ok?"Benar.":"Belum tepat."}</b> Kunci: ${"ABCD"[q[5]]}. ${q[6]}`;if(kans.filter(x=>x!==undefined).length===Q.length){const n=Q.filter((q,i)=>kans[i]===q[5]).length;S.quiz=n;const r=$("#kres");r.hidden=false;r.innerHTML=`<h3>Skor kuis: ${n}/${Q.length} (${Math.round(n/Q.length*100)})</h3><button class="btn" id="kre">Ulangi kuis</button>`;$("#kre").onclick=()=>{kans=[];$$("#kq .opt").forEach(x=>{x.disabled=false;x.className="opt"});$$("#kq .fb").forEach(x=>x.hidden=true);r.hidden=true};mark("kuis")}};
-// Simulasi
-const M=[["Misi 1 · Praproduksi","Brief Kopi Senja belum menjelaskan lokasi pengambilan gambar. Produksi dijadwalkan minggu depan. Apa keputusanmu?",[["Langsung menjadwalkan rekaman dan menentukan lokasi sendiri.",0,[-5,0,-20],"Tanpa storyboard dan konfirmasi, risiko rekam ulang dan salah paham dengan klien tinggi. Praproduksi dilewati."],["Menyusun storyboard dan mengonfirmasi lokasi serta kebutuhan lain ke klien sebelum produksi.",3,[-5,0,10],"Menghabiskan sedikit waktu di awal, tetapi mencegah rekam ulang. Inilah fungsi praproduksi."],["Menyusun storyboard dengan asumsi lokasi, lalu memberi tahu klien setelahnya.",1,[0,-5,-5],"Storyboard membantu, tetapi asumsi lokasi tanpa konfirmasi masih berisiko."]]],
-["Misi 2 · Produksi","Hujan turun saat adegan luar ruangan. Talenta hanya tersedia hari ini. Apa tindakanmu?",[["Tetap merekam di luar ruangan agar jadwal aman.",0,[0,-10,-15],"Kualitas gambar dan audio turun, peralatan berisiko, hasil mungkin harus diulang."],["Memindahkan adegan ke dalam ruangan dan menyesuaikan storyboard serta pencahayaan.",3,[-5,-5,5],"Menjaga kualitas dan jadwal dengan biaya penyesuaian kecil. Rencana cadangan efektif."],["Menunda seluruh produksi sampai cuaca cerah.",1,[-25,-15,-5],"Aman untuk kualitas, tetapi talenta hanya tersedia sekali sehingga jadwal dan biaya terdampak besar."]]],
-["Misi 3 · Pascaproduksi","Klien meminta lagu populer yang tidak berizin, dan revisi ketiga di luar kesepakatan dua putaran.",[["Menerima semuanya agar klien senang.",0,[-20,-20,0],"Melanggar hak cipta dan kesepakatan. Risiko hukum, biaya, dan waktu ditanggung tim."],["Menawarkan musik berlisensi, menjelaskan kesepakatan dua revisi, menawarkan revisi tambahan dengan penyesuaian waktu atau biaya, dan mendokumentasikan persetujuan.",3,[-5,-5,5],"Menjaga etika, kualitas, dan hubungan klien. Dokumentasi mencegah sengketa."],["Menolak semua permintaan tanpa memberi alternatif.",1,[0,0,-25],"Sikap sudah benar secara aturan, tetapi komunikasi dan solusi kurang profesional."]]]];
-let P,sc,cur;
-function simInit(){P=[100,100,100];sc=0;cur=0;simRender()}
-function simRender(){["pw","pa","pk"].forEach((id,i)=>$("#"+id).textContent=Math.max(0,P[i]));$("#ps").textContent=sc;const el=$("#sm");if(cur>=M.length){el.innerHTML=`<div class="card"><h3>Simulasi selesai: ${sc}/12 poin kompetensi</h3><p>Waktu ${P[0]}, anggaran ${P[1]}, kepuasan klien ${P[2]}. Parameter simulasi tidak memengaruhi skor kompetensi, jadi kamu bisa melihat bahwa keputusan terbaik tidak selalu tanpa biaya.</p><button class="btn" id="sre">Main ulang</button></div>`;$("#sre").onclick=simInit;S.sim=sc;mark("sim");return}
-const m=M[cur];el.innerHTML=`<div class="card"><h3>${m[0]}</h3><p>${m[1]}</p>${m[2].map((o,j)=>`<button class="opt" data-d="${j}">${"ABC"[j]}. ${o[0]}</button>`).join("")}<label for="alasan"><b>Alasan singkatmu</b> (+1 poin jika terisi, minimal 15 karakter; guru menilai kualitasnya):</label><textarea id="alasan"></textarea><div class="fb" id="sfb" hidden></div></div>`}
-$("#sm").onclick=e=>{const b=e.target.closest("[data-d]");if(b){const al=$("#alasan");if(al.value.trim().length<15){al.focus();al.style.borderColor="var(--no)";return}const o=M[cur][2][+b.dataset.d];sc+=o[1]+1;o[2].forEach((v,i)=>P[i]+=v);$$("#sm .opt").forEach(x=>x.disabled=true);b.classList.add(o[1]===3?"ok":o[1]===0?"no":"");al.disabled=true;const f=$("#sfb");f.hidden=false;f.className="fb "+(o[1]>=2?"ok":"no");f.innerHTML=`<b>Skor keputusan ${o[1]}/3 + alasan 1</b><br>${o[3]}<br><button class="btn" id="snx" style="margin-top:8px">${cur<2?"Misi berikutnya":"Lihat hasil"}</button>`;$("#snx").onclick=()=>{cur++;simRender()};["pw","pa","pk"].forEach((id,i)=>$("#"+id).textContent=Math.max(0,P[i]));$("#ps").textContent=sc}};
-simInit();
-// LKPD
-const L=[["Kegiatan 1 · Analisis brief",["Apa tujuan komunikasi proyek Kopi Senja?","Siapa target audiensnya?","Apa produk akhir yang harus dihasilkan?","Informasi apa yang masih perlu dikonfirmasi kepada klien?","Apa risiko jika tim langsung merekam tanpa storyboard?"]],["Kegiatan 2 · Perencanaan aset","Isi tabel: nama aset, kegunaan, sumber, status lisensi, penanggung jawab (rekaman produk, musik latar, logo, teks/grafis, dan aset lain)."],["Kegiatan 3 · Rencana jadwal tiga minggu","Jadwal: analisis brief dan persetujuan konsep; storyboard dan aset; pengambilan gambar dan audio; penyuntingan dan kontrol kualitas; revisi yang disepakati; ekspor dan penyerahan. Tulis juga langkah cadangan jika cuaca atau talenta menghambat."],["Kegiatan 4 · Analisis masalah","Hujan saat rekaman luar ruangan, talenta hanya sekali. Bandingkan pindah ke dalam ruangan vs menunda produksi (jadwal, anggaran, kualitas), pilih satu dan beri alasan."],["Kegiatan 5 · Revisi dan hak cipta",["Apa risiko menggunakan lagu tanpa izin?","Apa alternatif yang dapat ditawarkan?","Bagaimana menjelaskan revisi tambahan kepada klien?","Bagaimana keputusan itu memengaruhi waktu, biaya, dan kualitas?"]],["Kegiatan 6 · Produk akhir","Buat rencana alur kerja video promosi baru 15 detik: tahap kerja berurutan, kebutuhan aset, pembagian tugas, jadwal, pemeriksaan kualitas, pemeriksaan lisensi dan hak cipta, format penyerahan."],["Refleksi",["Keputusan apa yang paling sulit kamu ambil?","Apa akibat perencanaan yang kurang matang?","Mengapa hak cipta harus diperhatikan dalam produksi multimedia?","Apa yang akan kamu perbaiki pada proyek serupa?"]]];
-const LF=[];let h="";L.forEach((k,i)=>{h+=`<div class="card"><h3>${k[0]}</h3>`;(Array.isArray(k[1])?k[1]:[k[1]]).forEach((q,j)=>{const id=`l${i}_${j}`;LF.push([id,q]);h+=`<p><label for="${id}">${Array.isArray(k[1])?(j+1)+". ":""}${q}</label></p><textarea id="${id}"></textarea>`});h+="</div>"});
-$("#lk").innerHTML=h;$("#nm").value=store.g("ks_nm")||"";
-LF.forEach(f=>{const t=$("#"+f[0]);t.value=store.g("ks_"+f[0])||"";t.addEventListener("input",()=>store.s("ks_"+f[0],t.value))});
-$("#nm").addEventListener("input",()=>store.s("ks_nm",$("#nm").value));
-$("#cp1").onclick=async()=>{const txt="LKPD Kopi Senja - "+$("#nm").value+"\n\n"+LF.map(f=>f[1]+"\n"+$("#"+f[0]).value).join("\n\n");try{await navigator.clipboard.writeText(txt);$("#lmsg").textContent="Jawaban disalin. Tempel ke dokumen lalu kumpulkan ke guru."}catch(e){$("#lmsg").textContent="Penyalinan diblokir peramban. Gunakan Cetak / simpan PDF."}};
-$("#pr").onclick=()=>{try{window.print()}catch(e){$("#lmsg").textContent="Cetak tidak tersedia di tampilan ini. Buka halaman di tab baru lalu coba lagi."}};
-$("#lrs").onclick=()=>{if(confirm("Hapus semua isian LKPD?")){LF.forEach(f=>{$("#"+f[0]).value="";store.d("ks_"+f[0])})}};
-// Evaluasi
-$("#refl").innerHTML=["Apa yang paling membantu kamu belajar di media ini?","Bagian mana yang masih membingungkan?"].map((q,i)=>`<p><label for="r${i}">${q}</label></p><textarea id="r${i}"></textarea>`).join("");
-function rekap(){$("#rekap").innerHTML=`<table><tr><th>Komponen</th><th>Hasil</th></tr><tr><td>Pengetahuan: kuis</td><td>${S.quiz==null?"belum dikerjakan":S.quiz+"/8"}</td></tr><tr><td>Game mencocokkan</td><td>${S.game==null?"belum dikerjakan":S.game+"/8"}</td></tr><tr><td>Sikap profesional: simulasi</td><td>${S.sim?S.sim+"/12":"belum selesai"}</td></tr><tr><td>Keterampilan: LKPD</td><td>dinilai guru dengan rubrik</td></tr></table>`}
-go("beranda");
-</script></body></html>
+            <!-- Profile Configuration Card -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
+                    <h3 class="text-lg font-bold text-cyanAccent flex items-center gap-2">
+                        <i class="fa-solid fa-user-gear"></i> Setup Karakter Studio
+                    </h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Nama Siswa / Pengguna</label>
+                            <input id="input-player-name" type="text" value="Siswa DKV" onchange="updatePlayerProfile()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-warmWhite focus:border-cyanAccent outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Asal Sekolah / Kelas</label>
+                            <input id="input-player-school" type="text" value="SMK DKV Fase F" onchange="updatePlayerProfile()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-warmWhite focus:border-cyanAccent outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1">Pilih Peran Professional</label>
+                            <div class="grid grid-cols-4 gap-2">
+                                <button onclick="selectAvatar('🎬', 'Produser')" class="avatar-opt p-2 border border-cyanAccent bg-cyanAccent/20 rounded-lg text-2xl text-center hover:scale-105 transition" title="Produser">🎬</button>
+                                <button onclick="selectAvatar('📹', 'Sutradara')" class="avatar-opt p-2 border border-slate-700 bg-slate-800 rounded-lg text-2xl text-center hover:scale-105 transition" title="Sutradara">📹</button>
+                                <button onclick="selectAvatar('🎥', 'Kamerawan')" class="avatar-opt p-2 border border-slate-700 bg-slate-800 rounded-lg text-2xl text-center hover:scale-105 transition" title="Kamerawan">🎥</button>
+                                <button onclick="selectAvatar('💻', 'Editor')" class="avatar-opt p-2 border border-slate-700 bg-slate-800 rounded-lg text-2xl text-center hover:scale-105 transition" title="Editor">💻</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Overview -->
+                <div class="md:col-span-2 bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold text-goldenYellow flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line"></i> Progres Gamifikasi Interaktif
+                        </h3>
+                        <span id="progress-percentage-text" class="text-sm font-bold text-cyanAccent">0% Selesai</span>
+                    </div>
+
+                    <div class="w-full bg-slate-800 h-4 rounded-full overflow-hidden p-0.5 border border-slate-700">
+                        <div id="main-progress-bar" class="bg-gradient-to-r from-cyanAccent via-freshTeal to-goldenYellow h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center pt-2">
+                        <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
+                            <p class="text-xs text-slate-400">Total XP</p>
+                            <p id="dash-xp" class="text-xl font-bold text-cyanAccent">0</p>
+                        </div>
+                        <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
+                            <p class="text-xs text-slate-400">Misi Studi Kasus</p>
+                            <p id="dash-missions" class="text-xl font-bold text-goldenYellow">0 / 3</p>
+                        </div>
+                        <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
+                            <p class="text-xs text-slate-400">Nilai Kuis</p>
+                            <p id="dash-quiz" class="text-xl font-bold text-freshTeal">0 / 100</p>
+                        </div>
+                        <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700">
+                            <p class="text-xs text-slate-400">Mini Game Unlocked</p>
+                            <p id="dash-games" class="text-xl font-bold text-coralOrange">0 / 3</p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-midnight border border-cyanAccent/30 rounded-lg flex justify-between items-center text-xs">
+                        <span class="text-slate-300"><i class="fa-solid fa-floppy-disk text-cyanAccent mr-1"></i> Data tersimpan otomatis secara lokal di peramban.</span>
+                        <button onclick="resetAllProgress()" class="text-coralOrange hover:underline text-xs"><i class="fa-solid fa-rotate-left"></i> Reset Data</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: MATERI EDITORIAL -->
+        <section id="content-materi" class="tab-content hidden space-y-6">
+            <div class="flex items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-xs font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </button>
+                <h2 class="text-lg font-bold text-cyanAccent flex items-center gap-2">
+                    <i class="fa-solid fa-book-bookmark"></i> Standar Operasional Prosedur (SOP) Produksi
+                </h2>
+                <div></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Praproduksi -->
+                <div class="bg-slate-900/90 border border-cyanAccent/30 rounded-xl p-5 space-y-4 hover:border-cyanAccent transition">
+                    <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                        <div class="w-10 h-10 rounded-lg bg-cyanAccent/20 border border-cyanAccent flex items-center justify-center text-cyanAccent font-bold">1</div>
+                        <div>
+                            <h3 class="font-bold text-warmWhite">Tahap Praproduksi</h3>
+                            <p class="text-xs text-cyanAccent">Perencanaan & Riset Konsep</p>
+                        </div>
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+                        <li><strong>Client Briefing:</strong> Memahami target audiens & pesan utama Kopi Senja.</li>
+                        <li><strong>Scriptwriting & Storyboard:</strong> Visualisasi adegan, skenario, dan urutan shot.</li>
+                        <li><strong>Rencana Anggaran & Jadwal:</strong> Manajemen budget, perizinan lokasi, dan call sheet.</li>
+                        <li><strong>Casting & Equipment Check:</strong> Pembagian peran tim & penyiapan kit produksi.</li>
+                    </ul>
+                </div>
+
+                <!-- Produksi -->
+                <div class="bg-slate-900/90 border border-coralOrange/30 rounded-xl p-5 space-y-4 hover:border-coralOrange transition">
+                    <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                        <div class="w-10 h-10 rounded-lg bg-coralOrange/20 border border-coralOrange flex items-center justify-center text-coralOrange font-bold">2</div>
+                        <div>
+                            <h3 class="font-bold text-warmWhite">Tahap Produksi</h3>
+                            <p class="text-xs text-coralOrange">Eksekusi Lapangan & Shooting</p>
+                        </div>
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+                        <li><strong>Cinematography Setup:</strong> Pengaturan sudut kamera, framing, dan lighting 3-point.</li>
+                        <li><strong>Field Audio Recording:</strong> Penggunaan Clip-on Lavalier & Mic Boom jernih.</li>
+                        <li><strong>Directing:</strong> Pengarahan talent sesuai instruksi storyboard.</li>
+                        <li><strong>Media Offloading:</strong> Transfer & backup RAW footage ke storage terpisah.</li>
+                    </ul>
+                </div>
+
+                <!-- Pascaproduksi -->
+                <div class="bg-slate-900/90 border border-freshTeal/30 rounded-xl p-5 space-y-4 hover:border-freshTeal transition">
+                    <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+                        <div class="w-10 h-10 rounded-lg bg-freshTeal/20 border border-freshTeal flex items-center justify-center text-freshTeal font-bold">3</div>
+                        <div>
+                            <h3 class="font-bold text-warmWhite">Tahap Pascaproduksi</h3>
+                            <p class="text-xs text-freshTeal">Penyempurnaan & Finalisasi</p>
+                        </div>
+                    </div>
+                    <ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">
+                        <li><strong>Rough Cut & Offline Editing:</strong> Pemotongan klip video awal sesuai storyboard.</li>
+                        <li><strong>Color Grading:</strong> Pengoperasian tone warna hangat khas Kopi Senja.</li>
+                        <li><strong>Audio Mixing & BGM:</strong> Penggabungan SFX, VO, dan lisensi musik Royalty-Free.</li>
+                        <li><strong>Exporting:</strong> Rendering format MP4 4K/FHD sesuai platform rilis.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: MISI DECISION-MAKING STUDI KASUS KOPI SENJA -->
+        <section id="content-misi" class="tab-content hidden space-y-6">
+            <div class="flex items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-xs font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </button>
+                <h2 class="text-lg font-bold text-goldenYellow flex items-center gap-2">
+                    <i class="fa-solid fa-flag-checkered"></i> Studi Kasus Decision-Making
+                </h2>
+                <div></div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Misi 1 -->
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
+                    <div class="flex justify-between items-start border-b border-slate-800 pb-3">
+                        <div>
+                            <span class="px-2 py-0.5 bg-cyanAccent/20 text-cyanAccent text-xs font-semibold rounded">Misi 1: Praproduksi</span>
+                            <h3 class="text-lg font-bold text-warmWhite mt-1">Sengketa Hak Cipta Musik Latar Kopi Senja</h3>
+                        </div>
+                        <span id="misi1-status" class="px-3 py-1 bg-slate-800 text-slate-400 text-xs rounded-full">Belum Selesai</span>
+                    </div>
+                    <p class="text-sm text-slate-300">
+                        Klien menginginkan lagu populer viral di TikTok untuk video iklan Kopi Senja, namun proyek tidak memiliki anggaran lisensi komersial major label. Apa tindakan profesional Anda?
+                    </p>
+                    <div class="space-y-2 text-xs">
+                        <label class="flex items-center space-x-3 p-3 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-cyanAccent cursor-pointer">
+                            <input type="radio" name="misi1-opt" value="A" class="accent-cyanAccent">
+                            <span>A. Tetap memakai lagu viral tanpa izin demi popularitas video.</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-cyanAccent cursor-pointer">
+                            <input type="radio" name="misi1-opt" value="B" class="accent-cyanAccent">
+                            <span>B. Berikan edukasi copyright pada klien & sediakan alternatif musik Royalty-Free komersial bernuansa sejenis.</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-cyanAccent cursor-pointer">
+                            <input type="radio" name="misi1-opt" value="C" class="accent-cyanAccent">
+                            <span>C. Membatalkan proyek karena berbeda pandangan dengan klien.</span>
+                        </label>
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        <div id="misi1-feedback" class="text-xs font-semibold"></div>
+                        <button onclick="submitMission(1)" class="px-5 py-2 rounded-lg bg-cyanAccent text-midnight font-bold text-xs hover:brightness-110 transition">
+                            Kirim Keputusan Misi 1
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Misi 2 -->
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
+                    <div class="flex justify-between items-start border-b border-slate-800 pb-3">
+                        <div>
+                            <span class="px-2 py-0.5 bg-coralOrange/20 text-coralOrange text-xs font-semibold rounded">Misi 2: Produksi</span>
+                            <h3 class="text-lg font-bold text-warmWhite mt-1">Gangguan Cuaca Hujan Saat Shooting Outdoor</h3>
+                        </div>
+                        <span id="misi2-status" class="px-3 py-1 bg-slate-800 text-slate-400 text-xs rounded-full">Belum Selesai</span>
+                    </div>
+                    <p class="text-sm text-slate-300">
+                        Saat lokasi shooting outdoor di kedai Kopi Senja, hujan deras melanda. Jadwal shooting terancam molor dan peralatan elektronik berisiko rusak. Langkah apa yang paling aman?
+                    </p>
+                    <div class="space-y-2 text-xs">
+                        <label class="flex items-center space-x-3 p-3 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-coralOrange cursor-pointer">
+                            <input type="radio" name="misi2-opt" value="A" class="accent-coralOrange">
+                            <span>A. Amankan seluruh kamera & lighting, lalu alihkan adegan ke interior kedai sesuai contingency plan.</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-coralOrange cursor-pointer">
+                            <input type="radio" name="misi2-opt" value="B" class="accent-coralOrange">
+                            <span>B. Tetap menembus hujan demi mengejar deadline tanpa melindungi alat.</span>
+                        </label>
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        <div id="misi2-feedback" class="text-xs font-semibold"></div>
+                        <button onclick="submitMission(2)" class="px-5 py-2 rounded-lg bg-coralOrange text-warmWhite font-bold text-xs hover:brightness-110 transition">
+                            Kirim Keputusan Misi 2
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Misi 3 -->
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
+                    <div class="flex justify-between items-start border-b border-slate-800 pb-3">
+                        <div>
+                            <span class="px-2 py-0.5 bg-freshTeal/20 text-freshTeal text-xs font-semibold rounded">Misi 3: Pascaproduksi</span>
+                            <h3 class="text-lg font-bold text-warmWhite mt-1">Permintaan Revisi Melebihi Kuota Kontrak</h3>
+                        </div>
+                        <span id="misi3-status" class="px-3 py-1 bg-slate-800 text-slate-400 text-xs rounded-full">Belum Selesai</span>
+                    </div>
+                    <p class="text-sm text-slate-300">
+                        Klien meminta merubah total konsep editing video yang bertentangan dengan storyboard awal dan melampaui batas 2x revisi gratis. Bagaimana solusi profesional Anda?
+                    </p>
+                    <div class="space-y-2 text-xs">
+                        <label class="flex items-center space-x-3 p-3 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-freshTeal cursor-pointer">
+                            <input type="radio" name="misi3-opt" value="A" class="accent-freshTeal">
+                            <span>A. Tunjukkan dokumen kesepakatan kontrak awal secara santun dan tawarkan adendum biaya revisi mayor.</span>
+                        </label>
+                        <label class="flex items-center space-x-3 p-3 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-freshTeal cursor-pointer">
+                            <input type="radio" name="misi3-opt" value="B" class="accent-freshTeal">
+                            <span>B. Menuruti semua revisi tanpa biaya meskipun rugi waktu dan tenaga.</span>
+                        </label>
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        <div id="misi3-feedback" class="text-xs font-semibold"></div>
+                        <button onclick="submitMission(3)" class="px-5 py-2 rounded-lg bg-freshTeal text-midnight font-bold text-xs hover:brightness-110 transition">
+                            Kirim Keputusan Misi 3
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: 3 MINI-GAME INTERAKTIF -->
+        <section id="content-minigames" class="tab-content hidden space-y-6">
+            <div class="flex items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-xs font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </button>
+                <h2 class="text-lg font-bold text-coralOrange flex items-center gap-2">
+                    <i class="fa-solid fa-gamepad"></i> Pilihan 3 Mini Game Interaktif Produksi
+                </h2>
+                <div></div>
+            </div>
+
+            <!-- Selector Tabs Mini Game -->
+            <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-2">
+                <button onclick="switchMiniGame(1)" id="btn-mg-1" class="px-4 py-2 rounded-lg text-xs font-bold bg-coralOrange text-midnight flex items-center gap-2">
+                    <i class="fa-solid fa-basket-shopping"></i> Game 1: Asset Catcher
+                </button>
+                <button onclick="switchMiniGame(2)" id="btn-mg-2" class="px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> Game 2: Timeline & Equipment
+                </button>
+                <button onclick="switchMiniGame(3)" id="btn-mg-3" class="px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 flex items-center gap-2">
+                    <i class="fa-solid fa-building-user"></i> Game 3: Virtual Studio Workshop
+                </button>
+            </div>
+
+            <!-- CONTAINER GAME 1: MEDIA ASSET CATCHER -->
+            <div id="mg-container-1" class="space-y-4">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap justify-between items-center gap-2">
+                    <div>
+                        <h3 class="font-bold text-coralOrange text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-gamepad"></i> Game 1: Media Asset Catcher (2D Arcade)
+                        </h3>
+                        <p class="text-xs text-slate-400">Tangkap aset video valid (📹, 📜, 🎙️) dan hindari file corrupt (⚠️, 💣)! Gunakan Keyboard A/D, Arrow Left/Right, atau Tombol Layar Sentuh.</p>
+                    </div>
+                    <div class="flex items-center gap-4 text-xs font-bold">
+                        <span class="text-goldenYellow">Skor: <span id="catcher-score">0</span></span>
+                        <span class="text-coralOrange">Nyawa: <span id="catcher-lives">3</span></span>
+                        <button onclick="initCatcherGame()" class="px-3 py-1.5 bg-freshTeal text-midnight rounded-lg hover:brightness-110">
+                            <i class="fa-solid fa-rotate-right"></i> Coba / Main Lagi
+                        </button>
+                    </div>
+                </div>
+
+                <div class="relative bg-slate-950 border-2 border-coralOrange/40 rounded-2xl overflow-hidden shadow-2xl flex flex-col items-center justify-center">
+                    <canvas id="catcherCanvas" width="800" height="400" class="w-full max-w-[800px] h-auto block bg-slate-950"></canvas>
+                    
+                    <!-- Touch Controls for Mobile -->
+                    <div class="w-full max-w-[800px] bg-slate-900 p-2 flex justify-between items-center md:hidden border-t border-slate-800">
+                        <button onmousedown="moveCatcherLeft()" onmouseup="stopCatcher()" ontouchstart="moveCatcherLeft()" ontouchend="stopCatcher()" class="px-8 py-3 bg-slate-800 text-cyanAccent font-bold rounded-xl border border-slate-700 active:bg-cyanAccent active:text-midnight">◄ KIRI</button>
+                        <span class="text-[10px] text-slate-400">Sentuh Tombol Untuk Menggerakkan Keranjang</span>
+                        <button onmousedown="moveCatcherRight()" onmouseup="stopCatcher()" ontouchstart="moveCatcherRight()" ontouchend="stopCatcher()" class="px-8 py-3 bg-slate-800 text-cyanAccent font-bold rounded-xl border border-slate-700 active:bg-cyanAccent active:text-midnight">KANAN ►</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTAINER GAME 2: TIMELINE & EQUIPMENT ARRANGER -->
+            <div id="mg-container-2" class="hidden space-y-4">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-cyanAccent text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-sliders"></i> Game 2: Timeline & Equipment Slot Arranger
+                        </h3>
+                        <p class="text-xs text-slate-400">Tempatkan klip peralatan ke slot fase alur kerja yang benar. Klik / Sentuh item untuk memasukkannya ke slot!</p>
+                    </div>
+                    <button onclick="resetTimelineGame()" class="px-3 py-1.5 bg-cyanAccent text-midnight text-xs font-bold rounded-lg hover:brightness-110">
+                        <i class="fa-solid fa-rotate-right"></i> Reset & Main Lagi
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Target Slot Praproduksi -->
+                    <div class="bg-slate-900/90 border-2 border-dashed border-cyanAccent/50 rounded-xl p-4 space-y-3 min-h-[200px]" ondragover="allowDrop(event)" ondrop="dropEquipment(event, 'pra')">
+                        <h4 class="font-bold text-xs text-cyanAccent text-center border-b border-slate-800 pb-2">SLOT 1: PRAPRODUKSI</h4>
+                        <div id="slot-pra" class="space-y-2"></div>
+                    </div>
+
+                    <!-- Target Slot Produksi -->
+                    <div class="bg-slate-900/90 border-2 border-dashed border-coralOrange/50 rounded-xl p-4 space-y-3 min-h-[200px]" ondragover="allowDrop(event)" ondrop="dropEquipment(event, 'prod')">
+                        <h4 class="font-bold text-xs text-coralOrange text-center border-b border-slate-800 pb-2">SLOT 2: PRODUKSI</h4>
+                        <div id="slot-prod" class="space-y-2"></div>
+                    </div>
+
+                    <!-- Target Slot Pascaproduksi -->
+                    <div class="bg-slate-900/90 border-2 border-dashed border-freshTeal/50 rounded-xl p-4 space-y-3 min-h-[200px]" ondragover="allowDrop(event)" ondrop="dropEquipment(event, 'pasca')">
+                        <h4 class="font-bold text-xs text-freshTeal text-center border-b border-slate-800 pb-2">SLOT 3: PASCAPRODUKSI</h4>
+                        <div id="slot-pasca" class="space-y-2"></div>
+                    </div>
+                </div>
+
+                <!-- Equipment Inventory Box -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-2">
+                    <h4 class="text-xs font-bold text-goldenYellow">Kotak Perangkat & Dokumen (Klik item lalu klik slot tujuan):</h4>
+                    <div id="equipment-inventory" class="flex flex-wrap gap-3">
+                        <!-- Items populated via JS -->
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-2">
+                    <span id="timeline-feedback" class="text-xs font-bold"></span>
+                    <button onclick="checkTimelineGame()" class="px-5 py-2 bg-freshTeal text-midnight font-extrabold text-xs rounded-xl hover:brightness-110">
+                        <i class="fa-solid fa-circle-check"></i> Verifikasi Penataan Timeline
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONTAINER GAME 3: VIRTUAL STUDIO SCENE SIMULATOR -->
+            <div id="mg-container-3" class="hidden space-y-4">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap justify-between items-center gap-2">
+                    <div>
+                        <h3 class="font-bold text-goldenYellow text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-building-user"></i> Game 3: Virtual Studio Scene Simulator
+                        </h3>
+                        <p class="text-xs text-slate-400">Kendalikan avatar karakter Anda mengelilingi studio 2D! Datangi stasiun kerja untuk menyelesaikan mini-task interaktif.</p>
+                    </div>
+                    <button onclick="initStudioGame()" class="px-3 py-1.5 bg-goldenYellow text-midnight text-xs font-bold rounded-lg hover:brightness-110">
+                        <i class="fa-solid fa-rotate-right"></i> Reset Posisi Studio
+                    </button>
+                </div>
+
+                <div class="relative bg-slate-950 border-2 border-goldenYellow/40 rounded-2xl overflow-hidden shadow-2xl flex flex-col items-center justify-center">
+                    <canvas id="studioCanvas" width="800" height="420" class="w-full max-w-[800px] h-auto block bg-slate-950 cursor-pointer"></canvas>
+
+                    <!-- Virtual Touch D-Pad -->
+                    <div class="absolute bottom-4 left-4 md:hidden grid grid-cols-3 gap-1 bg-slate-900/90 p-2 rounded-xl border border-slate-700">
+                        <div></div>
+                        <button onmousedown="moveStudioPlayer('up')" onmouseup="stopStudioPlayer()" ontouchstart="moveStudioPlayer('up')" ontouchend="stopStudioPlayer()" class="w-10 h-10 bg-slate-800 text-cyanAccent rounded-lg font-bold flex items-center justify-center">▲</button>
+                        <div></div>
+                        <button onmousedown="moveStudioPlayer('left')" onmouseup="stopStudioPlayer()" ontouchstart="moveStudioPlayer('left')" ontouchend="stopStudioPlayer()" class="w-10 h-10 bg-slate-800 text-cyanAccent rounded-lg font-bold flex items-center justify-center">◄</button>
+                        <button onclick="interactStudioZone()" class="w-10 h-10 bg-goldenYellow text-midnight rounded-lg font-bold flex items-center justify-center">OK</button>
+                        <button onmousedown="moveStudioPlayer('right')" onmouseup="stopStudioPlayer()" ontouchstart="moveStudioPlayer('right')" ontouchend="stopStudioPlayer()" class="w-10 h-10 bg-slate-800 text-cyanAccent rounded-lg font-bold flex items-center justify-center">►</button>
+                        <div></div>
+                        <button onmousedown="moveStudioPlayer('down')" onmouseup="stopStudioPlayer()" ontouchstart="moveStudioPlayer('down')" ontouchend="stopStudioPlayer()" class="w-10 h-10 bg-slate-800 text-cyanAccent rounded-lg font-bold flex items-center justify-center">▼</button>
+                        <div></div>
+                    </div>
+                </div>
+
+                <!-- Interaction Dialog -->
+                <div id="studio-dialog-box" class="bg-slate-900 border-2 border-goldenYellow rounded-xl p-4 hidden space-y-3">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                        <h4 id="dialog-title" class="font-bold text-goldenYellow text-sm">Dialog Stasiun Kerja</h4>
+                        <button onclick="closeStudioDialog()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <p id="dialog-text" class="text-xs text-slate-200 leading-relaxed"></p>
+                    <div id="dialog-actions" class="flex flex-wrap gap-2 pt-2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: KUIS EVALUASI -->
+        <section id="content-kuis" class="tab-content hidden space-y-6">
+            <div class="flex items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-xs font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </button>
+                <h2 class="text-lg font-bold text-freshTeal flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square"></i> Kuis Evaluasi Komprehensif
+                </h2>
+                <div id="quiz-final-score" class="text-xl font-black text-goldenYellow">0 / 100</div>
+            </div>
+
+            <div id="quiz-container" class="space-y-6">
+                <!-- Dynamically Rendered Quiz Questions -->
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="calculateQuizScore()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-freshTeal to-cyanAccent text-midnight font-extrabold hover:brightness-110 transition shadow-lg">
+                    <i class="fa-solid fa-calculator"></i> Hitung & Simpan Nilai Kuis
+                </button>
+            </div>
+        </section>
+
+        <!-- TAB 6: TUGAS PROYEK MANDIRI -->
+        <section id="content-proyek" class="tab-content hidden space-y-6">
+            <div class="flex items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-xs font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </button>
+                <h2 class="text-lg font-bold text-cyanAccent flex items-center gap-2">
+                    <i class="fa-solid fa-diagram-project"></i> Lembar Tugas Proyek Produksi
+                </h2>
+                <div></div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
+                <form id="project-form" onsubmit="saveProjectAssignment(event)" class="space-y-4 text-xs">
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1">Nama Produk UMKM / Client Pilihan Anda</label>
+                        <input id="proj-client" type="text" required placeholder="Contoh: Kopi Senja / Keripik Pisang Lampung" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-warmWhite focus:border-cyanAccent outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1">Rencana Praproduksi (Konsep, Storyboard & Equipment)</label>
+                        <textarea id="proj-pra" rows="3" required placeholder="Tuliskan naskah ringkas, perizinan lokasi, dan checklist kamera..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-warmWhite focus:border-cyanAccent outline-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1">Rencana Produksi (Crewing & Field Recording)</label>
+                        <textarea id="proj-prod" rows="3" required placeholder="Jelaskan susunan tim shooting dan pengoperasian mic audio..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-warmWhite focus:border-cyanAccent outline-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1">Rencana Pascaproduksi (Software Editing & Lisensi Musik)</label>
+                        <textarea id="proj-pasca" rows="3" required placeholder="Jelaskan proses rough cut, color grading, dan audio mixing..." class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-warmWhite focus:border-cyanAccent outline-none"></textarea>
+                    </div>
+                    <button type="submit" class="px-6 py-2.5 bg-cyanAccent text-midnight font-bold text-xs rounded-lg hover:brightness-110 transition">
+                        <i class="fa-solid fa-floppy-disk"></i> Simpan Laporan Proyek
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- TAB 7: JURNAL REFLEKSI -->
+        <section id="content-refleksi" class="tab-content hidden space-y-6">
+            <div class="flex items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-xs font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </button>
+                <h2 class="text-lg font-bold text-goldenYellow flex items-center gap-2">
+                    <i class="fa-solid fa-brain"></i> Jurnal Refleksi Diri Siswa
+                </h2>
+                <div></div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
+                <form id="reflection-form" onsubmit="saveReflection(event)" class="space-y-4 text-xs">
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1">1. Pengalaman berharga apa yang paling berkesan saat mengelola simulasi alur kerja Kopi Senja?</label>
+                        <textarea id="ref-q1" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-warmWhite focus:border-goldenYellow outline-none"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1">2. Mengapa tahap praproduksi sangat menentukan keberhasilan total sebuah proyek video commercial?</label>
+                        <textarea id="ref-q2" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-warmWhite focus:border-goldenYellow outline-none"></textarea>
+                    </div>
+                    <button type="submit" class="px-6 py-2.5 bg-goldenYellow text-midnight font-bold text-xs rounded-lg hover:brightness-110 transition">
+                        <i class="fa-solid fa-paper-plane"></i> Kirim Refleksi Siswa
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- TAB 8: GALERI LENCANA -->
+        <section id="content-pencapaian" class="tab-content hidden space-y-6">
+            <div class="flex items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                <button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-xs font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </button>
+                <h2 class="text-lg font-bold text-goldenYellow flex items-center gap-2">
+                    <i class="fa-solid fa-trophy"></i> Galeri Lencana Prestasi
+                </h2>
+                <div></div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4" id="badges-grid">
+                <!-- Badges dynamically rendered -->
+            </div>
+        </section>
+
+        <!-- TAB 9: SERTIFIKAT KELULUSAN -->
+        <section id="content-sertifikat" class="tab-content hidden space-y-6">
+            <div class="no-print bg-slate-900 border border-slate-800 rounded-xl p-4 flex justify-between items-center">
+                <button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-xs font-bold transition flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-left"></i> Kembali
+                </button>
+                <div class="text-right">
+                    <button onclick="window.print()" class="px-5 py-2.5 bg-freshTeal text-midnight font-bold text-xs rounded-xl hover:brightness-110 transition flex items-center gap-2">
+                        <i class="fa-solid fa-print"></i> Cetak Sertifikat A4 Landscape
+                    </button>
+                </div>
+            </div>
+
+            <!-- PRINTABLE CERTIFICATE CONTAINER -->
+            <div id="printable-certificate" class="bg-white text-slate-900 border-[12px] border-double border-midnight rounded-3xl p-8 max-w-4xl mx-auto shadow-2xl relative overflow-hidden text-center space-y-6">
+                <div class="absolute top-0 left-0 w-24 h-24 bg-cyanAccent/20 rounded-br-full border-b-2 border-r-2 border-cyanAccent"></div>
+                <div class="absolute bottom-0 right-0 w-24 h-24 bg-goldenYellow/20 rounded-tl-full border-t-2 border-l-2 border-goldenYellow"></div>
+
+                <div class="space-y-2">
+                    <div class="inline-block p-3 bg-midnight text-cyanAccent rounded-2xl text-3xl mb-1">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold font-cinzel tracking-widest text-midnight">SERTIFIKAT KOMPETENSI</h1>
+                    <p class="text-xs font-bold uppercase tracking-widest text-slate-500">Creative Digital Studio Adventure - Alur Kerja Produksi DKV</p>
+                </div>
+
+                <p class="text-xs text-slate-600">Sertifikat ini secara resmi diberikan kepada:</p>
+
+                <div>
+                    <h2 id="cert-player-name" class="text-2xl md:text-3xl font-extrabold text-midnight underline decoration-cyanAccent underline-offset-8">Siswa DKV</h2>
+                    <p id="cert-player-school" class="text-xs font-semibold text-slate-500 mt-2">SMK DKV Fase F</p>
+                </div>
+
+                <p class="text-xs text-slate-600 max-w-xl mx-auto leading-relaxed">
+                    Telah menyelesaikan seluruh modul alur kerja produksi multimedia, studi kasus komersial Kopi Senja, 3 Mini Game Interaktif Studio, serta Kuis Evaluasi dengan predikat <strong class="text-midnight">SANGAT KOMPETEN</strong>.
+                </p>
+
+                <div class="grid grid-cols-3 gap-4 border-t border-b border-slate-200 py-3 max-w-lg mx-auto text-xs">
+                    <div>
+                        <p class="text-slate-400">Total XP</p>
+                        <p id="cert-xp" class="font-bold text-midnight">0 XP</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400">Nilai Evaluasi</p>
+                        <p id="cert-score" class="font-bold text-midnight">0 / 100</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400">Tanggal Terbit</p>
+                        <p id="cert-date" class="font-bold text-midnight">-</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-end pt-4 px-12 text-xs">
+                    <div class="text-center space-y-1">
+                        <div class="w-32 border-b border-slate-400 mx-auto pb-6 font-bold text-slate-800" id="cert-role-sign">Sutradara / Instruktur</div>
+                        <p class="text-[10px] text-slate-500">Pembimbing Studio DKV</p>
+                    </div>
+                    <div class="w-16 h-16 rounded-full border-4 border-goldenYellow bg-goldenYellow/10 flex items-center justify-center font-bold text-midnight text-[9px] uppercase tracking-tighter">
+                        OFFICIAL<br>SEAL
+                    </div>
+                    <div class="text-center space-y-1">
+                        <div class="w-32 border-b border-slate-400 mx-auto pb-6 font-bold text-slate-800">Manajemen Client</div>
+                        <p class="text-[10px] text-slate-500">Perwakilan Kopi Senja</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="no-print bg-slate-950 border-t border-slate-800 py-4 text-center text-xs text-slate-500">
+        <p>&copy; 2026 Creative Digital Studio Adventure - Alur Kerja Produksi Multimedia DKV Fase F SMK.</p>
+    </footer>
+
+    <!-- TOAST CONTAINERS -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
+
+    <!-- MAIN JAVASCRIPT LOGIC ENGINE -->
+    <script>
+        /* ==========================================================================
+           1. STATE MANAGEMENT (LOCALSTORAGE)
+           ========================================================================== */
+        const DEFAULT_STATE = {
+            player: {
+                name: 'Siswa DKV',
+                school: 'SMK DKV Fase F',
+                avatar: '🎬',
+                role: 'Produser',
+                xp: 0,
+                level: 1
+            },
+            missions: { 1: false, 2: false, 3: false },
+            quizScore: 0,
+            quizCompleted: false,
+            projectSaved: false,
+            reflectionSaved: false,
+            minigames: { 1: false, 2: false, 3: false },
+            badges: {
+                praproduksi: false,
+                produksi: false,
+                pascaproduksi: false,
+                quizMaster: false,
+                studioMaster: false
+            }
+        };
+
+        let state = JSON.parse(localStorage.getItem('studio_adventure_v2')) || DEFAULT_STATE;
+
+        function saveState() {
+            localStorage.setItem('studio_adventure_v2', JSON.stringify(state));
+            updateUI();
+        }
+
+        function resetAllProgress() {
+            if (confirm("Reset seluruh data progres pembelajaran dan skor?")) {
+                localStorage.removeItem('studio_adventure_v2');
+                state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+                saveState();
+                showToast("Data progres berhasil direset!", "info");
+                location.reload();
+            }
+        }
+
+        /* ==========================================================================
+           2. WEB AUDIO SYNTHESIZER
+           ========================================================================== */
+        let audioCtx = null;
+        let isMuted = false;
+        let globalVolume = 0.5;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playTone(freq, type, duration) {
+            if (isMuted) return;
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(globalVolume * 0.2, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {}
+        }
+
+        function playSound(effect) {
+            if (effect === 'correct') {
+                playTone(523.25, 'sine', 0.15);
+                setTimeout(() => playTone(659.25, 'sine', 0.25), 120);
+            } else if (effect === 'wrong') {
+                playTone(200, 'sawtooth', 0.2);
+            } else if (effect === 'xp') {
+                playTone(880, 'triangle', 0.1);
+            } else if (effect === 'levelup') {
+                playTone(440, 'sine', 0.1);
+                setTimeout(() => playTone(554.37, 'sine', 0.1), 100);
+                setTimeout(() => playTone(659.25, 'sine', 0.3), 200);
+            }
+        }
+
+        function toggleAudio() {
+            isMuted = !isMuted;
+            document.getElementById('audio-icon').className = isMuted ? 'fa-solid fa-volume-xmark text-coralOrange' : 'fa-solid fa-volume-high text-cyanAccent';
+            showToast(isMuted ? "Audio Muted" : "Audio Active", "info");
+        }
+
+        function setVolume(val) { globalVolume = parseFloat(val); }
+
+        /* ==========================================================================
+           3. TOAST NOTIFICATIONS
+           ========================================================================== */
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            let bg = 'bg-slate-900 border-cyanAccent text-warmWhite';
+            if (type === 'success') bg = 'bg-slate-900 border-freshTeal text-freshTeal';
+            if (type === 'error') bg = 'bg-slate-900 border-coralOrange text-coralOrange';
+            if (type === 'gold') bg = 'bg-slate-900 border-goldenYellow text-goldenYellow';
+
+            toast.className = `p-3 rounded-xl border-2 ${bg} shadow-2xl flex items-center gap-2 text-xs font-bold transition-all duration-300 transform translate-y-2 pointer-events-auto`;
+            toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-10px]');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        /* ==========================================================================
+           4. GAMIFICATION XP SYSTEM
+           ========================================================================== */
+        function addXP(amount) {
+            state.player.xp += amount;
+            playSound('xp');
+            showToast(`+${amount} XP!`, 'gold');
+
+            const newLevel = Math.floor(state.player.xp / 100) + 1;
+            if (newLevel > state.player.level) {
+                state.player.level = newLevel;
+                playSound('levelup');
+                showToast(`🎉 NAIK LEVEL! Anda mencapai Level ${newLevel}!`, 'gold');
+            }
+            saveState();
+        }
+
+        /* ==========================================================================
+           5. NAVIGATION & TAB SWITCHER
+           ========================================================================== */
+        function switchTab(tabId) {
+            initAudio();
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = 'tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 hover:bg-slate-800 text-slate-300';
+            });
+
+            const activeContent = document.getElementById(`content-${tabId}`);
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+            if (activeContent) activeContent.classList.remove('hidden');
+            if (activeBtn) activeBtn.className = 'tab-btn px-3 py-2 rounded-lg transition flex items-center gap-2 bg-cyanAccent text-midnight font-bold';
+
+            if (tabId === 'minigames') {
+                switchMiniGame(1);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ==========================================================================
+           6. PROFILE & AVATAR HANDLER
+           ========================================================================== */
+        function selectAvatar(emoji, role) {
+            state.player.avatar = emoji;
+            state.player.role = role;
+            saveState();
+            showToast(`Peran diubah menjadi ${role} ${emoji}`, 'info');
+        }
+
+        function updatePlayerProfile() {
+            state.player.name = document.getElementById('input-player-name').value || 'Siswa DKV';
+            state.player.school = document.getElementById('input-player-school').value || 'SMK DKV Fase F';
+            saveState();
+        }
+
+        /* ==========================================================================
+           7. MINI GAME 1: MEDIA ASSET CATCHER (2D CANVAS ARCADE)
+           ========================================================================== */
+        let catcherCanvas, catcherCtx;
+        let catcherAnimId;
+        let catcherBasket = { x: 360, width: 90, height: 20, speed: 8 };
+        let catcherItems = [];
+        let catcherScore = 0;
+        let catcherLives = 3;
+        let catcherMoveLeft = false;
+        let catcherMoveRight = false;
+
+        const validAssets = [
+            { icon: '📹', type: 'good', pts: 10, label: 'Kamera RAW' },
+            { icon: '📜', type: 'good', pts: 10, label: 'Storyboard' },
+            { icon: '🎙️', type: 'good', pts: 10, label: 'Field Audio' },
+            { icon: '💻', type: 'good', pts: 15, label: 'Project File' }
+        ];
+
+        const badAssets = [
+            { icon: '⚠️', type: 'bad', pts: -10, label: 'Corrupt Data' },
+            { icon: '💣', type: 'bad', pts: -15, label: 'Copyright Strike' }
+        ];
+
+        function switchMiniGame(gameNum) {
+            document.getElementById('mg-container-1').classList.add('hidden');
+            document.getElementById('mg-container-2').classList.add('hidden');
+            document.getElementById('mg-container-3').classList.add('hidden');
+
+            document.getElementById('btn-mg-1').className = 'px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700';
+            document.getElementById('btn-mg-2').className = 'px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700';
+            document.getElementById('btn-mg-3').className = 'px-4 py-2 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700';
+
+            document.getElementById(`mg-container-${gameNum}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`btn-mg-${gameNum}`);
+            if (gameNum === 1) { activeBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold bg-coralOrange text-midnight'; initCatcherGame(); }
+            if (gameNum === 2) { activeBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold bg-cyanAccent text-midnight'; initTimelineGame(); }
+            if (gameNum === 3) { activeBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold bg-goldenYellow text-midnight'; initStudioGame(); }
+        }
+
+        function initCatcherGame() {
+            catcherCanvas = document.getElementById('catcherCanvas');
+            if (!catcherCanvas) return;
+            catcherCtx = catcherCanvas.getContext('2d');
+
+            catcherScore = 0;
+            catcherLives = 3;
+            catcherItems = [];
+            catcherBasket.x = 350;
+
+            document.getElementById('catcher-score').innerText = catcherScore;
+            document.getElementById('catcher-lives').innerText = catcherLives;
+
+            window.onkeydown = e => {
+                if (e.key === 'a' || e.key === 'ArrowLeft') catcherMoveLeft = true;
+                if (e.key === 'd' || e.key === 'ArrowRight') catcherMoveRight = true;
+            };
+            window.onkeyup = e => {
+                if (e.key === 'a' || e.key === 'ArrowLeft') catcherMoveLeft = false;
+                if (e.key === 'd' || e.key === 'ArrowRight') catcherMoveRight = false;
+            };
+
+            cancelAnimationFrame(catcherAnimId);
+            catcherLoop();
+        }
+
+        function moveCatcherLeft() { catcherMoveLeft = true; }
+        function moveCatcherRight() { catcherMoveRight = true; }
+        function stopCatcher() { catcherMoveLeft = false; catcherMoveRight = false; }
+
+        function catcherLoop() {
+            if (document.getElementById('mg-container-1').classList.contains('hidden')) return;
+
+            // Clear Background
+            catcherCtx.fillStyle = '#0f172a';
+            catcherCtx.fillRect(0, 0, catcherCanvas.width, catcherCanvas.height);
+
+            // Move Basket
+            if (catcherMoveLeft) catcherBasket.x = Math.max(0, catcherBasket.x - catcherBasket.speed);
+            if (catcherMoveRight) catcherBasket.x = Math.min(catcherCanvas.width - catcherBasket.width, catcherBasket.x + catcherBasket.speed);
+
+            // Draw Basket
+            catcherCtx.fillStyle = '#FF6B4A';
+            catcherCtx.beginPath();
+            catcherCtx.roundRect(catcherBasket.x, catcherCanvas.height - 30, catcherBasket.width, catcherBasket.height, 8);
+            catcherCtx.fill();
+            catcherCtx.fillStyle = '#FFFDF7';
+            catcherCtx.font = '12px Inter';
+            catcherCtx.textAlign = 'center';
+            catcherCtx.fillText('ASSET BIN', catcherBasket.x + catcherBasket.width / 2, catcherCanvas.height - 16);
+
+            // Spawn Assets
+            if (Math.random() < 0.03) {
+                const isGood = Math.random() > 0.3;
+                const pool = isGood ? validAssets : badAssets;
+                const template = pool[Math.floor(Math.random() * pool.length)];
+                catcherItems.push({
+                    x: Math.random() * (catcherCanvas.width - 40) + 20,
+                    y: -20,
+                    speed: Math.random() * 2 + 2,
+                    ...template
+                });
+            }
+
+            // Update & Render Assets
+            for (let i = catcherItems.length - 1; i >= 0; i--) {
+                let item = catcherItems[i];
+                item.y += item.speed;
+
+                catcherCtx.font = '24px Inter';
+                catcherCtx.textAlign = 'center';
+                catcherCtx.fillText(item.icon, item.x, item.y);
+
+                // Collision Detection with Basket
+                if (item.y >= catcherCanvas.height - 35 && item.y <= catcherCanvas.height - 10) {
+                    if (item.x >= catcherBasket.x && item.x <= catcherBasket.x + catcherBasket.width) {
+                        if (item.type === 'good') {
+                            catcherScore += item.pts;
+                            playSound('correct');
+                        } else {
+                            catcherScore = Math.max(0, catcherScore + item.pts);
+                            catcherLives--;
+                            playSound('wrong');
+                        }
+                        document.getElementById('catcher-score').innerText = catcherScore;
+                        document.getElementById('catcher-lives').innerText = catcherLives;
+                        catcherItems.splice(i, 1);
+                        continue;
+                    }
+                }
+
+                // Remove Offscreen Items
+                if (item.y > catcherCanvas.height) {
+                    catcherItems.splice(i, 1);
+                }
+            }
+
+            // Check Game Over
+            if (catcherLives <= 0) {
+                catcherCtx.fillStyle = 'rgba(20, 33, 61, 0.85)';
+                catcherCtx.fillRect(0, 0, catcherCanvas.width, catcherCanvas.height);
+                catcherCtx.fillStyle = '#FF6B4A';
+                catcherCtx.font = 'bold 28px Inter';
+                catcherCtx.textAlign = 'center';
+                catcherCtx.fillText('GAME OVER!', catcherCanvas.width / 2, 180);
+                catcherCtx.fillStyle = '#FFFDF7';
+                catcherCtx.font = '14px Inter';
+                catcherCtx.fillText(`Skor Akhir Ditangkap: ${catcherScore}`, catcherCanvas.width / 2, 220);
+                return;
+            }
+
+            // Check Win Condition (Score >= 100)
+            if (catcherScore >= 100) {
+                catcherCtx.fillStyle = 'rgba(20, 33, 61, 0.85)';
+                catcherCtx.fillRect(0, 0, catcherCanvas.width, catcherCanvas.height);
+                catcherCtx.fillStyle = '#20C997';
+                catcherCtx.font = 'bold 28px Inter';
+                catcherCtx.textAlign = 'center';
+                catcherCtx.fillText('🎉 MISI ASET BERHASIL!', catcherCanvas.width / 2, 180);
+                catcherCtx.fillStyle = '#FFFDF7';
+                catcherCtx.font = '14px Inter';
+                catcherCtx.fillText(`Anda berhasil mengumpulkan ${catcherScore} Poin Aset Produksi!`, catcherCanvas.width / 2, 220);
+
+                if (!state.minigames[1]) {
+                    state.minigames[1] = true;
+                    addXP(50);
+                }
+                return;
+            }
+
+            catcherAnimId = requestAnimationFrame(catcherLoop);
+        }
+
+        /* ==========================================================================
+           8. MINI GAME 2: TIMELINE & EQUIPMENT SLOT ARRANGER
+           ========================================================================== */
+        const equipmentPool = [
+            { id: 'eq1', name: 'Naskah & Storyboard', icon: '📜', target: 'pra' },
+            { id: 'eq2', name: 'Kamera Cinema 4K', icon: '📹', target: 'prod' },
+            { id: 'eq3', name: 'Clip-on Mic', icon: '🎙️', target: 'prod' },
+            { id: 'eq4', name: 'Workstation PC Editing', icon: '💻', target: 'pasca' },
+            { id: 'eq5', name: 'Surat Izin Lokasi', icon: '📝', target: 'pra' },
+            { id: 'eq6', name: 'Color Grading Panel', icon: '🎨', target: 'pasca' }
+        ];
+
+        let selectedEquipItem = null;
+        let userTimelineSlots = { pra: [], prod: [], pasca: [] };
+
+        function initTimelineGame() {
+            userTimelineSlots = { pra: [], prod: [], pasca: [] };
+            selectedEquipItem = null;
+            renderTimelineInventory();
+            renderTimelineSlots();
+            document.getElementById('timeline-feedback').innerText = '';
+        }
+
+        function resetTimelineGame() { initTimelineGame(); }
+
+        function renderTimelineInventory() {
+            const container = document.getElementById('equipment-inventory');
+            const availableItems = equipmentPool.filter(item => 
+                !userTimelineSlots.pra.some(x => x.id === item.id) &&
+                !userTimelineSlots.prod.some(x => x.id === item.id) &&
+                !userTimelineSlots.pasca.some(x => x.id === item.id)
+            );
+
+            container.innerHTML = availableItems.map(item => `
+                <button onclick="selectEquipItem('${item.id}')" class="p-2.5 bg-slate-800 border ${selectedEquipItem === item.id ? 'border-goldenYellow bg-goldenYellow/20' : 'border-slate-700'} rounded-lg text-xs font-semibold text-warmWhite hover:border-cyanAccent transition flex items-center gap-2">
+                    <span class="text-base">${item.icon}</span> ${item.name}
+                </button>
+            `).join('');
+        }
+
+        function selectEquipItem(id) {
+            selectedEquipItem = id;
+            renderTimelineInventory();
+            showToast("Klik slot (Pra / Prod / Pasca) untuk menempatkan item ini!", "info");
+        }
+
+        function renderTimelineSlots() {
+            ['pra', 'prod', 'pasca'].forEach(phase => {
+                const slotContainer = document.getElementById(`slot-${phase}`);
+                slotContainer.onclick = () => assignToSlot(phase);
+                slotContainer.innerHTML = userTimelineSlots[phase].map(item => `
+                    <div class="p-2 bg-slate-800 border border-slate-700 rounded-lg text-xs flex justify-between items-center">
+                        <span>${item.icon} ${item.name}</span>
+                        <button onclick="event.stopPropagation(); removeFromSlot('${phase}', '${item.id}')" class="text-coralOrange hover:underline text-[10px]">Hapus</button>
+                    </div>
+                `).join('');
+            });
+        }
+
+        function assignToSlot(phase) {
+            if (!selectedEquipItem) return;
+            const item = equipmentPool.find(x => x.id === selectedEquipItem);
+            if (item && !userTimelineSlots[phase].some(x => x.id === item.id)) {
+                userTimelineSlots[phase].push(item);
+                selectedEquipItem = null;
+                renderTimelineInventory();
+                renderTimelineSlots();
+                playSound('xp');
+            }
+        }
+
+        function removeFromSlot(phase, id) {
+            userTimelineSlots[phase] = userTimelineSlots[phase].filter(x => x.id !== id);
+            renderTimelineInventory();
+            renderTimelineSlots();
+        }
+
+        function checkTimelineGame() {
+            let correctCount = 0;
+            let totalItems = equipmentPool.length;
+
+            ['pra', 'prod', 'pasca'].forEach(phase => {
+                userTimelineSlots[phase].forEach(item => {
+                    if (item.target === phase) correctCount++;
+                });
+            });
+
+            const feedback = document.getElementById('timeline-feedback');
+            if (correctCount === totalItems) {
+                playSound('correct');
+                feedback.innerHTML = `<span class="text-freshTeal"><i class="fa-solid fa-circle-check"></i> Sempurna! Semua ${totalItems} alur alat & dokumen terpasang presisi!</span>`;
+                if (!state.minigames[2]) {
+                    state.minigames[2] = true;
+                    addXP(50);
+                }
+            } else {
+                playSound('wrong');
+                feedback.innerHTML = `<span class="text-coralOrange"><i class="fa-solid fa-circle-xmark"></i> Ada posisi alat yang belum sesuai SOP (${correctCount}/${totalItems} benar). Evaluasi kembali!</span>`;
+            }
+        }
+
+        /* ==========================================================================
+           9. MINI GAME 3: VIRTUAL STUDIO SCENE SIMULATOR
+           ========================================================================== */
+        let studioCanvas, studioCtx;
+        let studioPlayer = { x: 400, y: 210, speed: 4 };
+        let studioTouchDir = null;
+
+        const studioZones = [
+            { id: 'pra', name: 'Papan Storyboard (Praproduksi)', x: 120, y: 100, radius: 45, icon: '📋', color: '#00C2FF' },
+            { id: 'prod', name: 'Set Kamera Cinema (Produksi)', x: 680, y: 100, radius: 45, icon: '📹', color: '#FF6B4A' },
+            { id: 'pasca', name: 'PC Workstation (Pascaproduksi)', x: 120, y: 320, radius: 45, icon: '💻', color: '#20C997' },
+            { id: 'client', name: 'Meja Klien Kopi Senja', x: 680, y: 320, radius: 45, icon: '☕', color: '#FFC857' }
+        ];
+
+        function initStudioGame() {
+            studioCanvas = document.getElementById('studioCanvas');
+            if (!studioCanvas) return;
+            studioCtx = studioCanvas.getContext('2d');
+            studioPlayer.x = 400;
+            studioPlayer.y = 210;
+
+            requestAnimationFrame(studioLoop);
+        }
+
+        function moveStudioPlayer(dir) { studioTouchDir = dir; }
+        function stopStudioPlayer() { studioTouchDir = null; }
+
+        function studioLoop() {
+            if (document.getElementById('mg-container-3').classList.contains('hidden')) return;
+
+            if (studioTouchDir === 'up') studioPlayer.y = Math.max(30, studioPlayer.y - studioPlayer.speed);
+            if (studioTouchDir === 'down') studioPlayer.y = Math.min(studioCanvas.height - 30, studioPlayer.y + studioPlayer.speed);
+            if (studioTouchDir === 'left') studioPlayer.x = Math.max(30, studioPlayer.x - studioPlayer.speed);
+            if (studioTouchDir === 'right') studioPlayer.x = Math.min(studioCanvas.width - 30, studioPlayer.x + studioPlayer.speed);
+
+            // Render Floor
+            studioCtx.fillStyle = '#0f172a';
+            studioCtx.fillRect(0, 0, studioCanvas.width, studioCanvas.height);
+
+            // Draw Interactive Zones
+            studioZones.forEach(zone => {
+                studioCtx.beginPath();
+                studioCtx.arc(zone.x, zone.y, zone.radius, 0, Math.PI * 2);
+                studioCtx.fillStyle = zone.color + '22';
+                studioCtx.fill();
+                studioCtx.strokeStyle = zone.color;
+                studioCtx.lineWidth = 2;
+                studioCtx.stroke();
+
+                studioCtx.font = '24px Inter';
+                studioCtx.textAlign = 'center';
+                studioCtx.textBaseline = 'middle';
+                studioCtx.fillText(zone.icon, zone.x, zone.y);
+
+                studioCtx.font = '10px Inter';
+                studioCtx.fillStyle = '#FFFDF7';
+                studioCtx.fillText(zone.name, zone.x, zone.y + zone.radius + 14);
+            });
+
+            // Check Proximity
+            let nearZone = null;
+            studioZones.forEach(zone => {
+                const dist = Math.hypot(studioPlayer.x - zone.x, studioPlayer.y - zone.y);
+                if (dist < zone.radius + 20) nearZone = zone;
+            });
+
+            // Draw Player Avatar
+            studioCtx.font = '28px Inter';
+            studioCtx.textAlign = 'center';
+            studioCtx.textBaseline = 'middle';
+            studioCtx.fillText(state.player.avatar, studioPlayer.x, studioPlayer.y);
+
+            studioCtx.font = '10px Inter';
+            studioCtx.fillStyle = '#00C2FF';
+            studioCtx.fillText(`${state.player.role}`, studioPlayer.x, studioPlayer.y - 24);
+
+            if (nearZone) {
+                studioCtx.fillStyle = '#FFC857';
+                studioCtx.font = '11px Inter';
+                studioCtx.fillText('Klik / Sentuh OK untuk Interaksi', studioPlayer.x, studioPlayer.y + 24);
+                studioCanvas.onclick = () => openZoneDialog(nearZone);
+            } else {
+                studioCanvas.onclick = null;
+            }
+
+            requestAnimationFrame(studioLoop);
+        }
+
+        function interactStudioZone() {
+            studioZones.forEach(zone => {
+                const dist = Math.hypot(studioPlayer.x - zone.x, studioPlayer.y - zone.y);
+                if (dist < zone.radius + 30) openZoneDialog(zone);
+            });
+        }
+
+        function openZoneDialog(zone) {
+            const box = document.getElementById('studio-dialog-box');
+            const title = document.getElementById('dialog-title');
+            const text = document.getElementById('dialog-text');
+            const actions = document.getElementById('dialog-actions');
+
+            box.classList.remove('hidden');
+            title.innerHTML = `${zone.icon} Stasiun Kerja: ${zone.name}`;
+
+            if (zone.id === 'pra') {
+                text.innerText = "Sutradara: 'Papan Storyboard Kopi Senja telah tersusun. Langkah awal ini memastikan seluruh angle kamera dan durasi adegan terencana rapi!'";
+                actions.innerHTML = `<button onclick="switchTab('materi'); closeStudioDialog();" class="px-3 py-1.5 bg-cyanAccent text-midnight text-xs font-bold rounded">Buka Materi Praproduksi</button>`;
+            } else if (zone.id === 'prod') {
+                text.innerText = "Kamerawan: 'Set Kamera Cinema 4K dan Lighting 3-point sudah menyala. Selalu pastikan Audio Mic Clip-on terhubung!'";
+                actions.innerHTML = `<button onclick="switchTab('misi'); closeStudioDialog();" class="px-3 py-1.5 bg-coralOrange text-warmWhite text-xs font-bold rounded">Jawab Misi Produksi</button>`;
+            } else if (zone.id === 'pasca') {
+                text.innerText = "Editor: 'PC Editing siap untuk pemotongan Rough Cut dan Color Grading tone hangat khas Kopi Senja.'";
+                actions.innerHTML = `<button onclick="switchMiniGame(2); closeStudioDialog();" class="px-3 py-1.5 bg-freshTeal text-midnight text-xs font-bold rounded">Mainkan Arranger Timeline</button>`;
+            } else if (zone.id === 'client') {
+                text.innerText = "Perwakilan Kopi Senja: 'Kami berharap video iklan ini menonjolkan aroma dan kehangatan produk kami!'";
+                actions.innerHTML = `<button onclick="switchTab('proyek'); closeStudioDialog();" class="px-3 py-1.5 bg-goldenYellow text-midnight text-xs font-bold rounded">Isi Laporan Proyek Client</button>`;
+            }
+
+            if (!state.minigames[3]) {
+                state.minigames[3] = true;
+                addXP(40);
+            }
+        }
+
+        function closeStudioDialog() {
+            document.getElementById('studio-dialog-box').classList.add('hidden');
+        }
+
+        /* ==========================================================================
+           10. MISI DECISION ENGINE
+           ========================================================================== */
+        function submitMission(missionNum) {
+            const selected = document.querySelector(`input[name="misi${missionNum}-opt"]:checked`);
+            const feedback = document.getElementById(`misi${missionNum}-feedback`);
+            const status = document.getElementById(`misi${missionNum}-status`);
+
+            if (!selected) {
+                showToast("Pilihlah salah satu opsi keputusan!", "error");
+                return;
+            }
+
+            const val = selected.value;
+            let correct = false;
+
+            if (missionNum === 1 && val === 'B') correct = true;
+            if (missionNum === 2 && val === 'A') correct = true;
+            if (missionNum === 3 && val === 'A') correct = true;
+
+            if (correct) {
+                playSound('correct');
+                feedback.innerHTML = `<span class="text-freshTeal"><i class="fa-solid fa-circle-check"></i> Keputusan Tepat! SOP Terpenuhi.</span>`;
+                status.className = "px-3 py-1 bg-freshTeal/20 text-freshTeal text-xs font-bold rounded-full";
+                status.innerText = "Selesai";
+
+                if (!state.missions[missionNum]) {
+                    state.missions[missionNum] = true;
+                    addXP(50);
+                }
+            } else {
+                playSound('wrong');
+                feedback.innerHTML = `<span class="text-coralOrange"><i class="fa-solid fa-circle-xmark"></i> Keputusan Kurang Tepat. Pelajari kembali SOP!</span>`;
+            }
+            saveState();
+        }
+
+        /* ==========================================================================
+           11. KUIS EVALUASI ENGINE
+           ========================================================================== */
+        const quizQuestions = [
+            {
+                q: "1. Dokumen praproduksi yang berisi sketsa visual adegan demi adegan beserta catatan sudut kamera adalah...",
+                opts: ["A. Storyboard", "B. Call Sheet", "C. Editing Script", "D. Proposal Sponsorship"],
+                ans: "A"
+            },
+            {
+                q: "2. Untuk menghasilkan kualitas rekaman dialog yang jernih di lokasi shooting outdoor, mikrofon yang paling ideal adalah...",
+                opts: ["A. Built-in Mic HP", "B. Lavalier Clip-on / Shotgun Boom Mic", "C. Studio Condenser Mic", "D. Dynamic Stage Mic"],
+                ans: "B"
+            },
+            {
+                q: "3. Tahapan penyusunan awal potongan-potongan klip video sesuai alur naskah tanpa efek visual dinamakan...",
+                opts: ["A. Color Grading", "B. Rough Cut (Offline Editing)", "C. Audio Mixing", "D. Final Rendering"],
+                ans: "B"
+            },
+            {
+                q: "4. Mengapa penggunaan lisensi musik Royalty-Free komersial sangat penting pada proyek iklan UMKM?",
+                opts: ["A. Menghindari pemblokiran hukum / Copyright Strike", "B. Agar video bisa diedit otomatis", "C. Supaya audio menjadi HD", "D. Hanya persyaratan formalitas"],
+                ans: "A"
+            },
+            {
+                q: "5. Proses penyesuaian tone warna visual agar konsisten dan membangun mood hangat dinamakan...",
+                opts: ["A. Offline Editing", "B. Color Grading", "C. Sound Effecting", "D. Compositing"],
+                ans: "B"
+            }
+        ];
+
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = quizQuestions.map((q, idx) => `
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-3">
+                    <p class="font-bold text-warmWhite text-sm">${q.q}</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        ${q.opts.map(opt => {
+                            const val = opt.charAt(0);
+                            return `
+                                <label class="flex items-center space-x-2 p-2.5 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-freshTeal cursor-pointer">
+                                    <input type="radio" name="quiz-q-${idx}" value="${val}" class="accent-freshTeal">
+                                    <span class="text-slate-300">${opt}</span>
+                                </label>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function calculateQuizScore() {
+            let score = 0;
+            quizQuestions.forEach((q, idx) => {
+                const selected = document.querySelector(`input[name="quiz-q-${idx}"]:checked`);
+                if (selected && selected.value === q.ans) score += 20;
+            });
+
+            state.quizScore = score;
+            if (!state.quizCompleted) {
+                state.quizCompleted = true;
+                addXP(100);
+            }
+            if (score >= 80) state.badges.quizMaster = true;
+
+            document.getElementById('quiz-final-score').innerText = `${score} / 100`;
+            saveState();
+            showToast(`Nilai Kuis Disimpan: ${score}/100`, 'success');
+        }
+
+        /* ==========================================================================
+           12. FORMS HANDLER
+           ========================================================================== */
+        function saveProjectAssignment(e) {
+            e.preventDefault();
+            state.projectSaved = true;
+            addXP(60);
+            saveState();
+            showToast("Laporan Proyek Berhasil Disimpan!", "success");
+        }
+
+        function saveReflection(e) {
+            e.preventDefault();
+            state.reflectionSaved = true;
+            addXP(40);
+            saveState();
+            showToast("Jurnal Refleksi Berhasil Terkirim!", "success");
+        }
+
+        /* ==========================================================================
+           13. BADGES & DASHBOARD UPDATE
+           ========================================================================== */
+        const badgesConfig = [
+            { id: 'praproduksi', title: 'Pakar Praproduksi', icon: '📋', desc: 'Selesaikan Misi 1' },
+            { id: 'produksi', title: 'Sutradara Lapangan', icon: '📹', desc: 'Selesaikan Misi 2' },
+            { id: 'pascaproduksi', title: 'Wizard Pascaproduksi', icon: '💻', desc: 'Selesaikan Misi 3' },
+            { id: 'quizMaster', title: 'Master SOP DKV', icon: '🎓', desc: 'Nilai Kuis ≥ 80' },
+            { id: 'studioMaster', title: 'Produser Eksekutif', icon: '🏆', desc: 'Progres Total 100%' }
+        ];
+
+        function renderBadges() {
+            const grid = document.getElementById('badges-grid');
+            grid.innerHTML = badgesConfig.map(b => {
+                const unlocked = state.badges[b.id] || (b.id === 'praproduksi' && state.missions[1]) || (b.id === 'produksi' && state.missions[2]) || (b.id === 'pascaproduksi' && state.missions[3]);
+                return `
+                    <div class="p-4 rounded-xl border text-center space-y-2 ${unlocked ? 'bg-slate-900 border-goldenYellow text-warmWhite' : 'bg-slate-900/40 border-slate-800 text-slate-600 opacity-60'}">
+                        <div class="text-3xl">${b.icon}</div>
+                        <h4 class="font-bold text-xs">${b.title}</h4>
+                        <p class="text-[10px]">${b.desc}</p>
+                        <span class="inline-block px-2 py-0.5 text-[9px] rounded-full ${unlocked ? 'bg-goldenYellow/20 text-goldenYellow font-bold' : 'bg-slate-800 text-slate-500'}">
+                            ${unlocked ? 'Unlocked' : 'Locked'}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateUI() {
+            document.getElementById('nav-player-role').innerText = state.player.role;
+            document.getElementById('nav-player-level').innerText = state.player.level;
+            document.getElementById('nav-player-xp').innerText = state.player.xp;
+            document.getElementById('nav-avatar-icon').innerText = state.player.avatar;
+
+            document.getElementById('input-player-name').value = state.player.name;
+            document.getElementById('input-player-school').value = state.player.school;
+
+            document.getElementById('dash-xp').innerText = state.player.xp;
+            const completedMissionsCount = Object.values(state.missions).filter(Boolean).length;
+            document.getElementById('dash-missions').innerText = `${completedMissionsCount} / 3`;
+            document.getElementById('dash-quiz').innerText = `${state.quizScore} / 100`;
+
+            const unlockedGamesCount = Object.values(state.minigames).filter(Boolean).length;
+            document.getElementById('dash-games').innerText = `${unlockedGamesCount} / 3`;
+
+            let totalSteps = 7;
+            let currentSteps = completedMissionsCount + unlockedGamesCount + (state.quizCompleted ? 1 : 0);
+            let pct = Math.round((currentSteps / totalSteps) * 100);
+            if (pct >= 100) state.badges.studioMaster = true;
+
+            document.getElementById('main-progress-bar').style.width = `${pct}%`;
+            document.getElementById('progress-percentage-text').innerText = `${pct}% Selesai`;
+
+            // Sync Certificate Details
+            document.getElementById('cert-player-name').innerText = state.player.name;
+            document.getElementById('cert-player-school').innerText = state.player.school;
+            document.getElementById('cert-role-sign').innerText = `${state.player.role} / Instruktur`;
+            document.getElementById('cert-xp').innerText = `${state.player.xp} XP`;
+            document.getElementById('cert-score').innerText = `${state.quizScore} / 100`;
+            document.getElementById('cert-date').innerText = new Date().toLocaleDateString('id-ID');
+
+            renderBadges();
+        }
+
+        /* ==========================================================================
+           14. INITIALIZATION
+           ========================================================================== */
+        window.onload = function() {
+            renderQuiz();
+            updateUI();
+        };
+    </script>
+</body>
+</html>
