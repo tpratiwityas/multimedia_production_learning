@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Creative Digital Studio Adventure - Alur Kerja Produksi Multimedia</title>
+<meta name="description" content="Media pembelajaran gamifikasi Alur Kerja Produksi Multimedia (DKV Fase F): materi, studi kasus, mini game, kuis, proyek, dan refleksi.">
+<meta name="theme-color" content="#14213D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%AC%3C/text%3E%3C/svg%3E">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <script>tailwind.config={theme:{extend:{colors:{midnight:'#14213D',cyanAccent:'#00C2FF',coralOrange:'#FF6B4A',goldenYellow:'#FFC857',freshTeal:'#20C997',iceBlue:'#EAF7FF',warmWhite:'#FFFDF7'},fontFamily:{sans:['Inter','system-ui','sans-serif']}}}}</script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
@@ -14,6 +17,10 @@ body{font-family:'Inter',system-ui,sans-serif;padding-top:env(safe-area-inset-to
 @keyframes cyanGlow{0%,100%{box-shadow:0 0 15px rgba(0,194,255,.4)}50%{box-shadow:0 0 25px rgba(0,194,255,.8)}}
 .cyan-glow{animation:cyanGlow 3s infinite}
 canvas{touch-action:none}
+:focus-visible{outline:3px solid #FFC857;outline-offset:2px}
+.calm *{animation:none!important;transition:none!important}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:70}
+summary{cursor:pointer}
 @media print{@page{size:A4 landscape;margin:0}body{background:#fff!important;color:#000!important;padding:0!important}body *{visibility:hidden}#printable-certificate,#printable-certificate *{visibility:visible}#printable-certificate{position:absolute;left:0;top:0;width:100vw;height:100vh;margin:0;padding:2rem;box-sizing:border-box;background:#fff!important}.no-print{display:none!important}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
@@ -26,49 +33,67 @@ canvas{touch-action:none}
 <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('beranda')">
 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyanAccent to-freshTeal flex items-center justify-center text-xl shadow-lg">🎬</div>
 <div><h1 class="text-lg font-bold tracking-wide text-warmWhite">Studio<span class="text-cyanAccent">Adventure</span></h1>
-<p class="text-xs text-cyanAccent/80">Alur Kerja Produksi Multimedia - DKV Fase F</p></div></div>
+<p class="text-sm text-cyanAccent/80">Alur Kerja Produksi Multimedia - DKV Fase F</p></div></div>
 <div class="flex items-center gap-3 bg-slate-900/90 border border-slate-700 px-4 py-1.5 rounded-full text-sm">
 <span id="nav-avatar-icon" class="text-lg">🎬</span><span id="nav-player-role" class="font-bold text-goldenYellow">Produser</span>
-<span class="h-4 w-px bg-slate-700"></span><span class="text-xs text-slate-400">Lv.</span><span id="nav-player-level" class="font-bold text-cyanAccent">1</span>
-<span class="h-4 w-px bg-slate-700"></span><span class="text-goldenYellow text-xs">★</span><span id="nav-player-xp" class="font-bold text-warmWhite">0</span><span class="text-xs text-slate-400">XP</span></div>
+<span class="h-4 w-px bg-slate-700"></span><span class="text-sm text-slate-300">Lv.</span><span id="nav-player-level" class="font-bold text-cyanAccent">1</span>
+<span class="h-4 w-px bg-slate-700"></span><span class="text-goldenYellow text-sm">★</span><span id="nav-player-xp" class="font-bold text-warmWhite">0</span><span class="text-sm text-slate-300">XP</span></div>
 <div class="flex items-center space-x-2">
-<button id="btn-audio-toggle" onclick="toggleAudio()" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-cyanAccent/20" title="Suara"><span id="audio-icon">🔊</span></button>
+<button id="btn-audio-toggle" onclick="toggleAudio()" aria-label="Nyalakan atau matikan semua suara" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-cyanAccent/20" title="Suara"><span id="audio-icon">🔊</span></button>
 <input id="volume-slider" type="range" min="0" max="1" step="0.1" value="0.5" oninput="globalVolume=parseFloat(this.value)" class="w-16 accent-cyanAccent cursor-pointer" aria-label="Volume"></div>
 </div></header>
-<nav class="bg-slate-900 border-b border-slate-800 px-4 py-2"><div id="nav-tabs" class="max-w-7xl mx-auto flex flex-wrap gap-1 text-xs font-semibold"></div></nav>
+<nav class="bg-slate-900 border-b border-slate-800 px-4 py-2"><div id="nav-tabs" class="max-w-7xl mx-auto flex flex-wrap gap-1 text-sm font-semibold"></div></nav>
 </div>
 
 <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
 
 <section id="content-beranda" class="tab-content block space-y-6">
-<div class="bg-gradient-to-r from-midnight via-slate-900 to-midnight border border-cyanAccent/40 rounded-2xl p-6 md:p-10 shadow-2xl cyan-glow space-y-4">
-<span class="inline-block px-3 py-1 bg-coralOrange/20 border border-coralOrange text-coralOrange font-semibold text-xs rounded-full uppercase tracking-wider">Studi Kasus Gamifikasi: Iklan Commercial Video "Kopi Senja"</span>
+<div class="relative overflow-hidden bg-gradient-to-r from-midnight via-slate-900 to-midnight border border-cyanAccent/40 rounded-2xl p-6 md:p-10 shadow-2xl cyan-glow space-y-4">
+<svg aria-hidden="true" class="absolute -right-6 -top-6 w-64 h-64 opacity-20 pointer-events-none" viewBox="0 0 200 200" fill="none" stroke="#00C2FF" stroke-width="4"><circle cx="100" cy="100" r="80"/><rect x="55" y="70" width="90" height="60" rx="10" stroke="#FFC857"/><circle cx="100" cy="100" r="16" stroke="#FF6B4A"/><path d="M20 160L180 40" stroke="#20C997"/></svg>
+<span class="inline-block px-3 py-1 bg-coralOrange/20 border border-coralOrange text-coralOrange font-semibold text-sm rounded-full uppercase tracking-wider">Studi Kasus Gamifikasi: Iklan Commercial Video "Kopi Senja"</span>
 <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">Creative Digital Studio <span class="text-cyanAccent">Adventure</span></h2>
 <p class="text-slate-300 leading-relaxed text-sm md:text-base max-w-3xl">Simulasi alur kerja produksi multimedia profesional. Kelola proyek video komersial UMKM <strong class="text-goldenYellow">"Kopi Senja"</strong> melewati tahap Praproduksi, Produksi, dan Pascaproduksi dengan 3 Mini Game Interaktif!</p>
 <div class="flex flex-wrap gap-3 pt-2">
 <button onclick="switchTab('minigames')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-coralOrange to-goldenYellow text-midnight font-extrabold hover:brightness-110 transition shadow-lg">🎮 Mainkan 3 Mini Game</button>
 <button onclick="switchTab('materi')" class="px-6 py-3 rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700 font-semibold transition">📖 Pelajari SOP Produksi</button></div></div>
+<div id="storage-warn" class="hidden p-3 rounded-xl border-2 border-coralOrange bg-slate-900 text-coralOrange text-sm font-bold">⚠️ Penyimpanan browser tidak tersedia (mungkin mode privat). Progres tidak akan bertahan setelah halaman ditutup. Gunakan "Simpan cadangan" sebelum keluar.</div>
+<div class="bg-slate-900/90 border border-cyanAccent/30 rounded-xl p-5 space-y-3">
+<h3 class="text-lg font-bold text-cyanAccent">🧭 Peta Perjalanan Studio</h3>
+<div id="journey" class="grid grid-cols-2 md:grid-cols-5 gap-3"></div>
+<details open class="text-sm text-slate-200"><summary class="font-bold text-goldenYellow">📘 Cara bermain (urutan yang disarankan)</summary>
+<ol class="list-decimal list-inside space-y-1 mt-2"><li>Isi nama dan pilih peran di bawah.</li><li>Baca <b>SOP Produksi</b> (3 tahap + contoh).</li><li>Kerjakan 3 <b>Studi Kasus</b>.</li><li>Mainkan 3 <b>Mini Game</b>.</li><li>Kerjakan <b>Kuis</b>, lalu <b>Proyek</b> dan <b>Refleksi</b>.</li><li>Capai 100% untuk membuka <b>Sertifikat</b>. Unduh hasil untuk dikirim ke guru.</li></ol></details></div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
 <h3 class="text-lg font-bold text-cyanAccent">⚙️ Setup Karakter Studio</h3>
-<div><label for="input-player-name" class="block text-xs text-slate-400 mb-1">Nama Siswa / Pengguna</label>
+<div><label for="input-player-name" class="block text-sm text-slate-300 mb-1">Nama Siswa / Pengguna</label>
 <input id="input-player-name" type="text" maxlength="40" oninput="updatePlayerProfile()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:border-cyanAccent outline-none"></div>
-<div><label for="input-player-school" class="block text-xs text-slate-400 mb-1">Asal Sekolah / Kelas</label>
+<div><label for="input-player-school" class="block text-sm text-slate-300 mb-1">Asal Sekolah / Kelas</label>
 <input id="input-player-school" type="text" maxlength="60" oninput="updatePlayerProfile()" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm focus:border-cyanAccent outline-none"></div>
-<div><p class="block text-xs text-slate-400 mb-1">Pilih Peran Profesional (ketuk untuk memilih)</p>
+<div><p class="block text-sm text-slate-300 mb-1">Pilih Peran Profesional (ketuk untuk memilih)</p>
 <div id="avatar-grid" class="grid grid-cols-4 gap-2"></div>
-<p class="text-xs text-slate-400 mt-2">Peran aktif: <b id="role-label" class="text-goldenYellow"></b></p></div></div>
+<p class="text-sm text-slate-300 mt-2">Peran aktif: <b id="role-label" class="text-goldenYellow"></b></p></div></div>
 <div class="md:col-span-2 bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
 <div class="flex justify-between items-center"><h3 class="text-lg font-bold text-goldenYellow">📈 Progres Gamifikasi Interaktif</h3><span id="progress-percentage-text" class="text-sm font-bold text-cyanAccent">0% Selesai</span></div>
 <div class="w-full bg-slate-800 h-4 rounded-full overflow-hidden p-0.5 border border-slate-700"><div id="main-progress-bar" class="bg-gradient-to-r from-cyanAccent via-freshTeal to-goldenYellow h-full rounded-full transition-all duration-500" style="width:0%"></div></div>
 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center pt-2">
-<div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700"><p class="text-xs text-slate-400">Total XP</p><p id="dash-xp" class="text-xl font-bold text-cyanAccent">0</p></div>
-<div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700"><p class="text-xs text-slate-400">Misi Studi Kasus</p><p id="dash-missions" class="text-xl font-bold text-goldenYellow">0 / 3</p></div>
-<div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700"><p class="text-xs text-slate-400">Nilai Kuis</p><p id="dash-quiz" class="text-xl font-bold text-freshTeal">0 / 100</p></div>
-<div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700"><p class="text-xs text-slate-400">Mini Game Selesai</p><p id="dash-games" class="text-xl font-bold text-coralOrange">0 / 3</p></div></div>
-<div class="p-3 bg-midnight border border-cyanAccent/30 rounded-lg flex flex-wrap justify-between items-center gap-2 text-xs">
+<div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700"><p class="text-sm text-slate-300">Total XP</p><p id="dash-xp" class="text-xl font-bold text-cyanAccent">0</p></div>
+<div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700"><p class="text-sm text-slate-300">Misi Studi Kasus</p><p id="dash-missions" class="text-xl font-bold text-goldenYellow">0 / 3</p></div>
+<div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700"><p class="text-sm text-slate-300">Nilai Kuis</p><p id="dash-quiz" class="text-xl font-bold text-freshTeal">0 / 100</p></div>
+<div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700"><p class="text-sm text-slate-300">Mini Game Selesai</p><p id="dash-games" class="text-xl font-bold text-coralOrange">0 / 3</p></div></div>
+<div class="p-3 bg-midnight border border-cyanAccent/30 rounded-lg flex flex-wrap justify-between items-center gap-2 text-sm">
 <span class="text-slate-300">💾 Data tersimpan otomatis di browser perangkat ini saja (tidak dikirim ke guru/server).</span>
-<span id="reset-area"><button onclick="askReset()" class="text-coralOrange hover:underline text-xs">↺ Reset Data</button></span></div></div></div>
+<span id="reset-area"><button onclick="askReset()" class="text-coralOrange hover:underline text-sm">↺ Reset Data</button></span></div></div></div>
+<div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-3">
+<h3 class="text-lg font-bold text-goldenYellow">🛠 Pengaturan, Hasil & Cadangan</h3>
+<div class="flex flex-wrap gap-2 text-sm font-semibold">
+<button id="btn-bgm" onclick="toggleBGM()" aria-pressed="false" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 hover:border-cyanAccent">🎵 Musik: Mati</button>
+<button id="btn-big" onclick="toggleBig()" aria-pressed="false" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 hover:border-cyanAccent">🔠 Teks besar: Mati</button>
+<button id="btn-calm" onclick="toggleCalm()" aria-pressed="false" class="px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 hover:border-cyanAccent">🌿 Kurangi animasi: Mati</button></div>
+<div class="flex flex-wrap gap-2 text-sm font-bold">
+<button onclick="exportResults()" class="px-4 py-2 rounded-lg bg-freshTeal text-midnight hover:brightness-110">📤 Unduh hasil untuk guru (.txt)</button>
+<button onclick="exportBackup()" class="px-4 py-2 rounded-lg bg-cyanAccent text-midnight hover:brightness-110">💾 Simpan cadangan (.json)</button>
+<label class="px-4 py-2 rounded-lg bg-goldenYellow text-midnight hover:brightness-110 cursor-pointer">📥 Pulihkan progres<input type="file" accept=".json,application/json" class="sr-only" onchange="importBackup(event)"></label></div>
+<p class="text-sm text-slate-300">Hasil dan cadangan diunduh ke perangkat ini; tidak ada yang dikirim otomatis ke guru atau server. Kirim berkasnya sendiri lewat WhatsApp atau Classroom.</p></div>
 </section>
 
 <section id="content-materi" class="tab-content hidden space-y-6"><div data-back="📖 Standar Operasional Prosedur (SOP) Produksi|text-cyanAccent"></div>
@@ -81,33 +106,36 @@ canvas{touch-action:none}
 <div id="mg-tabs" class="flex flex-wrap gap-2 border-b border-slate-800 pb-2"></div>
 
 <div id="mg-container-1" class="space-y-4">
+<details open class="bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm"><summary class="font-bold text-coralOrange">📘 Cara bermain Game 1</summary><ul class="list-disc list-inside mt-2 space-y-1"><li>Geser keranjang (A/D, ←/→, tombol layar, atau geser jari).</li><li>Tangkap 📹 📜 🎙️ 💻 untuk poin; hindari ⚠️ (−10) dan 💣 (−15, nyawa berkurang).</li><li>Capai 100 poin untuk menang. Benda jatuh makin cepat seiring skor. Gunakan Jeda kapan saja.</li></ul></details>
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap justify-between items-center gap-2">
 <div><h3 class="font-bold text-coralOrange text-sm">Game 1: Media Asset Catcher (Arcade 2D)</h3>
-<p class="text-xs text-slate-400">Tangkap aset valid (📹 📜 🎙️ 💻), hindari ⚠️ dan 💣. Capai 100 poin untuk menang. Keyboard A/D atau ←/→, tombol layar, atau geser jari di area game.</p></div>
-<div class="flex items-center gap-4 text-xs font-bold"><span class="text-goldenYellow">Skor: <span id="catcher-score">0</span></span><span class="text-coralOrange">Nyawa: <span id="catcher-lives">3</span></span>
-<button onclick="initCatcherGame()" class="px-3 py-1.5 bg-freshTeal text-midnight rounded-lg hover:brightness-110">↻ Main Lagi</button></div></div>
+<p class="text-sm text-slate-300">Tangkap aset valid (📹 📜 🎙️ 💻), hindari ⚠️ dan 💣. Capai 100 poin untuk menang. Keyboard A/D atau ←/→, tombol layar, atau geser jari di area game.</p></div>
+<div class="flex items-center gap-4 text-sm font-bold"><span class="text-goldenYellow">Skor: <span id="catcher-score">0</span></span><span class="text-cyanAccent">Rekor: <span id="catcher-high">0</span></span><span class="text-coralOrange">Nyawa: <span id="catcher-lives">3</span></span>
+<button onclick="initCatcherGame()" class="px-3 py-1.5 bg-freshTeal text-midnight rounded-lg hover:brightness-110">↻ Main Lagi</button><button id="btn-pause" onclick="togglePause()" class="px-3 py-1.5 bg-slate-700 text-warmWhite rounded-lg hover:brightness-110">⏸ Jeda</button><button onclick="goFull('catcherCanvas')" class="px-3 py-1.5 bg-slate-700 text-warmWhite rounded-lg hover:brightness-110" aria-label="Layar penuh Game 1">⛶</button></div></div>
 <div class="bg-slate-950 border-2 border-coralOrange/40 rounded-2xl overflow-hidden shadow-2xl flex flex-col items-center">
 <canvas id="catcherCanvas" width="800" height="400" class="w-full max-w-[800px] h-auto block bg-slate-950"></canvas>
 <div class="w-full max-w-[800px] bg-slate-900 p-2 flex justify-between items-center md:hidden border-t border-slate-800">
 <button data-hold="L" class="px-8 py-3 bg-slate-800 text-cyanAccent font-bold rounded-xl border border-slate-700 select-none">◄ KIRI</button>
-<span class="text-[10px] text-slate-400">Tahan tombol</span>
+<span class="text-xs text-slate-300">Tahan tombol</span>
 <button data-hold="R" class="px-8 py-3 bg-slate-800 text-cyanAccent font-bold rounded-xl border border-slate-700 select-none">KANAN ►</button></div></div></div>
 
 <div id="mg-container-2" class="hidden space-y-4">
+<details open class="bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm"><summary class="font-bold text-cyanAccent">📘 Cara bermain Game 2</summary><ul class="list-disc list-inside mt-2 space-y-1"><li>Ada 6 alat acak dari 10 alat. Ketuk alat, lalu ketuk slot tahap yang benar.</li><li>Salah tempat? Tekan Hapus lalu pindahkan. Tekan Verifikasi bila semua sudah terpasang.</li></ul></details>
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap justify-between items-center gap-2">
 <div><h3 class="font-bold text-cyanAccent text-sm">Game 2: Timeline & Equipment Slot Arranger</h3>
-<p class="text-xs text-slate-400">Ketuk sebuah alat di kotak bawah, lalu ketuk slot tahap yang benar. Di komputer bisa juga di-drag.</p></div>
-<button onclick="initTimelineGame()" class="px-3 py-1.5 bg-cyanAccent text-midnight text-xs font-bold rounded-lg hover:brightness-110">↻ Reset & Main Lagi</button></div>
+<p class="text-sm text-slate-300">Ketuk sebuah alat di kotak bawah, lalu ketuk slot tahap yang benar. Di komputer bisa juga di-drag.</p></div>
+<button onclick="initTimelineGame()" class="px-3 py-1.5 bg-cyanAccent text-midnight text-sm font-bold rounded-lg hover:brightness-110">↻ Reset & Main Lagi</button></div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="timeline-slots"></div>
-<div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-2"><h4 class="text-xs font-bold text-goldenYellow">Kotak Perangkat & Dokumen:</h4><div id="equipment-inventory" class="flex flex-wrap gap-3"></div></div>
-<div class="flex flex-wrap justify-between items-center gap-2 pt-2"><span id="timeline-feedback" class="text-xs font-bold"></span>
-<button onclick="checkTimelineGame()" class="px-5 py-2 bg-freshTeal text-midnight font-extrabold text-xs rounded-xl hover:brightness-110">✔ Verifikasi Penataan Timeline</button></div></div>
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-2"><h4 class="text-sm font-bold text-goldenYellow">Kotak Perangkat & Dokumen:</h4><div id="equipment-inventory" class="flex flex-wrap gap-3"></div></div>
+<div class="flex flex-wrap justify-between items-center gap-2 pt-2"><span id="timeline-feedback" class="text-sm font-bold"></span>
+<button onclick="checkTimelineGame()" class="px-5 py-2 bg-freshTeal text-midnight font-extrabold text-sm rounded-xl hover:brightness-110">✔ Verifikasi Penataan Timeline</button></div></div>
 
 <div id="mg-container-3" class="hidden space-y-4">
+<details open class="bg-slate-900 border border-slate-700 rounded-xl p-3 text-sm"><summary class="font-bold text-goldenYellow">📘 Cara bermain Game 3</summary><ul class="list-disc list-inside mt-2 space-y-1"><li>Gerakkan avatar mendekati lingkaran stasiun, lalu tekan Enter / OK atau klik layar.</li><li>Baca dialog tiap stasiun. Kunjungi keempatnya untuk menyelesaikan game.</li></ul></details>
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap justify-between items-center gap-2">
 <div><h3 class="font-bold text-goldenYellow text-sm">Game 3: Virtual Studio Scene Simulator</h3>
-<p class="text-xs text-slate-400">Gerakkan avatar dengan WASD / tombol panah (atau D-pad di HP), lalu tekan Enter / OK di stasiun. Kunjungi ke-4 stasiun untuk menyelesaikan game. Dikunjungi: <b id="studio-visited" class="text-goldenYellow">0/4</b></p></div>
-<button onclick="initStudioGame()" class="px-3 py-1.5 bg-goldenYellow text-midnight text-xs font-bold rounded-lg hover:brightness-110">↻ Reset Posisi</button></div>
+<p class="text-sm text-slate-300">Gerakkan avatar dengan WASD / tombol panah (atau D-pad di HP), lalu tekan Enter / OK di stasiun. Kunjungi ke-4 stasiun untuk menyelesaikan game. Dikunjungi: <b id="studio-visited" class="text-goldenYellow">0/4</b></p></div>
+<div class="flex gap-2"><button onclick="initStudioGame()" class="px-3 py-1.5 bg-goldenYellow text-midnight text-sm font-bold rounded-lg hover:brightness-110">↻ Reset Posisi</button><button onclick="goFull('studioCanvas')" class="px-3 py-1.5 bg-slate-700 text-warmWhite text-sm font-bold rounded-lg" aria-label="Layar penuh Game 3">⛶</button></div></div>
 <div class="bg-slate-950 border-2 border-goldenYellow/40 rounded-2xl overflow-hidden shadow-2xl flex flex-col items-center">
 <canvas id="studioCanvas" width="800" height="420" class="w-full max-w-[800px] h-auto block bg-slate-950"></canvas>
 <div class="w-full md:hidden bg-slate-900 p-3 flex justify-center border-t border-slate-800"><div class="grid grid-cols-3 gap-1">
@@ -117,42 +145,43 @@ canvas{touch-action:none}
 <button data-dir="right" class="w-12 h-12 bg-slate-800 text-cyanAccent rounded-lg font-bold select-none">►</button>
 <div></div><button data-dir="down" class="w-12 h-12 bg-slate-800 text-cyanAccent rounded-lg font-bold select-none">▼</button><div></div></div></div></div>
 <div id="studio-dialog-box" class="bg-slate-900 border-2 border-goldenYellow rounded-xl p-4 hidden space-y-3">
-<div class="flex justify-between items-center border-b border-slate-800 pb-2"><h4 id="dialog-title" class="font-bold text-goldenYellow text-sm"></h4><button onclick="closeStudioDialog()" class="text-slate-400 hover:text-white px-2" aria-label="Tutup">✕</button></div>
-<p id="dialog-text" class="text-xs text-slate-200 leading-relaxed"></p><div id="dialog-actions" class="flex flex-wrap gap-2 pt-2"></div></div></div>
+<div class="flex justify-between items-center border-b border-slate-800 pb-2"><h4 id="dialog-title" class="font-bold text-goldenYellow text-sm"></h4><button onclick="closeStudioDialog()" class="text-slate-300 hover:text-white px-2" aria-label="Tutup">✕</button></div>
+<p id="dialog-text" class="text-sm text-slate-200 leading-relaxed"></p><div id="dialog-actions" class="flex flex-wrap gap-2 pt-2"></div></div></div>
 </section>
 
 <section id="content-kuis" class="tab-content hidden space-y-6"><div data-back="📝 Kuis Evaluasi Komprehensif|text-freshTeal"></div>
-<div class="text-right text-xl font-black text-goldenYellow">Nilai: <span id="quiz-final-score">0 / 100</span></div>
+<div class="text-right text-xl font-black text-goldenYellow">Nilai terbaik: <span id="quiz-final-score">0 / 100</span> <span id="quiz-tries" class="block text-sm font-semibold text-slate-300"></span></div>
 <div id="quiz-container" class="space-y-6"></div>
-<div class="flex flex-wrap justify-end items-center gap-3"><span id="quiz-msg" class="text-xs font-bold"></span>
-<button onclick="calculateQuizScore()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-freshTeal to-cyanAccent text-midnight font-extrabold hover:brightness-110 shadow-lg">🧮 Hitung & Simpan Nilai Kuis</button></div></section>
+<div class="flex flex-wrap justify-end items-center gap-3"><span id="quiz-msg" class="text-sm font-bold"></span>
+<button id="quiz-retry" onclick="renderQuiz()" class="hidden px-6 py-3 rounded-xl bg-slate-700 font-bold hover:brightness-110">🔀 Ulangi (soal diacak)</button><button onclick="calculateQuizScore()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-freshTeal to-cyanAccent text-midnight font-extrabold hover:brightness-110 shadow-lg">🧮 Hitung & Simpan Nilai Kuis</button></div></section>
 
 <section id="content-proyek" class="tab-content hidden space-y-6"><div data-back="🧩 Lembar Tugas Proyek Produksi|text-cyanAccent"></div>
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
-<form id="project-form" onsubmit="saveProjectAssignment(event)" class="space-y-4 text-xs">
+<form id="project-form" onsubmit="saveProjectAssignment(event)" class="space-y-4 text-sm">
 <div><label for="proj-client" class="block text-slate-300 font-semibold mb-1">Nama Produk UMKM / Client Pilihan Anda</label><input id="proj-client" type="text" required placeholder="Contoh: Kopi Senja / Keripik Pisang Lampung" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-cyanAccent outline-none"></div>
 <div><label for="proj-pra" class="block text-slate-300 font-semibold mb-1">Rencana Praproduksi (Konsep, Storyboard & Equipment)</label><textarea id="proj-pra" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-cyanAccent outline-none"></textarea></div>
 <div><label for="proj-prod" class="block text-slate-300 font-semibold mb-1">Rencana Produksi (Crewing & Field Recording)</label><textarea id="proj-prod" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-cyanAccent outline-none"></textarea></div>
 <div><label for="proj-pasca" class="block text-slate-300 font-semibold mb-1">Rencana Pascaproduksi (Software Editing & Lisensi Musik)</label><textarea id="proj-pasca" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-cyanAccent outline-none"></textarea></div>
 <p id="proj-msg" class="font-bold"></p>
-<button type="submit" class="px-6 py-2.5 bg-cyanAccent text-midnight font-bold text-xs rounded-lg hover:brightness-110">💾 Simpan Laporan Proyek</button>
-<p class="text-slate-400">Laporan hanya tersimpan di browser ini dan belum terkirim ke guru.</p></form></div></section>
+<button type="submit" class="px-6 py-2.5 bg-cyanAccent text-midnight font-bold text-sm rounded-lg hover:brightness-110">💾 Simpan Laporan Proyek</button>
+<p class="text-slate-300">Laporan hanya tersimpan di browser ini dan belum terkirim ke guru.</p></form></div></section>
 
 <section id="content-refleksi" class="tab-content hidden space-y-6"><div data-back="🧠 Jurnal Refleksi Diri Siswa|text-goldenYellow"></div>
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
-<form id="reflection-form" onsubmit="saveReflection(event)" class="space-y-4 text-xs">
+<form id="reflection-form" onsubmit="saveReflection(event)" class="space-y-4 text-sm">
 <div><label for="ref-q1" class="block text-slate-300 font-semibold mb-1">1. Pengalaman berharga apa yang paling berkesan saat mengelola simulasi alur kerja Kopi Senja?</label><textarea id="ref-q1" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-goldenYellow outline-none"></textarea></div>
 <div><label for="ref-q2" class="block text-slate-300 font-semibold mb-1">2. Mengapa tahap praproduksi sangat menentukan keberhasilan total sebuah proyek video commercial?</label><textarea id="ref-q2" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-goldenYellow outline-none"></textarea></div>
 <p id="ref-msg" class="font-bold"></p>
-<button type="submit" class="px-6 py-2.5 bg-goldenYellow text-midnight font-bold text-xs rounded-lg hover:brightness-110">💾 Simpan Refleksi</button></form></div></section>
+<button type="submit" class="px-6 py-2.5 bg-goldenYellow text-midnight font-bold text-sm rounded-lg hover:brightness-110">💾 Simpan Refleksi</button></form></div></section>
 
 <section id="content-pencapaian" class="tab-content hidden space-y-6"><div data-back="🏆 Galeri Lencana Prestasi|text-goldenYellow"></div>
 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4" id="badges-grid"></div></section>
 
 <section id="content-sertifikat" class="tab-content hidden space-y-6">
 <div class="no-print bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-wrap justify-between items-center gap-2">
-<button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-xs font-bold">← Kembali</button>
-<button onclick="printCert()" class="px-5 py-2.5 bg-freshTeal text-midnight font-bold text-xs rounded-xl hover:brightness-110">🖨 Cetak Sertifikat A4 Landscape</button></div>
+<button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-sm font-bold">← Kembali</button>
+<button id="cert-print-btn" onclick="printCert()" class="px-5 py-2.5 bg-freshTeal text-midnight font-bold text-sm rounded-xl hover:brightness-110">🖨 Cetak Sertifikat A4 Landscape</button></div>
+<div id="cert-lock" class="hidden bg-slate-900 border-2 border-goldenYellow rounded-2xl p-6 text-center space-y-2"><div class="text-4xl">🔒</div><h3 class="text-xl font-bold text-goldenYellow">Sertifikat masih terkunci</h3><p class="text-sm text-slate-200">Capai progres 100% untuk membuka sertifikat. Yang masih perlu diselesaikan:</p><p id="cert-missing" class="text-sm font-bold text-coralOrange"></p></div>
 <div id="printable-certificate" class="bg-white text-slate-900 border-[12px] border-double border-midnight rounded-3xl p-8 max-w-4xl mx-auto shadow-2xl text-center space-y-6">
 <div class="space-y-2"><div class="inline-block p-3 bg-midnight text-3xl rounded-2xl">🎓</div>
 <h1 class="text-3xl md:text-4xl font-extrabold font-cinzel tracking-widest text-midnight">SERTIFIKAT KOMPETENSI</h1>
@@ -169,61 +198,89 @@ canvas{touch-action:none}
 <div class="w-16 h-16 rounded-full border-4 border-goldenYellow bg-goldenYellow/10 flex items-center justify-center font-bold text-midnight text-[9px] uppercase text-center leading-tight">STUDIO<br>SEAL</div>
 <div class="text-center"><div class="w-32 border-b border-slate-400 mx-auto pb-6 font-bold text-slate-800">&nbsp;</div><p class="text-[10px] text-slate-500">Perwakilan Kopi Senja</p></div></div></div>
 </section>
+<section id="content-glosarium" class="tab-content hidden space-y-6"><div data-back="📚 Glosarium & Daftar Pustaka|text-cyanAccent"></div>
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3"><label for="gloss-q" class="block font-semibold text-slate-200">Cari istilah</label><input id="gloss-q" type="text" oninput="renderGlossary()" placeholder="Contoh: storyboard" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 outline-none focus:border-cyanAccent"><dl id="gloss-list" class="space-y-3"></dl></div>
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3"><h3 class="text-lg font-bold text-goldenYellow">Daftar Pustaka</h3><p class="text-sm text-slate-300">Diambil dari daftar pustaka dokumen perancangan media pembelajaran Kelompok 9.</p>
+<ul class="list-disc list-inside space-y-2 text-sm text-slate-200">
+<li>Buku saku media pembelajaran. <a class="text-cyanAccent underline" target="_blank" rel="noopener" href="https://drive.google.com/file/d/1cZNiO6Ew7hwyHIW76OuTINCAn55-v5_E/view">Tautan</a></li>
+<li>Kementerian Pendidikan Dasar dan Menengah. (n.d.). Alur kontribusi perangkat ajar. Pusat Informasi Rumah Pendidikan. <a class="text-cyanAccent underline" target="_blank" rel="noopener" href="https://pusatinformasi.rumahpendidikan.kemendikdasmen.go.id/hc/id/sections/52398309894169-Alur-Kontribusi-Perangkat-Ajar">Tautan</a></li>
+<li>Kementerian Pendidikan Dasar dan Menengah. (n.d.). Kurikulum Merdeka. <a class="text-cyanAccent underline" target="_blank" rel="noopener" href="https://kurikulum.kemendikdasmen.go.id/file/1711503412_manage_file.pdf">Tautan</a></li>
+<li>Kementerian Pendidikan Dasar dan Menengah. (n.d.). Panduan merancang perangkat ajar. Pusat Informasi Rumah Pendidikan. <a class="text-cyanAccent underline" target="_blank" rel="noopener" href="https://pusatinformasi.rumahpendidikan.kemendikdasmen.go.id/hc/id/sections/52398316567449-Panduan-Merancang-Perangkat-Ajar">Tautan</a></li>
+<li>Peraturan Menteri Pendidikan Dasar dan Menengah Nomor 13 Tahun 2025. <a class="text-cyanAccent underline" target="_blank" rel="noopener" href="https://peraturan.bpk.go.id/Details/322506/permendikdasmen-no-13-tahun-2025">Tautan</a></li>
+<li>Program Studi Pendidikan Teknologi Informasi, Universitas Lampung. (n.d.). Literasi TIK dan Media Pembelajaran [Materi kuliah].</li></ul></div></section>
+
+<section id="content-tentang" class="tab-content hidden space-y-6"><div data-back="ℹ️ Tentang Media & Rubrik Penilaian|text-goldenYellow"></div>
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3 text-slate-200"><h3 class="text-lg font-bold text-cyanAccent">Tentang media</h3>
+<p>Media pembelajaran gamifikasi <b>Alur Kerja Produksi Multimedia</b> untuk siswa DKV Fase F, dikembangkan oleh Kelompok 9 (Literasi TIK dan Media Pembelajaran). Siswa berperan sebagai anggota studio yang menangani proyek video iklan UMKM fiktif "Kopi Senja".</p>
+<p class="text-sm text-slate-300"><b>Penyimpanan:</b> progres, nilai, proyek, dan refleksi hanya tersimpan di browser perangkat ini. Tidak ada akun, server, atau pemantauan guru. Identitas tidak diverifikasi.</p></div>
+<div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3"><h3 class="text-lg font-bold text-goldenYellow">Aturan XP & penilaian otomatis</h3>
+<div class="overflow-x-auto"><table class="w-full text-sm text-left"><thead class="text-cyanAccent"><tr><th class="py-2 pr-3">Aktivitas</th><th class="py-2 pr-3">Cara menilai</th><th class="py-2">XP</th></tr></thead><tbody class="text-slate-200 divide-y divide-slate-800">
+<tr><td class="py-2 pr-3">Studi Kasus 1–3</td><td class="pr-3">Otomatis; keputusan tepat pertama kali</td><td>50 per misi</td></tr>
+<tr><td class="py-2 pr-3">Game 1 Asset Catcher</td><td class="pr-3">Otomatis; capai 100 poin</td><td>50</td></tr>
+<tr><td class="py-2 pr-3">Game 2 Timeline</td><td class="pr-3">Otomatis; semua alat tepat</td><td>50</td></tr>
+<tr><td class="py-2 pr-3">Game 3 Studio</td><td class="pr-3">Otomatis; kunjungi 4 stasiun</td><td>40</td></tr>
+<tr><td class="py-2 pr-3">Kuis 10 soal</td><td class="pr-3">Otomatis; nilai terbaik disimpan</td><td>100 (sekali)</td></tr>
+<tr><td class="py-2 pr-3">Proyek</td><td class="pr-3">Dinilai guru (isi tersimpan untuk diunduh)</td><td>60 (sekali, saat disimpan)</td></tr>
+<tr><td class="py-2 pr-3">Refleksi</td><td class="pr-3">Dinilai guru</td><td>40 (sekali, saat disimpan)</td></tr></tbody></table></div>
+<p class="text-sm text-slate-300">Level naik setiap 100 XP. XP tidak bertambah dari pengulangan aktivitas yang sama. XP proyek dan refleksi diberikan saat tersimpan, bukan sebagai nilai akhir; nilai proyek dan refleksi ditentukan guru.</p></div></section>
 </main>
 
-<footer class="no-print bg-slate-950 border-t border-slate-800 py-4 text-center text-xs text-slate-500"><p>&copy; 2026 Creative Digital Studio Adventure - DKV Fase F SMK.</p></footer>
+<footer class="no-print bg-slate-950 border-t border-slate-800 py-4 text-center text-sm text-slate-400"><p>&copy; 2026 Creative Digital Studio Adventure - DKV Fase F SMK.</p></footer>
+<canvas id="confetti" aria-hidden="true"></canvas>
+<div id="modal" class="hidden fixed inset-0 z-[60] bg-black/70 flex items-center justify-center p-4" onclick="if(event.target===this)closeModal()" role="dialog" aria-modal="true"><div id="modal-body" class="bg-slate-900 border-2 border-goldenYellow rounded-2xl p-6 max-w-sm w-full space-y-3"></div></div>
 <div id="toast-container" class="no-print fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
 
 <script>
 /* ===== 1. STATE (localStorage aman) ===== */
 const SKEY='studio_adventure_v2';
-const DEFAULT_STATE={player:{name:'Siswa DKV',school:'SMK DKV Fase F',avatar:'🎬',role:'Produser',xp:0,level:1},missions:{1:false,2:false,3:false},quizScore:0,quizCompleted:false,projectSaved:false,reflectionSaved:false,project:{},reflection:{},minigames:{1:false,2:false,3:false},visited:{},badges:{}};
+const DEFAULT_STATE={player:{name:'Siswa DKV',school:'SMK DKV Fase F',avatar:'🎬',role:'Produser',xp:0,level:1},missions:{1:false,2:false,3:false},quizScore:0,quizCompleted:false,projectSaved:false,reflectionSaved:false,project:{},reflection:{},minigames:{1:false,2:false,3:false},visited:{},badges:{},quizTries:0,high1:0,settings:{big:0,calm:0,bgm:0}};
 const clone=o=>JSON.parse(JSON.stringify(o));
 function loadState(){try{const s=JSON.parse(localStorage.getItem(SKEY));if(s&&typeof s==='object'){const d=clone(DEFAULT_STATE);return Object.assign(d,s,{player:Object.assign(d.player,s.player||{}),missions:Object.assign(d.missions,s.missions||{}),minigames:Object.assign(d.minigames,s.minigames||{})})}}catch(e){}return clone(DEFAULT_STATE)}
 let state=loadState();
 function saveState(){try{localStorage.setItem(SKEY,JSON.stringify(state))}catch(e){}updateUI()}
 const $=id=>document.getElementById(id);
 function askReset(){$('reset-area').innerHTML='<span class="text-slate-300">Hapus semua progres? </span><button onclick="doReset()" class="text-coralOrange font-bold underline mr-2">Ya, hapus</button><button onclick="cancelReset()" class="text-cyanAccent underline">Batal</button>'}
-function cancelReset(){$('reset-area').innerHTML='<button onclick="askReset()" class="text-coralOrange hover:underline text-xs">↺ Reset Data</button>'}
+function cancelReset(){$('reset-area').innerHTML='<button onclick="askReset()" class="text-coralOrange hover:underline text-sm">↺ Reset Data</button>'}
 function doReset(){try{localStorage.removeItem(SKEY)}catch(e){}state=clone(DEFAULT_STATE);initPages();saveState();cancelReset();showToast('Data progres direset.','info')}
 
 /* ===== 2. AUDIO ===== */
 let audioCtx=null,isMuted=false,globalVolume=0.5;
-function playTone(f,type,d){if(isMuted)return;try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const o=audioCtx.createOscillator(),g=audioCtx.createGain(),t=audioCtx.currentTime;o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(Math.max(globalVolume*0.2,0.0002),t);g.gain.exponentialRampToValueAtTime(0.0001,t+d);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(t+d)}catch(e){}}
+function playTone(f,type,d,v=1){if(isMuted)return;try{if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();const o=audioCtx.createOscillator(),g=audioCtx.createGain(),t=audioCtx.currentTime;o.type=type;o.frequency.setValueAtTime(f,t);g.gain.setValueAtTime(Math.max(globalVolume*0.2*v,0.0002),t);g.gain.exponentialRampToValueAtTime(0.0001,t+d);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(t+d)}catch(e){}}
 function playSound(e){if(e==='correct'){playTone(523,'sine',.15);setTimeout(()=>playTone(659,'sine',.25),120)}else if(e==='wrong')playTone(200,'sawtooth',.2);else if(e==='xp')playTone(880,'triangle',.1);else if(e==='levelup'){playTone(440,'sine',.1);setTimeout(()=>playTone(554,'sine',.1),100);setTimeout(()=>playTone(659,'sine',.3),200)}}
 function toggleAudio(){isMuted=!isMuted;$('audio-icon').textContent=isMuted?'🔇':'🔊';showToast(isMuted?'Suara dimatikan':'Suara aktif','info')}
 
 /* ===== 3. TOAST ===== */
-function showToast(msg,type='info'){const c=$('toast-container'),t=document.createElement('div');const col={info:'border-cyanAccent text-warmWhite',success:'border-freshTeal text-freshTeal',error:'border-coralOrange text-coralOrange',gold:'border-goldenYellow text-goldenYellow'}[type]||'';t.className='p-3 rounded-xl border-2 bg-slate-900 '+col+' shadow-2xl text-xs font-bold pointer-events-auto';t.textContent=msg;c.appendChild(t);setTimeout(()=>t.remove(),3000)}
+function showToast(msg,type='info'){const c=$('toast-container'),t=document.createElement('div');const col={info:'border-cyanAccent text-warmWhite',success:'border-freshTeal text-freshTeal',error:'border-coralOrange text-coralOrange',gold:'border-goldenYellow text-goldenYellow'}[type]||'';t.className='p-3 rounded-xl border-2 bg-slate-900 '+col+' shadow-2xl text-sm font-bold pointer-events-auto';t.textContent=msg;c.appendChild(t);setTimeout(()=>t.remove(),3000)}
 
 /* ===== 4. XP ===== */
-function addXP(n){state.player.xp+=n;playSound('xp');showToast('+'+n+' XP!','gold');const lv=Math.floor(state.player.xp/100)+1;if(lv>state.player.level){state.player.level=lv;playSound('levelup');showToast('🎉 NAIK LEVEL! Level '+lv,'gold')}saveState()}
+function addXP(n){state.player.xp+=n;playSound('xp');showToast('+'+n+' XP!','gold');const lv=Math.floor(state.player.xp/100)+1;if(lv>state.player.level){state.player.level=lv;playSound('levelup');showToast('🎉 NAIK LEVEL! Level '+lv,'gold');confetti()}saveState()}
 
 /* ===== 5. NAVIGASI ===== */
-const TABS=[['beranda','🏠','Beranda'],['materi','📖','SOP Produksi'],['misi','🎯','Studi Kasus'],['minigames','🎮','3 Mini Game'],['kuis','📝','Kuis Evaluasi'],['proyek','🧩','Tugas Proyek'],['refleksi','🧠','Jurnal Refleksi'],['pencapaian','🏆','Galeri Lencana'],['sertifikat','📜','Sertifikat']];
+const TABS=[['beranda','🏠','Beranda'],['materi','📖','SOP Produksi'],['misi','🎯','Studi Kasus'],['minigames','🎮','3 Mini Game'],['kuis','📝','Kuis Evaluasi'],['proyek','🧩','Tugas Proyek'],['refleksi','🧠','Jurnal Refleksi'],['pencapaian','🏆','Galeri Lencana'],['glosarium','📚','Glosarium & Pustaka'],['tentang','ℹ️','Tentang & Rubrik'],['sertifikat','📜','Sertifikat']];
 let currentTab='beranda';
 function switchTab(id){currentTab=id;document.querySelectorAll('.tab-content').forEach(e=>e.classList.add('hidden'));$('content-'+id).classList.remove('hidden');
 $('nav-tabs').innerHTML=TABS.map(t=>`<button onclick="switchTab('${t[0]}')" class="px-3 py-2 rounded-lg transition ${t[0]===id?'bg-cyanAccent text-midnight font-bold':'hover:bg-slate-800 text-slate-300'}">${t[1]} ${t[2]}</button>`).join('');
 if(id==='minigames')switchMiniGame(curGame);else stopGames();
-if(id==='sertifikat')updateUI();window.scrollTo({top:0,behavior:'smooth'})}
-document.querySelectorAll('[data-back]').forEach(el=>{const [t,c]=el.dataset.back.split('|');el.className='flex flex-wrap items-center justify-between gap-2 bg-slate-900 border border-slate-800 p-4 rounded-xl';el.innerHTML=`<button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-xs font-bold">← Kembali</button><h2 class="text-lg font-bold ${c}">${t}</h2>`});
+if(id==='sertifikat'){updateUI();if(pctDone(state)>=100)playSound('levelup')}window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-back]').forEach(el=>{const [t,c]=el.dataset.back.split('|');el.className='flex flex-wrap items-center justify-between gap-2 bg-slate-900 border border-slate-800 p-4 rounded-xl';el.innerHTML=`<button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-sm font-bold">← Kembali</button><h2 class="text-lg font-bold ${c}">${t}</h2>`});
 
 /* ===== 6. PROFIL & PERAN ===== */
 const ROLES=[['🎬','Produser'],['📹','Sutradara'],['🎥','Kamerawan'],['💻','Editor']];
-function renderAvatars(){$('avatar-grid').innerHTML=ROLES.map(r=>`<button onclick="selectAvatar('${r[0]}','${r[1]}')" aria-pressed="${state.player.role===r[1]}" class="p-2 border rounded-lg text-2xl text-center hover:scale-105 transition ${state.player.role===r[1]?'border-cyanAccent bg-cyanAccent/30 ring-2 ring-cyanAccent':'border-slate-700 bg-slate-800'}" title="${r[1]}">${r[0]}<span class="block text-[10px] text-slate-300">${r[1]}</span></button>`).join('');$('role-label').textContent=state.player.avatar+' '+state.player.role}
+function renderAvatars(){$('avatar-grid').innerHTML=ROLES.map(r=>`<button onclick="selectAvatar('${r[0]}','${r[1]}')" aria-pressed="${state.player.role===r[1]}" class="p-2 border rounded-lg text-2xl text-center hover:scale-105 transition ${state.player.role===r[1]?'border-cyanAccent bg-cyanAccent/30 ring-2 ring-cyanAccent':'border-slate-700 bg-slate-800'}" title="${r[1]}">${r[0]}<span class="block text-xs text-slate-300">${r[1]}</span></button>`).join('');$('role-label').textContent=state.player.avatar+' '+state.player.role}
 function selectAvatar(e,r){state.player.avatar=e;state.player.role=r;saveState();playSound('xp');showToast('Peran: '+r+' '+e,'info')}
 function updatePlayerProfile(){state.player.name=$('input-player-name').value.trim()||'Siswa DKV';state.player.school=$('input-player-school').value.trim()||'SMK DKV Fase F';try{localStorage.setItem(SKEY,JSON.stringify(state))}catch(e){}updateUI(true)}
 
 /* ===== 7. MATERI & MISI ===== */
 const MATERI=[['1','Tahap Praproduksi','Perencanaan & Riset Konsep','cyanAccent',['Client Briefing: memahami target audiens & pesan utama Kopi Senja.','Scriptwriting & Storyboard: visualisasi adegan dan urutan shot.','Rencana Anggaran & Jadwal: budget, izin lokasi, call sheet.','Casting & Equipment Check: pembagian peran & penyiapan alat.']],['2','Tahap Produksi','Eksekusi Lapangan & Shooting','coralOrange',['Cinematography: sudut kamera, framing, lighting 3-point.','Field Audio: Clip-on Lavalier & Mic Boom agar suara jernih.','Directing: mengarahkan talent sesuai storyboard.','Media Offloading: transfer & backup footage RAW ke storage terpisah.']],['3','Tahap Pascaproduksi','Penyempurnaan & Finalisasi','freshTeal',['Rough Cut & Offline Editing: memotong klip sesuai storyboard.','Color Grading: tone warna hangat khas Kopi Senja.','Audio Mixing & BGM: SFX, VO, dan musik Royalty-Free berlisensi.','Exporting: render MP4 4K/FHD sesuai platform rilis.']]];
-$('materi-grid').innerHTML=MATERI.map(m=>`<div class="bg-slate-900/90 border border-${m[3]}/30 rounded-xl p-5 space-y-4 hover:border-${m[3]} transition"><div class="flex items-center gap-3 border-b border-slate-800 pb-3"><div class="w-10 h-10 rounded-lg bg-${m[3]}/20 border border-${m[3]} flex items-center justify-center text-${m[3]} font-bold">${m[0]}</div><div><h3 class="font-bold">${m[1]}</h3><p class="text-xs text-${m[3]}">${m[2]}</p></div></div><ul class="text-xs text-slate-300 space-y-2 list-disc list-inside">${m[4].map(x=>{const [a,b]=x.split(': ');return `<li><strong>${a}:</strong> ${b}</li>`}).join('')}</ul></div>`).join('');
+const MEX=[['Storyboard 6 panel iklan 30 detik: (1) uap kopi close-up, (2) menuang kopi, (3) barista tersenyum, (4) pelanggan menyeruput, (5) suasana kedai sore, (6) logo dan slogan.','Praproduksi menentukan arah. Tanpa brief, naskah, jadwal, dan anggaran yang jelas, tahap berikutnya boros dan berisiko diulang.'],['Call sheet hari syuting: 08.00 kru tiba, 09.00 setup, 10.00 adegan 1–3, 12.00 istirahat, 13.00 adegan 4–6, 16.00 backup footage ke dua tempat.','Produksi mengeksekusi rencana. Pastikan audio jernih, arahkan talent sesuai storyboard, dan langsung backup footage.'],['Urutan kerja: rough cut, picture lock, color grading, audio mixing, export MP4, lalu revisi sesuai kesepakatan (maksimal 2 putaran).','Pascaproduksi mengubah bahan mentah menjadi video final. Kontrol kualitas dan batas revisi dijaga lewat kontrak.']];
+$('materi-grid').innerHTML=MATERI.map((m,i)=>`<div class="bg-slate-900/90 border border-${m[3]}/30 rounded-xl p-5 space-y-4 hover:border-${m[3]} transition"><div class="flex items-center gap-3 border-b border-slate-800 pb-3"><div class="w-10 h-10 rounded-lg bg-${m[3]}/20 border border-${m[3]} flex items-center justify-center text-${m[3]} font-bold">${m[0]}</div><div><h3 class="font-bold">${m[1]}</h3><p class="text-sm text-${m[3]}">${m[2]}</p></div></div><ul class="text-sm text-slate-300 space-y-2 list-disc list-inside">${m[4].map(x=>{const [a,b]=x.split(': ');return `<li><strong>${a}:</strong> ${b}</li>`}).join('')}</ul><div class="bg-midnight border border-${m[3]}/40 rounded-lg p-3 text-sm"><b class="text-goldenYellow">Contoh Kopi Senja:</b> ${MEX[i][0]}</div><div class="bg-iceBlue/10 border border-slate-700 rounded-lg p-3 text-sm"><b class="text-freshTeal">Ringkasan:</b> ${MEX[i][1]}</div></div>`).join('');
 
 const MISI=[
 {t:'Misi 1: Praproduksi',c:'cyanAccent',b:'text-midnight',h:'Sengketa Hak Cipta Musik Latar Kopi Senja',s:'Klien menginginkan lagu viral untuk iklan Kopi Senja, namun proyek tidak punya anggaran lisensi komersial major label. Apa tindakan profesional Anda?',o:['Tetap memakai lagu viral tanpa izin demi popularitas video.','Edukasi klien soal hak cipta & sediakan alternatif musik Royalty-Free komersial bernuansa sejenis.','Batalkan proyek karena berbeda pandangan dengan klien.'],a:1,ex:['Berisiko copyright strike dan tuntutan hukum bagi klien dan tim.','Tepat: kamu melindungi klien dari risiko hukum sambil tetap memenuhi nuansa yang diinginkan.','Terlalu ekstrem: masalah ini punya solusi dengan komunikasi dan alternatif.']},
 {t:'Misi 2: Produksi',c:'coralOrange',b:'text-warmWhite',h:'Gangguan Cuaca Hujan Saat Shooting Outdoor',s:'Saat shooting outdoor di kedai Kopi Senja, hujan deras turun. Jadwal terancam molor dan alat elektronik berisiko rusak. Langkah apa yang paling aman?',o:['Amankan kamera & lighting, lalu alihkan adegan ke interior sesuai contingency plan.','Tetap menembus hujan demi deadline tanpa melindungi alat.','Hentikan semua kegiatan hari ini tanpa memberi tahu klien dan tim.'],a:0,ex:['Tepat: alat aman, jadwal tetap berjalan, dan rencana cadangan terpakai.','Membahayakan alat, kru, dan kualitas gambar.','Jadwal terbuang dan klien tidak mendapat kabar; komunikasi penting.']},
 {t:'Misi 3: Pascaproduksi',c:'freshTeal',b:'text-midnight',h:'Permintaan Revisi Melebihi Kuota Kontrak',s:'Klien meminta mengubah total konsep editing yang bertentangan dengan storyboard awal dan melampaui batas 2x revisi gratis. Bagaimana solusi profesional Anda?',o:['Tunjukkan kesepakatan kontrak dengan santun dan tawarkan adendum biaya revisi mayor.','Turuti semua revisi tanpa biaya meskipun rugi waktu dan tenaga.','Tolak keras tanpa penjelasan.'],a:0,ex:['Tepat: kontrak dihormati, hubungan baik terjaga, dan ada solusi jelas.','Merugikan tim dan menjadi preseden revisi tanpa batas.','Tidak profesional; klien butuh alasan dan alternatif.']}];
-$('misi-list').innerHTML=MISI.map((m,i)=>`<div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4"><div class="flex justify-between items-start gap-2 border-b border-slate-800 pb-3"><div><span class="px-2 py-0.5 bg-${m.c}/20 text-${m.c} text-xs font-semibold rounded">${m.t}</span><h3 class="text-lg font-bold mt-1">${m.h}</h3></div><span id="misi${i+1}-status" class="px-3 py-1 bg-slate-800 text-slate-400 text-xs rounded-full whitespace-nowrap">Belum Selesai</span></div><p class="text-sm text-slate-300">${m.s}</p><div class="space-y-2 text-xs">${m.o.map((o,j)=>`<label class="flex items-start space-x-3 p-3 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-${m.c} cursor-pointer"><input type="radio" name="misi${i+1}-opt" value="${j}" class="accent-${m.c} mt-0.5"><span>${'ABC'[j]}. ${o}</span></label>`).join('')}</div><div class="flex flex-wrap justify-between items-center gap-2 pt-2"><div id="misi${i+1}-feedback" class="text-xs font-semibold flex-1 min-w-[200px]"></div><button onclick="submitMission(${i+1})" class="px-5 py-2 rounded-lg bg-${m.c} ${m.b} font-bold text-xs hover:brightness-110">Kirim Keputusan Misi ${i+1}</button></div></div>`).join('');
-function markMission(n){const s=$('misi'+n+'-status');if(state.missions[n]){s.className='px-3 py-1 bg-freshTeal/20 text-freshTeal text-xs font-bold rounded-full whitespace-nowrap';s.textContent='Selesai ✔'}}
+$('misi-list').innerHTML=MISI.map((m,i)=>`<div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4"><div class="flex justify-between items-start gap-2 border-b border-slate-800 pb-3"><div><span class="px-2 py-0.5 bg-${m.c}/20 text-${m.c} text-sm font-semibold rounded">${m.t}</span><h3 class="text-lg font-bold mt-1">${m.h}</h3></div><span id="misi${i+1}-status" class="px-3 py-1 bg-slate-800 text-slate-300 text-sm rounded-full whitespace-nowrap">Belum Selesai</span></div><p class="text-sm text-slate-300">${m.s}</p><div class="space-y-2 text-sm">${m.o.map((o,j)=>`<label class="flex items-start space-x-3 p-3 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-${m.c} cursor-pointer"><input type="radio" name="misi${i+1}-opt" value="${j}" class="accent-${m.c} mt-0.5"><span>${'ABC'[j]}. ${o}</span></label>`).join('')}</div><div class="flex flex-wrap justify-between items-center gap-2 pt-2"><div id="misi${i+1}-feedback" class="text-sm font-semibold flex-1 min-w-[200px]"></div><button onclick="submitMission(${i+1})" class="px-5 py-2 rounded-lg bg-${m.c} ${m.b} font-bold text-sm hover:brightness-110">Kirim Keputusan Misi ${i+1}</button></div></div>`).join('');
+function markMission(n){const s=$('misi'+n+'-status');if(state.missions[n]){s.className='px-3 py-1 bg-freshTeal/20 text-freshTeal text-sm font-bold rounded-full whitespace-nowrap';s.textContent='Selesai ✔'}}
 function submitMission(n){const sel=document.querySelector(`input[name="misi${n}-opt"]:checked`),fb=$('misi'+n+'-feedback');if(!sel){fb.innerHTML='<span class="text-coralOrange">Pilih salah satu opsi dulu.</span>';return}
 const m=MISI[n-1],v=+sel.value,ok=v===m.a;if(ok){playSound('correct');fb.innerHTML='<span class="text-freshTeal">✔ Keputusan tepat! '+m.ex[v]+'</span>';if(!state.missions[n]){state.missions[n]=true;addXP(50)}}else{playSound('wrong');fb.innerHTML='<span class="text-coralOrange">✖ Kurang tepat. '+m.ex[v]+' Coba lagi!</span>'}saveState()}
 
@@ -232,36 +289,40 @@ let curGame=1;
 const GTAB=[[1,'🧺 Game 1: Asset Catcher','bg-coralOrange'],[2,'🎚 Game 2: Timeline & Equipment','bg-cyanAccent'],[3,'🏢 Game 3: Virtual Studio','bg-goldenYellow']];
 function stopGames(){cancelAnimationFrame(catcherAnimId);cancelAnimationFrame(studioAnimId);holdL=holdR=false;studioDir=null}
 function switchMiniGame(n){curGame=n;stopGames();[1,2,3].forEach(i=>$('mg-container-'+i).classList.toggle('hidden',i!==n));
-$('mg-tabs').innerHTML=GTAB.map(g=>`<button onclick="switchMiniGame(${g[0]})" class="px-4 py-2 rounded-lg text-xs font-bold ${g[0]===n?g[2]+' text-midnight':'bg-slate-800 text-slate-300 hover:bg-slate-700'}">${g[1]}${state.minigames[g[0]]?' ✔':''}</button>`).join('');
+$('mg-tabs').innerHTML=GTAB.map(g=>`<button onclick="switchMiniGame(${g[0]})" class="px-4 py-2 rounded-lg text-sm font-bold ${g[0]===n?g[2]+' text-midnight':'bg-slate-800 text-slate-300 hover:bg-slate-700'}">${g[1]}${state.minigames[g[0]]?' ✔':''}</button>`).join('');
 if(n===1)initCatcherGame();if(n===2)initTimelineGame();if(n===3)initStudioGame()}
 
 /* ===== 9. GAME 1: ASSET CATCHER ===== */
-let cc,cx,catcherAnimId,basket={x:350,w:90,h:20,speed:8},items=[],cScore=0,cLives=3,holdL=false,holdR=false,keyL=false,keyR=false,cOver=false;
+let cc,cx,catcherAnimId,basket={x:350,w:90,h:20,speed:8},items=[],cScore=0,cLives=3,holdL=false,holdR=false,keyL=false,keyR=false,cOver=false,cPaused=false;
 const GOOD=[['📹',10],['📜',10],['🎙️',10],['💻',15]],BAD=[['⚠️',-10],['💣',-15]];
-function initCatcherGame(){cancelAnimationFrame(catcherAnimId);cc=$('catcherCanvas');cx=cc.getContext('2d');cScore=0;cLives=3;items=[];basket.x=350;cOver=false;$('catcher-score').textContent=0;$('catcher-lives').textContent=3;catcherLoop()}
-function catcherLoop(){if(curGame!==1||currentTab!=='minigames')return;
+function initCatcherGame(){cancelAnimationFrame(catcherAnimId);cc=$('catcherCanvas');cx=cc.getContext('2d');cScore=0;cLives=3;items=[];basket.x=350;cOver=false;cPaused=false;$('btn-pause').textContent='⏸ Jeda';$('catcher-score').textContent=0;$('catcher-lives').textContent=3;catcherLoop()}
+function togglePause(){if(cOver)return;cPaused=!cPaused;$('btn-pause').textContent=cPaused?'▶ Lanjut':'⏸ Jeda';if(cPaused){cancelAnimationFrame(catcherAnimId);cx.fillStyle='rgba(20,33,61,.8)';cx.fillRect(0,0,800,400);cx.fillStyle='#FFFDF7';cx.font='bold 28px Inter,sans-serif';cx.textAlign='center';cx.fillText('⏸ JEDA',400,200)}else catcherLoop()}
+function goFull(id){const e=$(id).parentElement,f=e.requestFullscreen||e.webkitRequestFullscreen;if(f)f.call(e);else showToast('Layar penuh tidak didukung di perangkat ini.','info')}
+function catcherLoop(){if(curGame!==1||currentTab!=='minigames'||cPaused)return;
 cx.fillStyle='#0f172a';cx.fillRect(0,0,800,400);
 if(holdL||keyL)basket.x=Math.max(0,basket.x-basket.speed);if(holdR||keyR)basket.x=Math.min(800-basket.w,basket.x+basket.speed);
 cx.fillStyle='#FF6B4A';cx.fillRect(basket.x,370,basket.w,basket.h);cx.fillStyle='#FFFDF7';cx.font='12px Inter,sans-serif';cx.textAlign='center';cx.textBaseline='alphabetic';cx.fillText('ASSET BIN',basket.x+basket.w/2,384);
-if(!cOver&&Math.random()<0.03){const g=Math.random()>0.3,p=g?GOOD:BAD,t=p[Math.floor(Math.random()*p.length)];items.push({x:Math.random()*760+20,y:-20,sp:Math.random()*2+2,ic:t[0],pts:t[1],good:g})}
+if(!cOver&&Math.random()<0.03){const g=Math.random()>0.3,p=g?GOOD:BAD,t=p[Math.floor(Math.random()*p.length)];items.push({x:Math.random()*760+20,y:-20,sp:Math.random()*2+2+Math.min(3,cScore/40),ic:t[0],pts:t[1],good:g})}
 for(let i=items.length-1;i>=0;i--){const it=items[i];if(!cOver)it.y+=it.sp;cx.font='24px sans-serif';cx.fillText(it.ic,it.x,it.y);
 if(!cOver&&it.y>=365&&it.y<=390&&it.x>=basket.x&&it.x<=basket.x+basket.w){if(it.good){cScore+=it.pts;playSound('correct')}else{cScore=Math.max(0,cScore+it.pts);cLives--;playSound('wrong')}$('catcher-score').textContent=cScore;$('catcher-lives').textContent=cLives;items.splice(i,1);continue}
 if(it.y>420)items.splice(i,1)}
-if(cLives<=0||cScore>=100){cOver=true;const win=cScore>=100;cx.fillStyle='rgba(20,33,61,.85)';cx.fillRect(0,0,800,400);cx.fillStyle=win?'#20C997':'#FF6B4A';cx.font='bold 28px Inter,sans-serif';cx.fillText(win?'🎉 MISI ASET BERHASIL!':'GAME OVER!',400,180);cx.fillStyle='#FFFDF7';cx.font='14px Inter,sans-serif';cx.fillText('Skor: '+cScore+' — tekan "Main Lagi" untuk mengulang',400,220);
+if(cLives<=0||cScore>=100){cOver=true;if(cScore>(state.high1||0)){state.high1=cScore;saveState()}const win=cScore>=100;cx.fillStyle='rgba(20,33,61,.85)';cx.fillRect(0,0,800,400);cx.fillStyle=win?'#20C997':'#FF6B4A';cx.font='bold 28px Inter,sans-serif';cx.fillText(win?'🎉 MISI ASET BERHASIL!':'GAME OVER!',400,180);cx.fillStyle='#FFFDF7';cx.font='14px Inter,sans-serif';cx.fillText('Skor: '+cScore+' — tekan "Main Lagi" untuk mengulang',400,220);
 if(win&&!state.minigames[1]){state.minigames[1]=true;addXP(50);switchMiniGameTabsRefresh()}return}
 catcherAnimId=requestAnimationFrame(catcherLoop)}
-function switchMiniGameTabsRefresh(){$('mg-tabs').innerHTML=GTAB.map(g=>`<button onclick="switchMiniGame(${g[0]})" class="px-4 py-2 rounded-lg text-xs font-bold ${g[0]===curGame?g[2]+' text-midnight':'bg-slate-800 text-slate-300 hover:bg-slate-700'}">${g[1]}${state.minigames[g[0]]?' ✔':''}</button>`).join('')}
+function switchMiniGameTabsRefresh(){$('mg-tabs').innerHTML=GTAB.map(g=>`<button onclick="switchMiniGame(${g[0]})" class="px-4 py-2 rounded-lg text-sm font-bold ${g[0]===curGame?g[2]+' text-midnight':'bg-slate-800 text-slate-300 hover:bg-slate-700'}">${g[1]}${state.minigames[g[0]]?' ✔':''}</button>`).join('')}
 document.querySelectorAll('[data-hold]').forEach(b=>{const s=v=>e=>{e.preventDefault();b.dataset.hold==='L'?holdL=v:holdR=v};['touchstart','mousedown'].forEach(ev=>b.addEventListener(ev,s(true),{passive:false}));['touchend','touchcancel','mouseup','mouseleave'].forEach(ev=>b.addEventListener(ev,s(false),{passive:false}))});
 $('catcherCanvas').addEventListener('pointermove',e=>{if(e.pointerType==='mouse'&&!e.buttons)return;const r=cc.getBoundingClientRect();basket.x=Math.max(0,Math.min(800-basket.w,(e.clientX-r.left)*800/r.width-basket.w/2))});
 
 /* ===== 10. GAME 2: TIMELINE & EQUIPMENT ===== */
-const EQ=[{id:'eq1',name:'Naskah & Storyboard',icon:'📜',t:'pra'},{id:'eq2',name:'Kamera Cinema 4K',icon:'📹',t:'prod'},{id:'eq3',name:'Clip-on Mic',icon:'🎙️',t:'prod'},{id:'eq4',name:'Workstation PC Editing',icon:'💻',t:'pasca'},{id:'eq5',name:'Surat Izin Lokasi',icon:'📝',t:'pra'},{id:'eq6',name:'Color Grading Panel',icon:'🎨',t:'pasca'}];
+const EQALL=[{id:'eq1',name:'Naskah & Storyboard',icon:'📜',t:'pra'},{id:'eq2',name:'Kamera Cinema 4K',icon:'📹',t:'prod'},{id:'eq3',name:'Clip-on Mic',icon:'🎙️',t:'prod'},{id:'eq4',name:'Workstation PC Editing',icon:'💻',t:'pasca'},{id:'eq5',name:'Surat Izin Lokasi',icon:'📝',t:'pra'},{id:'eq6',name:'Color Grading Panel',icon:'🎨',t:'pasca'},{id:'eq7',name:'Call Sheet Syuting',icon:'📋',t:'pra'},{id:'eq8',name:'Tripod & Gimbal',icon:'🎞️',t:'prod'},{id:'eq9',name:'Software Editing',icon:'🎬',t:'pasca'},{id:'eq10',name:'Hard Disk Backup',icon:'💾',t:'prod'}];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let EQ=EQALL.slice(0,6);
 const SLOTS=[['pra','SLOT 1: PRAPRODUKSI','cyanAccent'],['prod','SLOT 2: PRODUKSI','coralOrange'],['pasca','SLOT 3: PASCAPRODUKSI','freshTeal']];
 let sel=null,tl={pra:[],prod:[],pasca:[]};
-function initTimelineGame(){tl={pra:[],prod:[],pasca:[]};sel=null;$('timeline-feedback').textContent='';renderTL()}
+function initTimelineGame(){tl={pra:[],prod:[],pasca:[]};sel=null;EQ=shuffle(EQALL).slice(0,6);$('timeline-feedback').textContent='';renderTL()}
 function renderTL(){const placed=Object.values(tl).flat().map(x=>x.id),free=EQ.filter(e=>!placed.includes(e.id));
-$('equipment-inventory').innerHTML=free.length?free.map(e=>`<button draggable="true" ondragstart="event.dataTransfer.setData('text/plain','${e.id}');sel='${e.id}'" onclick="sel='${e.id}';renderTL()" class="p-2.5 bg-slate-800 border ${sel===e.id?'border-goldenYellow bg-goldenYellow/20':'border-slate-700'} rounded-lg text-xs font-semibold hover:border-cyanAccent flex items-center gap-2"><span class="text-base">${e.icon}</span>${e.name}</button>`).join(''):'<p class="text-xs text-slate-400">Semua alat sudah ditempatkan. Tekan Verifikasi.</p>';
-$('timeline-slots').innerHTML=SLOTS.map(s=>`<div onclick="assignToSlot('${s[0]}')" ondragover="event.preventDefault()" ondrop="dropEquipment(event,'${s[0]}')" class="bg-slate-900/90 border-2 border-dashed border-${s[2]}/50 rounded-xl p-4 space-y-3 min-h-[160px] cursor-pointer ${sel?'ring-2 ring-goldenYellow/60':''}"><h4 class="font-bold text-xs text-${s[2]} text-center border-b border-slate-800 pb-2">${s[1]}</h4><div class="space-y-2">${tl[s[0]].map(i=>`<div class="p-2 bg-slate-800 border border-slate-700 rounded-lg text-xs flex justify-between items-center"><span>${i.icon} ${i.name}</span><button onclick="event.stopPropagation();removeFromSlot('${s[0]}','${i.id}')" class="text-coralOrange underline text-[10px]">Hapus</button></div>`).join('')||'<p class="text-[11px] text-slate-500 text-center">Ketuk di sini untuk menaruh alat terpilih</p>'}</div></div>`).join('')}
+$('equipment-inventory').innerHTML=free.length?free.map(e=>`<button draggable="true" ondragstart="event.dataTransfer.setData('text/plain','${e.id}');sel='${e.id}'" onclick="sel='${e.id}';renderTL()" class="p-2.5 bg-slate-800 border ${sel===e.id?'border-goldenYellow bg-goldenYellow/20':'border-slate-700'} rounded-lg text-sm font-semibold hover:border-cyanAccent flex items-center gap-2"><span class="text-base">${e.icon}</span>${e.name}</button>`).join(''):'<p class="text-sm text-slate-300">Semua alat sudah ditempatkan. Tekan Verifikasi.</p>';
+$('timeline-slots').innerHTML=SLOTS.map(s=>`<div onclick="assignToSlot('${s[0]}')" ondragover="event.preventDefault()" ondrop="dropEquipment(event,'${s[0]}')" class="bg-slate-900/90 border-2 border-dashed border-${s[2]}/50 rounded-xl p-4 space-y-3 min-h-[160px] cursor-pointer ${sel?'ring-2 ring-goldenYellow/60':''}"><h4 class="font-bold text-sm text-${s[2]} text-center border-b border-slate-800 pb-2">${s[1]}</h4><div class="space-y-2">${tl[s[0]].map(i=>`<div class="p-2 bg-slate-800 border border-slate-700 rounded-lg text-sm flex justify-between items-center"><span>${i.icon} ${i.name}</span><button onclick="event.stopPropagation();removeFromSlot('${s[0]}','${i.id}')" class="text-coralOrange underline text-xs">Hapus</button></div>`).join('')||'<p class="text-xs text-slate-400 text-center">Ketuk di sini untuk menaruh alat terpilih</p>'}</div></div>`).join('')}
 function assignToSlot(p){if(!sel){showToast('Pilih alat dulu di kotak bawah.','info');return}const it=EQ.find(x=>x.id===sel);if(!it)return;Object.keys(tl).forEach(k=>tl[k]=tl[k].filter(x=>x.id!==it.id));tl[p].push(it);sel=null;playSound('xp');renderTL()}
 function dropEquipment(e,p){e.preventDefault();const id=e.dataTransfer.getData('text/plain');if(id){sel=id;assignToSlot(p)}}
 function removeFromSlot(p,id){tl[p]=tl[p].filter(x=>x.id!==id);renderTL()}
@@ -287,21 +348,36 @@ window.addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(currentTab=
 window.addEventListener('keyup',e=>{const k=e.key.toLowerCase();sk[k]=false;if(k==='a'||k==='arrowleft')keyL=false;if(k==='d'||k==='arrowright')keyR=false});
 const DLG={pra:["Sutradara: 'Papan Storyboard Kopi Senja sudah tersusun. Tahap awal ini memastikan angle kamera dan durasi adegan terencana rapi!'",'Buka Materi Praproduksi','materi','bg-cyanAccent text-midnight'],prod:["Kamerawan: 'Kamera Cinema 4K dan lighting 3-point menyala. Pastikan mic clip-on terhubung!'",'Jawab Misi Produksi','misi','bg-coralOrange text-warmWhite'],pasca:["Editor: 'PC siap untuk rough cut dan color grading tone hangat khas Kopi Senja.'",'Mainkan Game Timeline','G2','bg-freshTeal text-midnight'],client:["Klien: 'Kami ingin video ini menonjolkan aroma dan kehangatan produk kami!'",'Isi Laporan Proyek','proyek','bg-goldenYellow text-midnight']};
 function openZoneDialog(z){const d=DLG[z.id];$('studio-dialog-box').classList.remove('hidden');$('dialog-title').textContent=z.ic+' '+z.name;$('dialog-text').textContent=d[0];
-$('dialog-actions').innerHTML=`<button onclick="${d[2]==='G2'?'switchMiniGame(2)':`switchTab('${d[2]}')`};closeStudioDialog()" class="px-3 py-1.5 ${d[3]} text-xs font-bold rounded">${d[1]}</button>`;
+$('dialog-actions').innerHTML=`<button onclick="${d[2]==='G2'?'switchMiniGame(2)':`switchTab('${d[2]}')`};closeStudioDialog()" class="px-3 py-1.5 ${d[3]} text-sm font-bold rounded">${d[1]}</button>`;
 if(!state.visited[z.id]){state.visited[z.id]=1;$('studio-visited').textContent=Object.keys(state.visited).length+'/4';if(Object.keys(state.visited).length===4&&!state.minigames[3]){state.minigames[3]=true;showToast('Semua stasiun dikunjungi!','success');addXP(40);switchMiniGameTabsRefresh()}else saveState()}}
 function closeStudioDialog(){$('studio-dialog-box').classList.add('hidden')}
 
 /* ===== 12. KUIS ===== */
-const QZ=[['1. Dokumen praproduksi berisi sketsa visual adegan demi adegan beserta catatan sudut kamera adalah...',['Storyboard','Call Sheet','Editing Script','Proposal Sponsorship'],0],['2. Untuk rekaman dialog jernih di lokasi outdoor, mikrofon yang paling ideal adalah...',['Built-in Mic HP','Lavalier Clip-on / Shotgun Boom Mic','Studio Condenser Mic','Dynamic Stage Mic'],1],['3. Penyusunan awal potongan klip sesuai alur naskah tanpa efek visual dinamakan...',['Color Grading','Rough Cut (Offline Editing)','Audio Mixing','Final Rendering'],1],['4. Mengapa musik Royalty-Free komersial penting pada iklan UMKM?',['Menghindari pemblokiran hukum / Copyright Strike','Agar video diedit otomatis','Supaya audio menjadi HD','Hanya formalitas'],0],['5. Penyesuaian tone warna agar konsisten dan membangun mood hangat dinamakan...',['Offline Editing','Color Grading','Sound Effecting','Compositing'],1]];
-$('quiz-container').innerHTML=QZ.map((q,i)=>`<div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-3"><p class="font-bold text-sm">${q[0]}</p><div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">${q[1].map((o,j)=>`<label class="flex items-center space-x-2 p-2.5 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-freshTeal cursor-pointer"><input type="radio" name="quiz-q-${i}" value="${j}" class="accent-freshTeal"><span class="text-slate-300">${'ABCD'[j]}. ${o}</span></label>`).join('')}</div><p id="qfb-${i}" class="text-xs font-semibold"></p></div>`).join('');
-function calculateQuizScore(){const m=$('quiz-msg');if(QZ.some((q,i)=>!document.querySelector(`input[name="quiz-q-${i}"]:checked`))){m.innerHTML='<span class="text-coralOrange">Jawab semua soal dulu.</span>';return}
-let s=0;QZ.forEach((q,i)=>{const ok=+document.querySelector(`input[name="quiz-q-${i}"]:checked`).value===q[2];if(ok)s+=20;$('qfb-'+i).innerHTML=ok?'<span class="text-freshTeal">✔ Benar</span>':'<span class="text-coralOrange">✖ Salah. Jawaban benar: '+'ABCD'[q[2]]+'. '+q[1][q[2]]+'</span>'});
-state.quizScore=Math.max(state.quizScore,s);m.innerHTML='<span class="text-freshTeal">Skor percobaan ini: '+s+'/100 (nilai terbaik tersimpan: '+state.quizScore+')</span>';if(!state.quizCompleted){state.quizCompleted=true;addXP(100)}else saveState();playSound(s>=80?'correct':'wrong')}
+const QZ=[
+['Dokumen praproduksi berisi sketsa visual adegan demi adegan beserta catatan sudut kamera adalah...',['Storyboard','Call Sheet','Editing Script','Proposal Sponsorship'],0,'Storyboard memvisualisasikan setiap shot sebelum syuting.'],
+['Untuk rekaman dialog jernih di lokasi outdoor, mikrofon yang paling ideal adalah...',['Built-in Mic HP','Lavalier Clip-on / Shotgun Boom Mic','Studio Condenser Mic','Dynamic Stage Mic'],1,'Lavalier atau boom dekat dengan sumber suara dan mengurangi noise lingkungan.'],
+['Penyusunan awal potongan klip sesuai alur naskah tanpa efek visual dinamakan...',['Color Grading','Rough Cut (Offline Editing)','Audio Mixing','Final Rendering'],1,'Rough cut adalah susunan kasar pertama sebelum penyempurnaan.'],
+['Mengapa musik Royalty-Free komersial penting pada iklan UMKM?',['Menghindari pemblokiran hukum / Copyright Strike','Agar video diedit otomatis','Supaya audio menjadi HD','Hanya formalitas'],0,'Musik tanpa izin berisiko klaim hak cipta dan penghapusan video.'],
+['Penyesuaian tone warna agar konsisten dan membangun mood hangat dinamakan...',['Offline Editing','Color Grading','Sound Effecting','Compositing'],1,'Color grading mengatur warna dan suasana visual.'],
+['Dokumen yang memuat jadwal, lokasi, daftar kru, dan kebutuhan syuting pada hari tertentu disebut...',['Call Sheet','Rough Cut','Brief Klien','Master File'],0,'Call sheet dibagikan ke seluruh kru sebelum hari syuting.'],
+['Tindakan paling aman segera setelah syuting selesai adalah...',['Menghapus kartu memori agar muat','Menyalin dan mem-backup footage ke dua tempat','Langsung mengunggah footage mentah','Menyimpan hanya di kamera'],1,'Media offloading dan backup mencegah kehilangan footage.'],
+['Rencana cadangan jika terjadi kendala seperti hujan disebut...',['Contingency plan','Color script','Picture lock','Adendum'],0,'Contingency plan menyiapkan alternatif agar jadwal tetap berjalan.'],
+['Klien meminta revisi melebihi kuota di kontrak. Langkah profesional adalah...',['Menuruti tanpa batas dan tanpa biaya','Menolak tanpa penjelasan','Merujuk kontrak dan menawarkan adendum biaya','Menghilang dari proyek'],2,'Kontrak dihormati dan klien tetap mendapat solusi.'],
+['Urutan alur kerja produksi multimedia yang benar adalah...',['Produksi, Praproduksi, Pascaproduksi','Pascaproduksi, Produksi, Praproduksi','Praproduksi, Produksi, Pascaproduksi','Praproduksi, Pascaproduksi, Produksi'],2,'Perencanaan dulu, lalu eksekusi, lalu penyempurnaan.']];
+let QR=[];
+function renderQuiz(){QR=shuffle(QZ).map(q=>{const o=shuffle(q[1].map((t,j)=>({t,ok:j===q[2]})));return {q:q[0],o,ex:q[3]}});
+$('quiz-container').innerHTML=QR.map((q,i)=>`<div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-3"><p class="font-bold text-sm">${i+1}. ${q.q}</p><div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">${q.o.map((o,j)=>`<label class="flex items-center space-x-2 p-2.5 rounded-lg bg-slate-800/60 border border-slate-700 hover:border-freshTeal cursor-pointer"><input type="radio" name="quiz-q-${i}" value="${j}" class="accent-freshTeal"><span class="text-slate-300">${'ABCD'[j]}. ${o.t}</span></label>`).join('')}</div><p id="qfb-${i}" class="text-sm font-semibold"></p></div>`).join('');
+$('quiz-msg').textContent='';$('quiz-retry').classList.add('hidden');updateQuizInfo()}
+function updateQuizInfo(){$('quiz-tries').textContent=state.quizTries?'Percobaan: '+state.quizTries:'Belum dikerjakan'}
+function calculateQuizScore(){const m=$('quiz-msg');if(QR.some((q,i)=>!document.querySelector(`input[name="quiz-q-${i}"]:checked`))){m.innerHTML='<span class="text-coralOrange">Jawab semua soal dulu.</span>';return}
+let s=0;QR.forEach((q,i)=>{const v=+document.querySelector(`input[name="quiz-q-${i}"]:checked`).value,ok=q.o[v].ok;if(ok)s+=10;const right='ABCD'[q.o.findIndex(o=>o.ok)];$('qfb-'+i).innerHTML=(ok?'<span class="text-freshTeal">✔ Benar. </span>':'<span class="text-coralOrange">✖ Salah. Jawaban benar: '+right+'. </span>')+'<span class="text-slate-300">Pembahasan: '+q.ex+'</span>'});
+state.quizTries=(state.quizTries||0)+1;state.quizScore=Math.max(state.quizScore,s);m.innerHTML='<span class="text-freshTeal">Skor percobaan ini: '+s+'/100. Nilai terbaik: '+state.quizScore+'/100.</span>';$('quiz-retry').classList.remove('hidden');
+if(!state.quizCompleted){state.quizCompleted=true;addXP(100)}else saveState();updateQuizInfo();playSound(s>=80?'correct':'wrong');if(s>=80)confetti()}
 
 /* ===== 13. FORM ===== */
 const PJ=['client','pra','prod','pasca'];
-function saveProjectAssignment(e){e.preventDefault();PJ.forEach(k=>state.project[k]=$('proj-'+k).value.trim());const first=!state.projectSaved;state.projectSaved=true;$('proj-msg').innerHTML='<span class="text-freshTeal">✔ Tersimpan di browser ini.</span>';showToast('Laporan proyek tersimpan','success');if(first)addXP(60);else saveState()}
-function saveReflection(e){e.preventDefault();['q1','q2'].forEach(k=>state.reflection[k]=$('ref-'+k).value.trim());const first=!state.reflectionSaved;state.reflectionSaved=true;$('ref-msg').innerHTML='<span class="text-freshTeal">✔ Refleksi tersimpan di browser ini.</span>';showToast('Refleksi tersimpan','success');if(first)addXP(40);else saveState()}
+function saveProjectAssignment(e){e.preventDefault();dirty=false;PJ.forEach(k=>state.project[k]=$('proj-'+k).value.trim());const first=!state.projectSaved;state.projectSaved=true;$('proj-msg').innerHTML='<span class="text-freshTeal">✔ Tersimpan di browser ini.</span>';showToast('Laporan proyek tersimpan','success');if(first)addXP(60);else saveState()}
+function saveReflection(e){e.preventDefault();dirty=false;['q1','q2'].forEach(k=>state.reflection[k]=$('ref-'+k).value.trim());const first=!state.reflectionSaved;state.reflectionSaved=true;$('ref-msg').innerHTML='<span class="text-freshTeal">✔ Refleksi tersimpan di browser ini.</span>';showToast('Refleksi tersimpan','success');if(first)addXP(40);else saveState()}
 function printCert(){try{window.print()}catch(e){showToast('Cetak tidak tersedia di tampilan ini. Buka halaman di tab baru.','error')}}
 
 /* ===== 14. LENCANA & UI ===== */
@@ -309,16 +385,47 @@ const BADGES=[['praproduksi','Pakar Praproduksi','📋','Selesaikan Misi 1',s=>s
 function pctDone(s){const m=Object.values(s.missions).filter(Boolean).length,g=Object.values(s.minigames).filter(Boolean).length;return Math.round((m+g+(s.quizCompleted?1:0)+(s.projectSaved?1:0)+(s.reflectionSaved?1:0))/9*100)}
 function updateUI(light){const p=state.player,m=Object.values(state.missions).filter(Boolean).length,g=Object.values(state.minigames).filter(Boolean).length,pct=pctDone(state);
 $('nav-player-role').textContent=p.role;$('nav-player-level').textContent=p.level;$('nav-player-xp').textContent=p.xp;$('nav-avatar-icon').textContent=p.avatar;
-$('dash-xp').textContent=p.xp;$('dash-missions').textContent=m+' / 3';$('dash-quiz').textContent=state.quizScore+' / 100';$('dash-games').textContent=g+' / 3';$('quiz-final-score').textContent=state.quizScore+' / 100';
+$('dash-xp').textContent=p.xp;$('catcher-high').textContent=state.high1||0;$('dash-missions').textContent=m+' / 3';$('dash-quiz').textContent=state.quizScore+' / 100';$('dash-games').textContent=g+' / 3';$('quiz-final-score').textContent=state.quizScore+' / 100';
 $('main-progress-bar').style.width=pct+'%';$('progress-percentage-text').textContent=pct+'% Selesai';
 $('cert-player-name').textContent=p.name;$('cert-player-school').textContent=p.school;$('cert-xp').textContent=p.xp+' XP';$('cert-score').textContent=state.quizScore+' / 100';$('cert-date').textContent=new Date().toLocaleDateString('id-ID');
 $('cert-text').innerHTML='Telah mengikuti simulasi alur kerja produksi multimedia Kopi Senja dengan capaian: '+m+'/3 misi, '+g+'/3 mini game, dan progres keseluruhan <strong class="text-midnight">'+pct+'%</strong>.';
-[1,2,3].forEach(markMission);if(light)return;renderAvatars();
-BADGES.forEach(b=>{if(b[4](state)&&!state.badges[b[0]]){state.badges[b[0]]=new Date().toLocaleDateString('id-ID');showToast('🏅 Lencana baru: '+b[1],'gold');try{localStorage.setItem(SKEY,JSON.stringify(state))}catch(e){}}});
-$('badges-grid').innerHTML=BADGES.map(b=>{const on=!!state.badges[b[0]];return `<div class="p-4 rounded-xl border text-center space-y-2 ${on?'bg-slate-900 border-goldenYellow':'bg-slate-900/40 border-slate-800 text-slate-400'}"><div class="text-3xl ${on?'':'grayscale opacity-60'}">${b[2]}</div><h4 class="font-bold text-xs">${b[1]}</h4><p class="text-[10px]">${b[3]}</p><span class="inline-block px-2 py-0.5 text-[10px] rounded-full ${on?'bg-goldenYellow/20 text-goldenYellow font-bold':'bg-slate-800 text-slate-400'}">${on?'Terbuka · '+state.badges[b[0]]:'Terkunci'}</span></div>`}).join('')}
+const miss=[];if(m<3)miss.push((3-m)+' studi kasus');if(g<3)miss.push((3-g)+' mini game');if(!state.quizCompleted)miss.push('kuis');if(!state.projectSaved)miss.push('proyek');if(!state.reflectionSaved)miss.push('refleksi');
+const open=pct>=100;$('cert-lock').classList.toggle('hidden',open);$('printable-certificate').classList.toggle('hidden',!open);$('cert-print-btn').disabled=!open;$('cert-print-btn').classList.toggle('opacity-50',!open);$('cert-missing').textContent=miss.join(', ')+' (progres '+pct+'%)';
+[1,2,3].forEach(markMission);if(light)return;renderAvatars();renderJourney();
+BADGES.forEach(b=>{if(b[4](state)&&!state.badges[b[0]]){state.badges[b[0]]=new Date().toLocaleDateString('id-ID');showToast('🏅 Lencana baru: '+b[1],'gold');confetti();try{localStorage.setItem(SKEY,JSON.stringify(state))}catch(e){}}});
+$('badges-grid').innerHTML=BADGES.map((b,i)=>{const on=!!state.badges[b[0]];return `<button onclick="badgeInfo(${i})" class="text-center p-4 rounded-xl border space-y-2 ${on?'bg-slate-900 border-goldenYellow':'bg-slate-900/40 border-slate-700 text-slate-300'} hover:border-cyanAccent"><div class="text-3xl ${on?'':'grayscale opacity-60'}">${b[2]}</div><h4 class="font-bold text-sm">${esc(b[1])}</h4><p class="text-xs">${esc(b[3])}</p><span class="inline-block px-2 py-0.5 text-xs rounded-full ${on?'bg-goldenYellow/20 text-goldenYellow font-bold':'bg-slate-800 text-slate-300'}">${on?'Terbuka · '+esc(state.badges[b[0]]):'Terkunci · ketuk untuk detail'}</span></button>`}).join('')}
 
+/* ===== 14b. FITUR TAMBAHAN ===== */
+const esc=t=>String(t==null?'':t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let dirty=false;
+const BPROG={praproduksi:s=>[s.missions[1]?1:0,1],produksi:s=>[s.missions[2]?1:0,1],pascaproduksi:s=>[s.missions[3]?1:0,1],gamer:s=>[Object.values(s.minigames).filter(Boolean).length,3],quizMaster:s=>[s.quizScore,80],studioMaster:s=>[pctDone(s),100]};
+function badgeInfo(i){const b=BADGES[i],on=!!state.badges[b[0]],pr=BPROG[b[0]](state),pc=Math.min(100,Math.round(pr[0]/pr[1]*100));
+$('modal-body').innerHTML=`<div class="text-center text-5xl ${on?'':'grayscale'}">${b[2]}</div><h3 class="text-xl font-bold text-center text-goldenYellow">${esc(b[1])}</h3><p class="text-sm text-slate-200"><b>Syarat:</b> ${esc(b[3])}</p><p class="text-sm text-slate-200"><b>Status:</b> ${on?'Didapat pada '+esc(state.badges[b[0]]):'Belum didapat'}</p>${on?'':`<div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden"><div class="bg-cyanAccent h-full" style="width:${pc}%"></div></div><p class="text-sm text-slate-300">Progres ${pc}%</p>`}<button onclick="closeModal()" class="w-full px-4 py-2 rounded-lg bg-cyanAccent text-midnight font-bold">Tutup</button>`;$('modal').classList.remove('hidden')}
+function closeModal(){$('modal').classList.add('hidden')}
+function renderJourney(){const st=[['🧱','Praproduksi',!!state.missions[1],'misi'],['🎥','Produksi',!!state.missions[2],'misi'],['✂️','Pascaproduksi',!!state.missions[3],'misi'],['📝','Evaluasi',state.quizCompleted,'kuis'],['🧠','Proyek & Refleksi',state.projectSaved&&state.reflectionSaved,'proyek']];const nx=st.findIndex(x=>!x[2]);
+$('journey').innerHTML=st.map((s,i)=>`<button onclick="switchTab('${s[3]}')" class="p-3 rounded-xl border-2 text-center ${s[2]?'border-freshTeal bg-freshTeal/10':i===nx?'border-coralOrange bg-coralOrange/10':'border-slate-700 bg-slate-800/60'} hover:brightness-110"><div class="text-2xl">${s[2]?'✅':s[0]}</div><div class="font-bold text-sm">${i+1}. ${s[1]}</div><div class="text-sm ${s[2]?'text-freshTeal':i===nx?'text-coralOrange':'text-slate-300'}">${s[2]?'Selesai':i===nx?'Berikutnya':'Menunggu'}</div></button>`).join('')}
+const GL=[['Brief','Ringkasan kebutuhan klien: tujuan, audiens, pesan, batasan waktu dan biaya.'],['Storyboard','Sketsa berurutan yang menggambarkan setiap shot sebelum syuting.'],['Call Sheet','Dokumen jadwal, lokasi, dan daftar kru untuk hari syuting.'],['Contingency Plan','Rencana cadangan bila terjadi kendala (cuaca, alat rusak, talent berhalangan).'],['Talent','Orang yang tampil di depan kamera.'],['Shot','Satu pengambilan gambar yang tidak terputus.'],['Framing','Cara menata objek di dalam bingkai gambar.'],['Lighting 3-point','Tata cahaya dengan key light, fill light, dan back light.'],['Lavalier (Clip-on)','Mikrofon kecil yang dijepit di pakaian untuk merekam suara dekat.'],['Footage RAW','Rekaman mentah dari kamera sebelum diedit.'],['Media Offloading','Memindahkan dan mem-backup rekaman dari kartu memori ke penyimpanan lain.'],['Rough Cut','Susunan kasar pertama hasil pemotongan klip sesuai naskah.'],['Picture Lock','Tahap ketika susunan gambar dianggap final dan tidak diubah lagi.'],['Color Grading','Pengaturan warna dan mood visual video.'],['Audio Mixing','Menyeimbangkan dialog, efek suara, dan musik.'],['Royalty-Free','Musik atau aset yang dipakai dengan lisensi tanpa royalti berulang; tetap periksa syarat lisensinya.'],['Copyright Strike','Peringatan atau klaim hak cipta terhadap konten yang memakai karya tanpa izin.'],['Adendum','Tambahan kesepakatan pada kontrak, misalnya untuk revisi di luar kuota.'],['Render / Export','Proses mengubah proyek editing menjadi berkas video akhir (misalnya MP4).']];
+function renderGlossary(){const q=($('gloss-q').value||'').toLowerCase().trim(),r=GL.filter(g=>!q||g[0].toLowerCase().includes(q)||g[1].toLowerCase().includes(q));$('gloss-list').innerHTML=r.length?r.map(g=>`<div class="border-l-4 border-cyanAccent pl-3"><dt class="font-bold text-goldenYellow">${g[0]}</dt><dd class="text-sm text-slate-200">${g[1]}</dd></div>`).join(''):'<p class="text-sm text-slate-300">Istilah tidak ditemukan.</p>'}
+function downloadFile(n,t,type){const a=document.createElement('a');a.href='data:'+type+';charset=utf-8,'+encodeURIComponent(t);a.download=n;document.body.appendChild(a);a.click();a.remove()}
+function exportResults(){const p=state.player,m=Object.values(state.missions).filter(Boolean).length,g=Object.values(state.minigames).filter(Boolean).length,pj=state.project||{},rf=state.reflection||{};
+const t=`HASIL STUDIO ADVENTURE\nNama: ${p.name}\nSekolah/Kelas: ${p.school}\nPeran: ${p.role}\nLevel: ${p.level}  XP: ${p.xp}\nStudi kasus selesai: ${m}/3\nMini game selesai: ${g}/3\nNilai kuis terbaik: ${state.quizScore}/100 (percobaan: ${state.quizTries||0})\nProgres: ${pctDone(state)}%\nTanggal: ${new Date().toLocaleString('id-ID')}\n\nPROYEK\nClient: ${pj.client||'-'}\nPraproduksi: ${pj.pra||'-'}\nProduksi: ${pj.prod||'-'}\nPascaproduksi: ${pj.pasca||'-'}\n\nREFLEKSI\n1. ${rf.q1||'-'}\n2. ${rf.q2||'-'}\n`;downloadFile('hasil-studio-adventure.txt',t,'text/plain');showToast('Hasil diunduh. Kirim berkasnya ke guru.','success')}
+function exportBackup(){downloadFile('cadangan-studio-adventure.json',JSON.stringify(state),'application/json');showToast('Cadangan diunduh','success')}
+function importBackup(ev){const f=ev.target.files[0];ev.target.value='';if(!f)return;const r=new FileReader();r.onload=()=>{try{const s=JSON.parse(r.result);if(!s||typeof s!=='object'||!s.player||typeof s.player.xp!=='number'||!s.missions)throw 0;const d=clone(DEFAULT_STATE),n=Object.assign(d,s);n.player=Object.assign(clone(DEFAULT_STATE.player),s.player);n.player.name=String(n.player.name).slice(0,40);n.player.school=String(n.player.school).slice(0,60);n.badges={};BADGES.forEach(b=>{if(s.badges&&s.badges[b[0]])n.badges[b[0]]=String(s.badges[b[0]]).slice(0,20)});n.settings=Object.assign({big:0,calm:0,bgm:0},s.settings||{});state=n;saveState();initPages();applySettings();switchTab(currentTab);showToast('Progres berhasil dipulihkan','success')}catch(e){showToast('Berkas cadangan tidak valid','error')}};r.readAsText(f)}
+function confetti(){if(state.settings&&state.settings.calm)return;const c=$('confetti'),x=c.getContext('2d');c.width=innerWidth;c.height=innerHeight;const cols=['#00C2FF','#FF6B4A','#FFC857','#20C997'],ps=Array.from({length:90},()=>({x:Math.random()*c.width,y:-10,vx:Math.random()*4-2,vy:Math.random()*3+2,s:Math.random()*6+4,c:cols[Math.floor(Math.random()*4)]}));let n=0;(function f(){x.clearRect(0,0,c.width,c.height);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;x.fillStyle=p.c;x.fillRect(p.x,p.y,p.s,p.s)});if(++n<110)requestAnimationFrame(f);else x.clearRect(0,0,c.width,c.height)})()}
+let bgmTimer=null,bgmStep=0;const NOTES=[262,330,392,330,294,349,440,349];
+function applySettings(){const s=state.settings;document.documentElement.style.fontSize=s.big?'18px':'16px';document.body.classList.toggle('calm',!!s.calm);clearInterval(bgmTimer);if(s.bgm)bgmTimer=setInterval(()=>{playTone(NOTES[bgmStep++%8],'sine',.5,.35)},650);
+[['btn-bgm','🎵 Musik',s.bgm],['btn-big','🔠 Teks besar',s.big],['btn-calm','🌿 Kurangi animasi',s.calm]].forEach(b=>{const e=$(b[0]);e.textContent=b[1]+': '+(b[2]?'Hidup':'Mati');e.setAttribute('aria-pressed',b[2]?'true':'false')})}
+function toggleBGM(){state.settings.bgm=state.settings.bgm?0:1;if(state.settings.bgm&&isMuted)showToast('Suara sedang dimatikan (tombol 🔊 di atas).','info');applySettings();saveState()}
+function toggleBig(){state.settings.big=state.settings.big?0:1;applySettings();saveState()}
+function toggleCalm(){state.settings.calm=state.settings.calm?0:1;applySettings();saveState()}
+document.addEventListener('click',e=>{if(e.target.closest('button'))playTone(660,'square',.04,.3)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeStudioDialog()}});
+document.querySelectorAll('[data-dir]').forEach(b=>b.setAttribute('aria-label',{up:'Atas',down:'Bawah',left:'Kiri',right:'Kanan'}[b.dataset.dir]));
+['project-form','reflection-form'].forEach(id=>$(id).addEventListener('input',()=>{dirty=true}));
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue=''}});
+function storageCheck(){try{localStorage.setItem('__t','1');localStorage.removeItem('__t')}catch(err){$('storage-warn').classList.remove('hidden')}}
 /* ===== 15. INIT ===== */
-function initPages(){$('input-player-name').value=state.player.name;$('input-player-school').value=state.player.school;PJ.forEach(k=>$('proj-'+k).value=state.project[k]||'');$('ref-q1').value=state.reflection.q1||'';$('ref-q2').value=state.reflection.q2||'';$('proj-msg').textContent='';$('ref-msg').textContent='';$('quiz-msg').textContent='';document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);QZ.forEach((q,i)=>$('qfb-'+i).textContent='');[1,2,3].forEach(n=>{$('misi'+n+'-feedback').textContent='';if(!state.missions[n]){const s=$('misi'+n+'-status');s.className='px-3 py-1 bg-slate-800 text-slate-400 text-xs rounded-full whitespace-nowrap';s.textContent='Belum Selesai'}})}
-initPages();updateUI();switchTab('beranda');
+function initPages(){$('input-player-name').value=state.player.name;$('input-player-school').value=state.player.school;PJ.forEach(k=>$('proj-'+k).value=state.project[k]||'');$('ref-q1').value=state.reflection.q1||'';$('ref-q2').value=state.reflection.q2||'';$('proj-msg').textContent='';$('ref-msg').textContent='';$('quiz-msg').textContent='';document.querySelectorAll('input[type=radio]').forEach(r=>r.checked=false);renderQuiz();[1,2,3].forEach(n=>{$('misi'+n+'-feedback').textContent='';if(!state.missions[n]){const s=$('misi'+n+'-status');s.className='px-3 py-1 bg-slate-800 text-slate-300 text-sm rounded-full whitespace-nowrap';s.textContent='Belum Selesai'}})}
+initPages();applySettings();renderGlossary();storageCheck();updateUI();switchTab('beranda');
 </script>
 </body></html>
