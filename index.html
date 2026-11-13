@@ -21,6 +21,16 @@ canvas{touch-action:none}
 .calm *{animation:none!important;transition:none!important}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:70}
 summary{cursor:pointer}
+/* Akses Media Pembelajaran */
+@keyframes mediaFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes mediaFadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.media-card{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;animation:mediaFadeUp .5s ease both}
+.media-card:nth-child(2){animation-delay:.1s}.media-card:nth-child(3){animation-delay:.2s}
+.media-card:hover{transform:translateY(-6px)}
+.media-card:hover .media-icon{animation:mediaFloat 1.2s ease-in-out infinite}
+.media-btn{min-height:48px;transition:transform .2s ease,filter .2s ease}
+.media-btn:hover{filter:brightness(1.1);transform:scale(1.03)}
+.media-btn:active{transform:scale(.98)}
 @media print{@page{size:A4 landscape;margin:0}body{background:#fff!important;color:#000!important;padding:0!important}body *{visibility:hidden}#printable-certificate,#printable-certificate *{visibility:visible}#printable-certificate{position:absolute;left:0;top:0;width:100vw;height:100vh;margin:0;padding:2rem;box-sizing:border-box;background:#fff!important}.no-print{display:none!important}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
@@ -50,9 +60,9 @@ summary{cursor:pointer}
 <section id="content-beranda" class="tab-content block space-y-6">
 <div class="relative overflow-hidden bg-gradient-to-r from-midnight via-slate-900 to-midnight border border-cyanAccent/40 rounded-2xl p-6 md:p-10 shadow-2xl cyan-glow space-y-4">
 <svg aria-hidden="true" class="absolute -right-6 -top-6 w-64 h-64 opacity-20 pointer-events-none" viewBox="0 0 200 200" fill="none" stroke="#00C2FF" stroke-width="4"><circle cx="100" cy="100" r="80"/><rect x="55" y="70" width="90" height="60" rx="10" stroke="#FFC857"/><circle cx="100" cy="100" r="16" stroke="#FF6B4A"/><path d="M20 160L180 40" stroke="#20C997"/></svg>
-<span class="inline-block px-3 py-1 bg-coralOrange/20 border border-coralOrange text-coralOrange font-semibold text-sm rounded-full uppercase tracking-wider">Studi Kasus Gamifikasi: Iklan Commercial Video "Kopi Senja"</span>
+<span class="inline-block px-3 py-1 bg-coralOrange/20 border border-coralOrange text-coralOrange font-semibold text-sm rounded-full uppercase tracking-wider">Media Pembelajaran Gamifikasi · DKV Fase F</span>
 <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight">Creative Digital Studio <span class="text-cyanAccent">Adventure</span></h2>
-<p class="text-slate-300 leading-relaxed text-sm md:text-base max-w-3xl">Simulasi alur kerja produksi multimedia profesional. Kelola proyek video komersial UMKM <strong class="text-goldenYellow">"Kopi Senja"</strong> melewati tahap Praproduksi, Produksi, dan Pascaproduksi dengan 3 Mini Game Interaktif!</p>
+<p class="text-slate-300 leading-relaxed text-sm md:text-base max-w-3xl">Pelajari alur kerja produksi multimedia profesional, mulai dari <strong class="text-goldenYellow">Praproduksi, Produksi, hingga Pascaproduksi</strong>, lewat materi, studi kasus, 3 mini game interaktif, kuis, proyek, dan refleksi!</p>
 <div class="flex flex-wrap gap-3 pt-2">
 <button onclick="switchTab('minigames')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-coralOrange to-goldenYellow text-midnight font-extrabold hover:brightness-110 transition shadow-lg">🎮 Mainkan 3 Mini Game</button>
 <button onclick="switchTab('materi')" class="px-6 py-3 rounded-xl bg-slate-800 border border-slate-700 hover:bg-slate-700 font-semibold transition">📖 Pelajari SOP Produksi</button></div></div>
@@ -62,6 +72,46 @@ summary{cursor:pointer}
 <div id="journey" class="grid grid-cols-2 md:grid-cols-5 gap-3"></div>
 <details open class="text-sm text-slate-200"><summary class="font-bold text-goldenYellow">📘 Cara bermain (urutan yang disarankan)</summary>
 <ol class="list-decimal list-inside space-y-1 mt-2"><li>Isi nama dan pilih peran di bawah.</li><li>Baca <b>SOP Produksi</b> (3 tahap + contoh).</li><li>Kerjakan 3 <b>Studi Kasus</b>.</li><li>Mainkan 3 <b>Mini Game</b>.</li><li>Kerjakan <b>Kuis</b>, lalu <b>Proyek</b> dan <b>Refleksi</b>.</li><li>Capai 100% untuk membuka <b>Sertifikat</b>. Unduh hasil untuk dikirim ke guru.</li></ol></details></div>
+
+<!-- ===== AKSES MEDIA PEMBELAJARAN (penambahan baru) ===== -->
+<section id="akses-media" aria-labelledby="akses-media-title" class="bg-slate-900/90 border border-cyanAccent/30 rounded-xl p-5 space-y-4">
+<div>
+<h3 id="akses-media-title" class="text-lg font-bold text-goldenYellow">🚀 Akses Media Pembelajaran</h3>
+<p class="text-sm text-slate-300 mt-1">Akses cepat ke media pembelajaran pendamping Alur Kerja Produksi Multimedia. Setiap tombol membuka tab baru, jadi progres di sini tetap aman. Kuis Evaluasi internal tetap tersedia di menu Kuis Evaluasi.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+<article class="media-card flex flex-col gap-4 rounded-2xl border-2 border-coralOrange/40 hover:border-coralOrange bg-gradient-to-b from-coralOrange/10 to-slate-900 p-5 hover:shadow-[0_12px_30px_rgba(255,107,74,0.25)]">
+<div class="flex items-center gap-3">
+<div class="media-icon w-14 h-14 shrink-0 rounded-xl bg-coralOrange/20 border border-coralOrange flex items-center justify-center text-3xl" aria-hidden="true">🗂️</div>
+<h4 class="font-extrabold text-coralOrange text-sm tracking-wide uppercase leading-snug">Media Card – Alur Kerja Produksi Multimedia</h4>
+</div>
+<p class="text-sm text-slate-200 leading-relaxed flex-grow">Akses media pembelajaran Media Card untuk mempelajari materi Alur Kerja Produksi Multimedia secara lebih terstruktur dan interaktif.</p>
+<a href="https://multi-media.carrd.co/" target="_blank" rel="noopener noreferrer" class="media-btn flex items-center justify-center gap-2 text-center px-5 py-3 rounded-xl bg-coralOrange text-midnight font-extrabold text-sm shadow-lg">BUKA MEDIA CARD <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="media-card flex flex-col gap-4 rounded-2xl border-2 border-cyanAccent/40 hover:border-cyanAccent bg-gradient-to-b from-cyanAccent/10 to-slate-900 p-5 hover:shadow-[0_12px_30px_rgba(0,194,255,0.25)]">
+<div class="flex items-center gap-3">
+<div class="media-icon w-14 h-14 shrink-0 rounded-xl bg-cyanAccent/20 border border-cyanAccent flex items-center justify-center text-3xl" aria-hidden="true">🃏</div>
+<h4 class="font-extrabold text-cyanAccent text-sm tracking-wide uppercase leading-snug">Wayground Flashcard</h4>
+</div>
+<p class="text-sm text-slate-200 leading-relaxed flex-grow">Gunakan flashcard untuk mempelajari, mengingat, dan mengulang konsep-konsep penting dalam Alur Kerja Produksi Multimedia.</p>
+<a href="https://wayground.com/admin/flashcard/6af0098db988e809523407db?source=lesson_share" target="_blank" rel="noopener noreferrer" class="media-btn flex items-center justify-center gap-2 text-center px-5 py-3 rounded-xl bg-cyanAccent text-midnight font-extrabold text-sm shadow-lg">BUKA FLASHCARD <span aria-hidden="true">↗</span></a>
+</article>
+
+<article class="media-card flex flex-col gap-4 rounded-2xl border-2 border-freshTeal/40 hover:border-freshTeal bg-gradient-to-b from-freshTeal/10 to-slate-900 p-5 hover:shadow-[0_12px_30px_rgba(32,201,151,0.25)]">
+<div class="flex items-center gap-3">
+<div class="media-icon w-14 h-14 shrink-0 rounded-xl bg-freshTeal/20 border border-freshTeal flex items-center justify-center text-3xl" aria-hidden="true">🏆</div>
+<h4 class="font-extrabold text-freshTeal text-sm tracking-wide uppercase leading-snug">Wayground Kuis Evaluasi</h4>
+</div>
+<p class="text-sm text-slate-200 leading-relaxed flex-grow">Kerjakan kuis interaktif melalui Wayground untuk menguji pemahaman terhadap materi Alur Kerja Produksi Multimedia.</p>
+<a href="https://wayground.com/admin/assessment/6af011adb42346ba30d4588f?source=lesson_share" target="_blank" rel="noopener noreferrer" class="media-btn flex items-center justify-center gap-2 text-center px-5 py-3 rounded-xl bg-freshTeal text-midnight font-extrabold text-sm shadow-lg">MULAI KUIS <span aria-hidden="true">↗</span></a>
+</article>
+
+</div>
+</section>
+<!-- ===== AKHIR AKSES MEDIA PEMBELAJARAN ===== -->
+
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
 <h3 class="text-lg font-bold text-cyanAccent">⚙️ Setup Karakter Studio</h3>
@@ -158,7 +208,7 @@ summary{cursor:pointer}
 <section id="content-proyek" class="tab-content hidden space-y-6"><div data-back="🧩 Lembar Tugas Proyek Produksi|text-cyanAccent"></div>
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
 <form id="project-form" onsubmit="saveProjectAssignment(event)" class="space-y-4 text-sm">
-<div><label for="proj-client" class="block text-slate-300 font-semibold mb-1">Nama Produk UMKM / Client Pilihan Anda</label><input id="proj-client" type="text" required placeholder="Contoh: Kopi Senja / Keripik Pisang Lampung" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-cyanAccent outline-none"></div>
+<div><label for="proj-client" class="block text-slate-300 font-semibold mb-1">Nama Produk UMKM / Client Pilihan Anda</label><input id="proj-client" type="text" required placeholder="Contoh: Keripik Pisang Lampung / Batik Lokal" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-cyanAccent outline-none"></div>
 <div><label for="proj-pra" class="block text-slate-300 font-semibold mb-1">Rencana Praproduksi (Konsep, Storyboard & Equipment)</label><textarea id="proj-pra" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-cyanAccent outline-none"></textarea></div>
 <div><label for="proj-prod" class="block text-slate-300 font-semibold mb-1">Rencana Produksi (Crewing & Field Recording)</label><textarea id="proj-prod" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-cyanAccent outline-none"></textarea></div>
 <div><label for="proj-pasca" class="block text-slate-300 font-semibold mb-1">Rencana Pascaproduksi (Software Editing & Lisensi Musik)</label><textarea id="proj-pasca" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-cyanAccent outline-none"></textarea></div>
@@ -169,7 +219,7 @@ summary{cursor:pointer}
 <section id="content-refleksi" class="tab-content hidden space-y-6"><div data-back="🧠 Jurnal Refleksi Diri Siswa|text-goldenYellow"></div>
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
 <form id="reflection-form" onsubmit="saveReflection(event)" class="space-y-4 text-sm">
-<div><label for="ref-q1" class="block text-slate-300 font-semibold mb-1">1. Pengalaman berharga apa yang paling berkesan saat mengelola simulasi alur kerja Kopi Senja?</label><textarea id="ref-q1" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-goldenYellow outline-none"></textarea></div>
+<div><label for="ref-q1" class="block text-slate-300 font-semibold mb-1">1. Pengalaman berharga apa yang paling berkesan saat mempelajari simulasi alur kerja produksi multimedia?</label><textarea id="ref-q1" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-goldenYellow outline-none"></textarea></div>
 <div><label for="ref-q2" class="block text-slate-300 font-semibold mb-1">2. Mengapa tahap praproduksi sangat menentukan keberhasilan total sebuah proyek video commercial?</label><textarea id="ref-q2" rows="3" required class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 focus:border-goldenYellow outline-none"></textarea></div>
 <p id="ref-msg" class="font-bold"></p>
 <button type="submit" class="px-6 py-2.5 bg-goldenYellow text-midnight font-bold text-sm rounded-lg hover:brightness-110">💾 Simpan Refleksi</button></form></div></section>
@@ -196,7 +246,7 @@ summary{cursor:pointer}
 <div class="flex justify-between items-end pt-4 px-6 md:px-12 text-xs">
 <div class="text-center"><div class="w-32 border-b border-slate-400 mx-auto pb-6 font-bold text-slate-800">&nbsp;</div><p class="text-[10px] text-slate-500">Guru Pembimbing</p></div>
 <div class="w-16 h-16 rounded-full border-4 border-goldenYellow bg-goldenYellow/10 flex items-center justify-center font-bold text-midnight text-[9px] uppercase text-center leading-tight">STUDIO<br>SEAL</div>
-<div class="text-center"><div class="w-32 border-b border-slate-400 mx-auto pb-6 font-bold text-slate-800">&nbsp;</div><p class="text-[10px] text-slate-500">Perwakilan Kopi Senja</p></div></div></div>
+<div class="text-center"><div class="w-32 border-b border-slate-400 mx-auto pb-6 font-bold text-slate-800">&nbsp;</div><p class="text-[10px] text-slate-500">Perwakilan Klien / Mitra</p></div></div></div>
 </section>
 <section id="content-glosarium" class="tab-content hidden space-y-6"><div data-back="📚 Glosarium & Daftar Pustaka|text-cyanAccent"></div>
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3"><label for="gloss-q" class="block font-semibold text-slate-200">Cari istilah</label><input id="gloss-q" type="text" oninput="renderGlossary()" placeholder="Contoh: storyboard" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 outline-none focus:border-cyanAccent"><dl id="gloss-list" class="space-y-3"></dl></div>
@@ -211,7 +261,7 @@ summary{cursor:pointer}
 
 <section id="content-tentang" class="tab-content hidden space-y-6"><div data-back="ℹ️ Tentang Media & Rubrik Penilaian|text-goldenYellow"></div>
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3 text-slate-200"><h3 class="text-lg font-bold text-cyanAccent">Tentang media</h3>
-<p>Media pembelajaran gamifikasi <b>Alur Kerja Produksi Multimedia</b> untuk siswa DKV Fase F, dikembangkan oleh Kelompok 9 (Literasi TIK dan Media Pembelajaran). Siswa berperan sebagai anggota studio yang menangani proyek video iklan UMKM fiktif "Kopi Senja".</p>
+<p>Media pembelajaran gamifikasi <b>Alur Kerja Produksi Multimedia</b> untuk siswa DKV Fase F, dikembangkan oleh Kelompok 9 (Literasi TIK dan Media Pembelajaran). Siswa berperan sebagai anggota studio yang mempelajari dan mempraktikkan alur kerja produksi multimedia. Contoh kasus nyata dibahas pada bagian Studi Kasus.</p>
 <p class="text-sm text-slate-300"><b>Penyimpanan:</b> progres, nilai, proyek, dan refleksi hanya tersimpan di browser perangkat ini. Tidak ada akun, server, atau pemantauan guru. Identitas tidak diverifikasi.</p></div>
 <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-3"><h3 class="text-lg font-bold text-goldenYellow">Aturan XP & penilaian otomatis</h3>
 <div class="overflow-x-auto"><table class="w-full text-sm text-left"><thead class="text-cyanAccent"><tr><th class="py-2 pr-3">Aktivitas</th><th class="py-2 pr-3">Cara menilai</th><th class="py-2">XP</th></tr></thead><tbody class="text-slate-200 divide-y divide-slate-800">
@@ -271,9 +321,9 @@ function selectAvatar(e,r){state.player.avatar=e;state.player.role=r;saveState()
 function updatePlayerProfile(){state.player.name=$('input-player-name').value.trim()||'Siswa DKV';state.player.school=$('input-player-school').value.trim()||'SMK DKV Fase F';try{localStorage.setItem(SKEY,JSON.stringify(state))}catch(e){}updateUI(true)}
 
 /* ===== 7. MATERI & MISI ===== */
-const MATERI=[['1','Tahap Praproduksi','Perencanaan & Riset Konsep','cyanAccent',['Client Briefing: memahami target audiens & pesan utama Kopi Senja.','Scriptwriting & Storyboard: visualisasi adegan dan urutan shot.','Rencana Anggaran & Jadwal: budget, izin lokasi, call sheet.','Casting & Equipment Check: pembagian peran & penyiapan alat.']],['2','Tahap Produksi','Eksekusi Lapangan & Shooting','coralOrange',['Cinematography: sudut kamera, framing, lighting 3-point.','Field Audio: Clip-on Lavalier & Mic Boom agar suara jernih.','Directing: mengarahkan talent sesuai storyboard.','Media Offloading: transfer & backup footage RAW ke storage terpisah.']],['3','Tahap Pascaproduksi','Penyempurnaan & Finalisasi','freshTeal',['Rough Cut & Offline Editing: memotong klip sesuai storyboard.','Color Grading: tone warna hangat khas Kopi Senja.','Audio Mixing & BGM: SFX, VO, dan musik Royalty-Free berlisensi.','Exporting: render MP4 4K/FHD sesuai platform rilis.']]];
-const MEX=[['Storyboard 6 panel iklan 30 detik: (1) uap kopi close-up, (2) menuang kopi, (3) barista tersenyum, (4) pelanggan menyeruput, (5) suasana kedai sore, (6) logo dan slogan.','Praproduksi menentukan arah. Tanpa brief, naskah, jadwal, dan anggaran yang jelas, tahap berikutnya boros dan berisiko diulang.'],['Call sheet hari syuting: 08.00 kru tiba, 09.00 setup, 10.00 adegan 1–3, 12.00 istirahat, 13.00 adegan 4–6, 16.00 backup footage ke dua tempat.','Produksi mengeksekusi rencana. Pastikan audio jernih, arahkan talent sesuai storyboard, dan langsung backup footage.'],['Urutan kerja: rough cut, picture lock, color grading, audio mixing, export MP4, lalu revisi sesuai kesepakatan (maksimal 2 putaran).','Pascaproduksi mengubah bahan mentah menjadi video final. Kontrol kualitas dan batas revisi dijaga lewat kontrak.']];
-$('materi-grid').innerHTML=MATERI.map((m,i)=>`<div class="bg-slate-900/90 border border-${m[3]}/30 rounded-xl p-5 space-y-4 hover:border-${m[3]} transition"><div class="flex items-center gap-3 border-b border-slate-800 pb-3"><div class="w-10 h-10 rounded-lg bg-${m[3]}/20 border border-${m[3]} flex items-center justify-center text-${m[3]} font-bold">${m[0]}</div><div><h3 class="font-bold">${m[1]}</h3><p class="text-sm text-${m[3]}">${m[2]}</p></div></div><ul class="text-sm text-slate-300 space-y-2 list-disc list-inside">${m[4].map(x=>{const [a,b]=x.split(': ');return `<li><strong>${a}:</strong> ${b}</li>`}).join('')}</ul><div class="bg-midnight border border-${m[3]}/40 rounded-lg p-3 text-sm"><b class="text-goldenYellow">Contoh Kopi Senja:</b> ${MEX[i][0]}</div><div class="bg-iceBlue/10 border border-slate-700 rounded-lg p-3 text-sm"><b class="text-freshTeal">Ringkasan:</b> ${MEX[i][1]}</div></div>`).join('');
+const MATERI=[['1','Tahap Praproduksi','Perencanaan & Riset Konsep','cyanAccent',['Client Briefing: memahami target audiens & pesan utama produk atau klien.','Scriptwriting & Storyboard: visualisasi adegan dan urutan shot.','Rencana Anggaran & Jadwal: budget, izin lokasi, call sheet.','Casting & Equipment Check: pembagian peran & penyiapan alat.']],['2','Tahap Produksi','Eksekusi Lapangan & Shooting','coralOrange',['Cinematography: sudut kamera, framing, lighting 3-point.','Field Audio: Clip-on Lavalier & Mic Boom agar suara jernih.','Directing: mengarahkan talent sesuai storyboard.','Media Offloading: transfer & backup footage RAW ke storage terpisah.']],['3','Tahap Pascaproduksi','Penyempurnaan & Finalisasi','freshTeal',['Rough Cut & Offline Editing: memotong klip sesuai storyboard.','Color Grading: menyesuaikan tone warna agar konsisten dengan konsep dan mood video.','Audio Mixing & BGM: SFX, VO, dan musik Royalty-Free berlisensi.','Exporting: render MP4 4K/FHD sesuai platform rilis.']]];
+const MEX=[['Storyboard 6 panel iklan produk 30 detik: (1) close-up produk, (2) produk digunakan, (3) ekspresi pengguna, (4) manfaat produk, (5) suasana penggunaan, (6) logo dan slogan.','Praproduksi menentukan arah. Tanpa brief, naskah, jadwal, dan anggaran yang jelas, tahap berikutnya boros dan berisiko diulang.'],['Call sheet hari syuting: 08.00 kru tiba, 09.00 setup, 10.00 adegan 1–3, 12.00 istirahat, 13.00 adegan 4–6, 16.00 backup footage ke dua tempat.','Produksi mengeksekusi rencana. Pastikan audio jernih, arahkan talent sesuai storyboard, dan langsung backup footage.'],['Urutan kerja: rough cut, picture lock, color grading, audio mixing, export MP4, lalu revisi sesuai kesepakatan (maksimal 2 putaran).','Pascaproduksi mengubah bahan mentah menjadi video final. Kontrol kualitas dan batas revisi dijaga lewat kontrak.']];
+$('materi-grid').innerHTML=MATERI.map((m,i)=>`<div class="bg-slate-900/90 border border-${m[3]}/30 rounded-xl p-5 space-y-4 hover:border-${m[3]} transition"><div class="flex items-center gap-3 border-b border-slate-800 pb-3"><div class="w-10 h-10 rounded-lg bg-${m[3]}/20 border border-${m[3]} flex items-center justify-center text-${m[3]} font-bold">${m[0]}</div><div><h3 class="font-bold">${m[1]}</h3><p class="text-sm text-${m[3]}">${m[2]}</p></div></div><ul class="text-sm text-slate-300 space-y-2 list-disc list-inside">${m[4].map(x=>{const [a,b]=x.split(': ');return `<li><strong>${a}:</strong> ${b}</li>`}).join('')}</ul><div class="bg-midnight border border-${m[3]}/40 rounded-lg p-3 text-sm"><b class="text-goldenYellow">Contoh Penerapan:</b> ${MEX[i][0]}</div><div class="bg-iceBlue/10 border border-slate-700 rounded-lg p-3 text-sm"><b class="text-freshTeal">Ringkasan:</b> ${MEX[i][1]}</div></div>`).join('');
 
 const MISI=[
 {t:'Misi 1: Praproduksi',c:'cyanAccent',b:'text-midnight',h:'Sengketa Hak Cipta Musik Latar Kopi Senja',s:'Klien menginginkan lagu viral untuk iklan Kopi Senja, namun proyek tidak punya anggaran lisensi komersial major label. Apa tindakan profesional Anda?',o:['Tetap memakai lagu viral tanpa izin demi popularitas video.','Edukasi klien soal hak cipta & sediakan alternatif musik Royalty-Free komersial bernuansa sejenis.','Batalkan proyek karena berbeda pandangan dengan klien.'],a:1,ex:['Berisiko copyright strike dan tuntutan hukum bagi klien dan tim.','Tepat: kamu melindungi klien dari risiko hukum sambil tetap memenuhi nuansa yang diinginkan.','Terlalu ekstrem: masalah ini punya solusi dengan komunikasi dan alternatif.']},
@@ -332,7 +382,7 @@ if(ok===EQ.length){playSound('correct');fb.innerHTML='<span class="text-freshTea
 
 /* ===== 11. GAME 3: VIRTUAL STUDIO ===== */
 let sc,sx,studioAnimId,sp={x:400,y:210,s:4},studioDir=null,sk={},nearZone=null;
-const ZONES=[{id:'pra',name:'Papan Storyboard (Praproduksi)',x:120,y:100,r:45,ic:'📋',c:'#00C2FF'},{id:'prod',name:'Set Kamera Cinema (Produksi)',x:680,y:100,r:45,ic:'📹',c:'#FF6B4A'},{id:'pasca',name:'PC Workstation (Pascaproduksi)',x:120,y:320,r:45,ic:'💻',c:'#20C997'},{id:'client',name:'Meja Klien Kopi Senja',x:680,y:320,r:45,ic:'☕',c:'#FFC857'}];
+const ZONES=[{id:'pra',name:'Papan Storyboard (Praproduksi)',x:120,y:100,r:45,ic:'📋',c:'#00C2FF'},{id:'prod',name:'Set Kamera Cinema (Produksi)',x:680,y:100,r:45,ic:'📹',c:'#FF6B4A'},{id:'pasca',name:'PC Workstation (Pascaproduksi)',x:120,y:320,r:45,ic:'💻',c:'#20C997'},{id:'client',name:'Meja Klien',x:680,y:320,r:45,ic:'☕',c:'#FFC857'}];
 function initStudioGame(){cancelAnimationFrame(studioAnimId);sc=$('studioCanvas');sx=sc.getContext('2d');sp.x=400;sp.y=210;$('studio-visited').textContent=Object.keys(state.visited).length+'/4';studioLoop()}
 function studioLoop(){if(curGame!==3||currentTab!=='minigames')return;
 const k=n=>sk[n];if(studioDir==='up'||k('w')||k('arrowup'))sp.y=Math.max(30,sp.y-sp.s);if(studioDir==='down'||k('s')||k('arrowdown'))sp.y=Math.min(390,sp.y+sp.s);if(studioDir==='left'||k('a')||k('arrowleft'))sp.x=Math.max(30,sp.x-sp.s);if(studioDir==='right'||k('d')||k('arrowright'))sp.x=Math.min(770,sp.x+sp.s);
@@ -346,7 +396,7 @@ $('studioCanvas').addEventListener('click',()=>{if(nearZone)openZoneDialog(nearZ
 document.querySelectorAll('[data-dir]').forEach(b=>{const s=v=>e=>{e.preventDefault();studioDir=v?b.dataset.dir:null};['touchstart','mousedown'].forEach(ev=>b.addEventListener(ev,s(true),{passive:false}));['touchend','touchcancel','mouseup','mouseleave'].forEach(ev=>b.addEventListener(ev,s(false),{passive:false}))});
 window.addEventListener('keydown',e=>{const k=e.key.toLowerCase();if(currentTab==='minigames'&&(curGame===1||curGame===3)&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){if(k.startsWith('arrow')||k===' ')e.preventDefault();if(curGame===1){if(k==='a'||k==='arrowleft')keyL=true;if(k==='d'||k==='arrowright')keyR=true}else{sk[k]=true;if((k==='enter'||k==='e')&&!e.repeat)interactStudioZone()}}});
 window.addEventListener('keyup',e=>{const k=e.key.toLowerCase();sk[k]=false;if(k==='a'||k==='arrowleft')keyL=false;if(k==='d'||k==='arrowright')keyR=false});
-const DLG={pra:["Sutradara: 'Papan Storyboard Kopi Senja sudah tersusun. Tahap awal ini memastikan angle kamera dan durasi adegan terencana rapi!'",'Buka Materi Praproduksi','materi','bg-cyanAccent text-midnight'],prod:["Kamerawan: 'Kamera Cinema 4K dan lighting 3-point menyala. Pastikan mic clip-on terhubung!'",'Jawab Misi Produksi','misi','bg-coralOrange text-warmWhite'],pasca:["Editor: 'PC siap untuk rough cut dan color grading tone hangat khas Kopi Senja.'",'Mainkan Game Timeline','G2','bg-freshTeal text-midnight'],client:["Klien: 'Kami ingin video ini menonjolkan aroma dan kehangatan produk kami!'",'Isi Laporan Proyek','proyek','bg-goldenYellow text-midnight']};
+const DLG={pra:["Sutradara: 'Papan Storyboard sudah tersusun. Tahap awal ini memastikan angle kamera dan durasi adegan terencana rapi!'",'Buka Materi Praproduksi','materi','bg-cyanAccent text-midnight'],prod:["Kamerawan: 'Kamera Cinema 4K dan lighting 3-point menyala. Pastikan mic clip-on terhubung!'",'Jawab Misi Produksi','misi','bg-coralOrange text-warmWhite'],pasca:["Editor: 'PC siap untuk rough cut dan color grading tone warna yang konsisten.'",'Mainkan Game Timeline','G2','bg-freshTeal text-midnight'],client:["Klien: 'Kami ingin video ini menonjolkan aroma dan kehangatan produk kami!'",'Isi Laporan Proyek','proyek','bg-goldenYellow text-midnight']};
 function openZoneDialog(z){const d=DLG[z.id];$('studio-dialog-box').classList.remove('hidden');$('dialog-title').textContent=z.ic+' '+z.name;$('dialog-text').textContent=d[0];
 $('dialog-actions').innerHTML=`<button onclick="${d[2]==='G2'?'switchMiniGame(2)':`switchTab('${d[2]}')`};closeStudioDialog()" class="px-3 py-1.5 ${d[3]} text-sm font-bold rounded">${d[1]}</button>`;
 if(!state.visited[z.id]){state.visited[z.id]=1;$('studio-visited').textContent=Object.keys(state.visited).length+'/4';if(Object.keys(state.visited).length===4&&!state.minigames[3]){state.minigames[3]=true;showToast('Semua stasiun dikunjungi!','success');addXP(40);switchMiniGameTabsRefresh()}else saveState()}}
@@ -388,7 +438,7 @@ $('nav-player-role').textContent=p.role;$('nav-player-level').textContent=p.leve
 $('dash-xp').textContent=p.xp;$('catcher-high').textContent=state.high1||0;$('dash-missions').textContent=m+' / 3';$('dash-quiz').textContent=state.quizScore+' / 100';$('dash-games').textContent=g+' / 3';$('quiz-final-score').textContent=state.quizScore+' / 100';
 $('main-progress-bar').style.width=pct+'%';$('progress-percentage-text').textContent=pct+'% Selesai';
 $('cert-player-name').textContent=p.name;$('cert-player-school').textContent=p.school;$('cert-xp').textContent=p.xp+' XP';$('cert-score').textContent=state.quizScore+' / 100';$('cert-date').textContent=new Date().toLocaleDateString('id-ID');
-$('cert-text').innerHTML='Telah mengikuti simulasi alur kerja produksi multimedia Kopi Senja dengan capaian: '+m+'/3 misi, '+g+'/3 mini game, dan progres keseluruhan <strong class="text-midnight">'+pct+'%</strong>.';
+$('cert-text').innerHTML='Telah mengikuti pembelajaran alur kerja produksi multimedia dengan capaian: '+m+'/3 misi, '+g+'/3 mini game, dan progres keseluruhan <strong class="text-midnight">'+pct+'%</strong>.';
 const miss=[];if(m<3)miss.push((3-m)+' studi kasus');if(g<3)miss.push((3-g)+' mini game');if(!state.quizCompleted)miss.push('kuis');if(!state.projectSaved)miss.push('proyek');if(!state.reflectionSaved)miss.push('refleksi');
 const open=pct>=100;$('cert-lock').classList.toggle('hidden',open);$('printable-certificate').classList.toggle('hidden',!open);$('cert-print-btn').disabled=!open;$('cert-print-btn').classList.toggle('opacity-50',!open);$('cert-missing').textContent=miss.join(', ')+' (progres '+pct+'%)';
 [1,2,3].forEach(markMission);if(light)return;renderAvatars();renderJourney();
