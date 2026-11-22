@@ -1,0 +1,210 @@
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.font-cinzel {
+  font-family: "Cinzel", Georgia, serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #14213d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00c2ff;
+  border-radius: 4px;
+}
+
+@keyframes cyanGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(0, 194, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 194, 255, 0.8);
+  }
+}
+
+.cyan-glow {
+  animation: cyanGlow 3s infinite;
+}
+
+canvas {
+  touch-action: none;
+}
+
+:focus-visible {
+  outline: 3px solid #ffc857;
+  outline-offset: 2px;
+}
+
+.calm * {
+  animation: none !important;
+  transition: none !important;
+}
+
+#confetti {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 70;
+}
+
+summary {
+  cursor: pointer;
+}
+
+/* Akses Media Pembelajaran */
+@keyframes mediaFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes mediaFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.media-card {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+  animation: mediaFadeUp 0.5s ease both;
+}
+
+.media-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.media-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.media-card:hover {
+  transform: translateY(-6px);
+}
+
+.media-card:hover .media-icon {
+  animation: mediaFloat 1.2s ease-in-out infinite;
+}
+
+.media-btn {
+  min-height: 48px;
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.media-btn:hover {
+  filter: brightness(1.1);
+  transform: scale(1.03);
+}
+
+.media-btn:active {
+  transform: scale(0.98);
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    padding: 0 !important;
+  }
+  body * {
+    visibility: hidden;
+  }
+  #printable-certificate,
+  #printable-certificate * {
+    visibility: visible;
+  }
+  #printable-certificate {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 2rem;
+    box-sizing: border-box;
+    background: #fff !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+  }
+}
+
+/* ===== WELCOME SCREEN ===== */
+@keyframes welcomeFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.welcome-float {
+  animation: welcomeFloat 2.8s ease-in-out infinite;
+}
+
+#welcome-screen {
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+#welcome-screen.welcome-exit {
+  opacity: 0;
+  transform: scale(1.03);
+  pointer-events: none;
+}
+
+/* ===== ANIMASI FEEDBACK KALIBRASI STUDIO ===== */
+@keyframes studioShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+
+.studio-shake {
+  animation: studioShake 0.35s ease-in-out;
+}
