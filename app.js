@@ -1,4 +1,3 @@
-/* ===== 1. STATE (localStorage aman) ===== */
 const SKEY = "studio_adventure_v2";
 const DEFAULT_STATE = {
   player: {
@@ -73,7 +72,6 @@ function doReset() {
   showToast("Data progres direset.", "info");
 }
 
-/* ===== 2. AUDIO ===== */
 let audioCtx = null,
   isMuted = false,
   globalVolume = 0.5;
@@ -117,7 +115,6 @@ function toggleAudio() {
   showToast(isMuted ? "Suara dimatikan" : "Suara aktif", "info");
 }
 
-/* ===== 3. TOAST ===== */
 function showToast(msg, type = "info") {
   const c = $("toast-container"),
     t = document.createElement("div");
@@ -137,7 +134,6 @@ function showToast(msg, type = "info") {
   setTimeout(() => t.remove(), 3000);
 }
 
-/* ===== 4. XP ===== */
 function addXP(n) {
   state.player.xp += n;
   playSound("xp");
@@ -152,7 +148,6 @@ function addXP(n) {
   saveState();
 }
 
-/* ===== 5. NAVIGASI ===== */
 const TABS = [
   ["beranda", "🏠", "Beranda"],
   ["materi", "📖", "SOP Produksi"],
@@ -194,9 +189,6 @@ document.querySelectorAll("[data-back]").forEach((el) => {
   el.innerHTML = `<button onclick="switchTab('beranda')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyanAccent rounded-lg text-sm font-bold">← Kembali</button><h2 class="text-lg font-bold ${c}">${t}</h2>`;
 });
 
-/* ===== 6. PROFIL & PERAN ===== */
-
-
 function updatePlayerProfile() {
   state.player.name = $("input-player-name").value.trim() || "Siswa DKV";
   state.player.school =
@@ -207,7 +199,6 @@ function updatePlayerProfile() {
   updateUI(true);
 }
 
-/* ===== RENDER & PENCARIAN GLOSARIUM (#content-glosarium) ===== */
 const ORIGINAL_GLOSARIUM = [
   { term: "Brief Klien", def: "Ringkasan kebutuhan klien: tujuan, audiens, pesan, batasan waktu dan biaya." },
   { term: "Storyboard", def: "Sketsa berurutan yang menggambarkan setiap shot sebelum syuting." },
@@ -324,7 +315,6 @@ if (typeof switchTab === "function") {
 
 renderGlosariumList();
 
-/* ===== 7. MATERI & MISI ===== */
 const MATERI = [
   [
     "1",
@@ -500,7 +490,6 @@ function submitMission(n) {
   saveState();
 }
 
-/* ===== 8. MINI GAME SWITCHER ===== */
 let curGame = 1;
 const GTAB = [
   [1, "🧺 Game 1: Asset Catcher", "bg-coralOrange"],
@@ -530,7 +519,6 @@ function switchMiniGame(n) {
   if (n === 3) initStudioGame();
 }
 
-/* ===== 9. GAME 1: MEDIA ASSET CATCHER (15s & PROGRESS SYNC) ===== */
 let cc,
   cx,
   catcherAnimId,
@@ -1041,7 +1029,6 @@ function finishCatcherSession(reasonTitle) {
     cc.classList.add("cursor-pointer");
   }
 
-  // Simpan track record permainan ke state
   state.catcherPlays = (state.catcherPlays || 0) + 1;
   state.catcherLastScore = catcherScore;
   if (catcherScore > getCatcherBest()) {
@@ -1248,7 +1235,6 @@ window.addEventListener("blur", () => {
   sk = {};
   studioDir = null;
 });
-/* ===== 10. GAME 2: TIMELINE & EQUIPMENT ===== */
 const EQALL = [
   { id: "eq1", name: "Naskah & Storyboard", icon: "📜", t: "pra" },
   { id: "eq2", name: "Kamera Cinema 4K", icon: "📹", t: "prod" },
@@ -1375,7 +1361,6 @@ function checkTimelineGame() {
   }
 }
 
-/* ===== 11. GAME 3: VIRTUAL STUDIO (SMOOTH & MINIMALIST) ===== */
 let sc,
   sx,
   studioAnimId,
@@ -1656,11 +1641,9 @@ function resetStudioSimulation() {
 }
 
 function drawStudioEnvironment() {
-  // Latar studio matte lembut
   sx.fillStyle = "#0e1525";
   sx.fillRect(0, 0, 800, 420);
 
-  // Dot-grid arsitektural halus (tidak ramai seperti garis kotak)
   sx.fillStyle = "rgba(148, 163, 184, 0.14)";
   for (let gx = 40; gx <= 760; gx += 32) {
     for (let gy = 36; gy <= 384; gy += 32) {
@@ -1668,13 +1651,11 @@ function drawStudioEnvironment() {
     }
   }
 
-  // Bingkai ruangan studio tipis
   sx.strokeStyle = "rgba(148, 163, 184, 0.16)";
   sx.lineWidth = 1.5;
   drawRoundedRect(sx, 20, 18, 760, 384, 16);
   sx.stroke();
 
-  // Jalur alur kerja yang berhenti rapi di tepi lingkaran stasiun (tidak menembus ikon)
   const links = [
     [ZONES[0], ZONES[1]],
     [ZONES[1], ZONES[2]],
@@ -1714,7 +1695,6 @@ function drawStudioEnvironment() {
     sx.restore();
   });
 
-  // Emblem lantai tengah (tipis, tidak bertabrakan dengan pemain)
   const totalReady = ZONES.filter((z) => getStationProgress(z).complete).length;
   sx.save();
   sx.beginPath();
@@ -1742,7 +1722,6 @@ function drawCustomStationIcon(z, prog) {
   sx.lineJoin = "round";
 
   if (z.id === "client") {
-    // Ilustrasi Meja & Dokumen Brief + Cangkir
     drawRoundedRect(sx, z.x - 13, z.y - 10, 18, 22, 3);
     sx.stroke();
     sx.beginPath();
@@ -1753,12 +1732,10 @@ function drawCustomStationIcon(z, prog) {
     sx.moveTo(z.x - 9, z.y + 6);
     sx.lineTo(z.x - 3, z.y + 6);
     sx.stroke();
-    // Cangkir kecil di samping
     sx.beginPath();
     sx.arc(z.x + 11, z.y + 5, 4.5, 0, Math.PI * 2);
     sx.stroke();
   } else if (z.id === "pra") {
-    // Ilustrasi Frame Storyboard 2x2
     drawRoundedRect(sx, z.x - 14, z.y - 11, 28, 22, 3);
     sx.stroke();
     sx.beginPath();
@@ -1768,10 +1745,8 @@ function drawCustomStationIcon(z, prog) {
     sx.lineTo(z.x + 14, z.y);
     sx.stroke();
   } else if (z.id === "prod") {
-    // Ilustrasi Kamera Cinema Ringkas
     drawRoundedRect(sx, z.x - 14, z.y - 8, 20, 16, 3);
     sx.stroke();
-    // Lensa / Matte box
     sx.beginPath();
     sx.moveTo(z.x + 6, z.y - 4);
     sx.lineTo(z.x + 14, z.y - 7);
@@ -1779,13 +1754,11 @@ function drawCustomStationIcon(z, prog) {
     sx.lineTo(z.x + 6, z.y + 4);
     sx.closePath();
     sx.stroke();
-    // Reel atas
     sx.beginPath();
     sx.arc(z.x - 8, z.y - 11, 3, 0, Math.PI * 2);
     sx.arc(z.x - 1, z.y - 11, 3, 0, Math.PI * 2);
     sx.stroke();
   } else if (z.id === "pasca") {
-    // Ilustrasi Monitor Editing + Timeline
     drawRoundedRect(sx, z.x - 15, z.y - 11, 30, 18, 3);
     sx.stroke();
     sx.beginPath();
@@ -1796,7 +1769,6 @@ function drawCustomStationIcon(z, prog) {
     sx.moveTo(z.x - 8, z.y + 11);
     sx.lineTo(z.x + 8, z.y + 11);
     sx.stroke();
-    // Bar timeline kecil di layar
     const map = stationChecks[z.id] || {};
     const activeAnim = map["e2"] || map["e3"];
     for (let i = 0; i < 3; i++) {
@@ -1812,7 +1784,6 @@ function drawStationProps(z, prog) {
   const isNear = nearZone && nearZone.id === z.id;
   sx.save();
 
-  // Cahaya softbox halus saat lighting produksi aktif
   if (z.id === "prod" && map["r2"]) {
     const grad = sx.createRadialGradient(z.x, z.y, 6, z.x, z.y, 68);
     grad.addColorStop(0, "rgba(251, 191, 36, 0.2)");
@@ -1823,7 +1794,6 @@ function drawStationProps(z, prog) {
     sx.fill();
   }
 
-  // Lingkaran dasar stasiun (lebih ringkas & bersih)
   sx.beginPath();
   sx.arc(z.x, z.y, z.r, 0, Math.PI * 2);
   sx.fillStyle = prog.complete
@@ -1837,7 +1807,6 @@ function drawStationProps(z, prog) {
   sx.strokeStyle = prog.complete ? "#34D399" : isNear ? z.c : "rgba(148, 163, 184, 0.35)";
   sx.stroke();
 
-  // Busur progres kalibrasi di tepi luar
   if (prog.done > 0) {
     sx.beginPath();
     sx.arc(
@@ -1852,10 +1821,8 @@ function drawStationProps(z, prog) {
     sx.stroke();
   }
 
-  // Ikon vektor khusus
   drawCustomStationIcon(z, prog);
 
-  // Badge nomor kecil / centang di sudut kanan atas
   sx.beginPath();
   sx.arc(z.x + 24, z.y - 24, 9.5, 0, Math.PI * 2);
   sx.fillStyle = prog.complete ? "#34D399" : "#1E293B";
@@ -1870,7 +1837,6 @@ function drawStationProps(z, prog) {
   sx.fillStyle = prog.complete ? "#0F172A" : "#E2E8F0";
   sx.fillText(prog.complete ? "✓" : z.step, z.x + 24, z.y - 24);
 
-  // Label bersih di bawah meja
   sx.font = "600 12px Inter, sans-serif";
   sx.fillStyle = "#F8FAFC";
   sx.fillText(z.name, z.x, z.y + z.r + 17);
@@ -1902,7 +1868,6 @@ function studioLoop() {
     tvy = 0;
 
   if (ix !== 0 || iy !== 0) {
-    // Normalisasi kecepatan diagonal agar konsisten
     const len = Math.hypot(ix, iy);
     tvx = (ix / len) * sp.maxSpeed;
     tvy = (iy / len) * sp.maxSpeed;
@@ -1914,7 +1879,6 @@ function studioLoop() {
     const dy = sp.ty - sp.y;
     const dist = Math.hypot(dx, dy);
     if (dist > 4) {
-      // Perlambatan halus saat mendekati target (smooth ease-out)
       const desiredSpeed = Math.min(sp.maxSpeed, dist * 0.16);
       tvx = (dx / dist) * desiredSpeed;
       tvy = (dy / dist) * desiredSpeed;
@@ -1931,7 +1895,6 @@ function studioLoop() {
     }
   }
 
-  // Interpolasi kecepatan (akselerasi & deselerasi smooth)
   sp.vx += (tvx - sp.vx) * 0.22;
   sp.vy += (tvy - sp.vy) * 0.22;
 
@@ -1957,7 +1920,6 @@ function studioLoop() {
     drawStationProps(z, prog);
   });
 
-  // Penanda titik tujuan klik yang halus
   if (sp.tx !== null && sp.ty !== null) {
     sx.beginPath();
     sx.arc(sp.tx, sp.ty, 5 + Math.sin(studioTick * 0.18) * 1.5, 0, Math.PI * 2);
@@ -1966,15 +1928,12 @@ function studioLoop() {
     sx.stroke();
   }
 
-  // Gambar Karakter Kru Minimalis & Smooth
   sx.save();
-  // Bayangan lembut
   sx.beginPath();
   sx.ellipse(sp.x, sp.y + 13, 11, 4.5, 0, 0, Math.PI * 2);
   sx.fillStyle = "rgba(0, 0, 0, 0.38)";
   sx.fill();
 
-  // Indikator arah gerak kecil
   const dirX = sp.x + Math.cos(sp.angle) * 15;
   const dirY = sp.y + Math.sin(sp.angle) * 15;
   sx.beginPath();
@@ -1982,7 +1941,6 @@ function studioLoop() {
   sx.fillStyle = "#38BDF8";
   sx.fill();
 
-  // Badan pion kru studio
   sx.beginPath();
   sx.arc(sp.x, sp.y, 12, 0, Math.PI * 2);
   sx.fillStyle = "#1E293B";
@@ -1991,20 +1949,17 @@ function studioLoop() {
   sx.strokeStyle = "#38BDF8";
   sx.stroke();
 
-  // Titik inti karakter
   sx.beginPath();
   sx.arc(sp.x, sp.y, 4, 0, Math.PI * 2);
   sx.fillStyle = "#F8FAFC";
   sx.fill();
 
-  // Label peran kecil & bersih di atas karakter
   sx.textAlign = "center";
   sx.textBaseline = "middle";
   sx.font = "600 10px Inter, sans-serif";
   sx.fillStyle = "#94A3B8";
   sx.fillText(state.player.role, sp.x, sp.y - 21);
 
-  // Tooltip interaksi ringkas saat dekat stasiun
   if (nearZone) {
     const label = "Enter / OK: Buka Kalibrasi";
     sx.font = "600 10.5px Inter, sans-serif";
@@ -2024,7 +1979,6 @@ function studioLoop() {
   }
   sx.restore();
 
-  // Partikel halus saat selesai
   for (let i = studioParticles.length - 1; i >= 0; i--) {
     const pt = studioParticles[i];
     pt.x += pt.vx;
@@ -2039,7 +1993,6 @@ function studioLoop() {
     if (pt.life <= 0) studioParticles.splice(i, 1);
   }
 
-  // Teks notifikasi melayang yang ringkas
   for (let i = studioFloaters.length - 1; i >= 0; i--) {
     const fl = studioFloaters[i];
     fl.y -= 0.55;
@@ -2293,7 +2246,6 @@ function closeStudioDialog() {
   activeStationId = null;
   $("studio-dialog-box").classList.add("hidden");
 }
-/* ===== 12. KUIS ===== */
 const QZ = [
   [
     "Dokumen praproduksi berisi sketsa visual adegan demi adegan beserta catatan sudut kamera adalah...",
@@ -2465,7 +2417,6 @@ function calculateQuizScore() {
   if (s >= 80) confetti();
 }
 
-/* ===== 13. FORM ===== */
 const PJ = ["client", "pra", "prod", "pasca"];
 
 function saveProjectAssignment(e) {
@@ -2507,7 +2458,6 @@ function printCert() {
   }
 }
 
-/* ===== 14. LENCANA & UI ===== */
 const BADGES = [
   [
     "praproduksi",
@@ -2554,17 +2504,25 @@ const BADGES = [
 ];
 
 function pctDone(s) {
-  const m = Object.values(s.missions).filter(Boolean).length,
-    g = Object.values(s.minigames).filter(Boolean).length;
-  return Math.round(
-    ((m +
-      g +
-      (s.quizCompleted ? 1 : 0) +
-      (s.projectSaved ? 1 : 0) +
-      (s.reflectionSaved ? 1 : 0)) /
-      9) *
-      100,
+  const m = Math.min(
+    3,
+    Math.max(
+      Object.values(s.missions || {}).filter(Boolean).length,
+      typeof getCompletedMissionNumbers === "function"
+        ? getCompletedMissionNumbers().size
+        : 0,
+    ),
   );
+  const g = Math.min(
+    3,
+    Object.values(s.minigames || {}).filter(Boolean).length,
+  );
+  const quizVal = Math.max(
+    Number(s.quizScore) || 0,
+    typeof getBestQuizScore === "function" ? getBestQuizScore() : 0,
+  );
+  const qDone = s.quizCompleted || quizVal > 0 ? 1 : 0;
+  return Math.min(100, Math.round(((m + g + qDone) / 7) * 100));
 }
 
 function updateUI(light) {
@@ -2597,12 +2555,10 @@ function updateUI(light) {
     '/3 mini game, dan progres keseluruhan <strong class="text-midnight">' +
     pct +
     "%</strong>.";
-  const miss = [];
+const miss = [];
   if (m < 3) miss.push(3 - m + " studi kasus");
   if (g < 3) miss.push(3 - g + " mini game");
-  if (!state.quizCompleted) miss.push("kuis");
-  if (!state.projectSaved) miss.push("proyek");
-  if (!state.reflectionSaved) miss.push("refleksi");
+  if (!state.quizCompleted && state.quizScore <= 0) miss.push("kuis");
   const open = pct >= 100;
   $("cert-lock").classList.toggle("hidden", open);
   $("printable-certificate").classList.toggle("hidden", !open);
@@ -2628,7 +2584,6 @@ function updateUI(light) {
   }).join("");
 }
 
-/* ===== 14b. FITUR TAMBAHAN ===== */
 const esc = (t) =>
   String(t == null ? "" : t).replace(
     /[&<>"']/g,
@@ -2673,9 +2628,9 @@ function renderJourney() {
     ["📝", "Evaluasi", state.quizCompleted, "kuis"],
     [
       "🧠",
-      "Proyek & Refleksi",
-      state.projectSaved && state.reflectionSaved,
-      "proyek",
+      "Jurnal Refleksi",
+      state.reflectionSaved,
+      "refleksi",
     ],
   ];
   const nx = st.findIndex((x) => !x[2]);
@@ -2687,66 +2642,6 @@ function renderJourney() {
     .join("");
 }
 
-const GL = [
-  [
-    "Brief",
-    "Ringkasan kebutuhan klien: tujuan, audiens, pesan, batasan waktu dan biaya.",
-  ],
-  [
-    "Storyboard",
-    "Sketsa berurutan yang menggambarkan setiap shot sebelum syuting.",
-  ],
-  [
-    "Call Sheet",
-    "Dokumen jadwal, lokasi, dan daftar kru untuk hari syuting.",
-  ],
-  [
-    "Contingency Plan",
-    "Rencana cadangan bila terjadi kendala (cuaca, alat rusak, talent berhalangan).",
-  ],
-  ["Talent", "Orang yang tampil di depan kamera."],
-  ["Shot", "Satu pengambilan gambar yang tidak terputus."],
-  ["Framing", "Cara menata objek di dalam bingkai gambar."],
-  [
-    "Lighting 3-point",
-    "Tata cahaya dengan key light, fill light, dan back light.",
-  ],
-  [
-    "Lavalier (Clip-on)",
-    "Mikrofon kecil yang dijepit di pakaian untuk merekam suara dekat.",
-  ],
-  ["Footage RAW", "Rekaman mentah dari kamera sebelum diedit."],
-  [
-    "Media Offloading",
-    "Memindahkan dan mem-backup rekaman dari kartu memori ke penyimpanan lain.",
-  ],
-  [
-    "Rough Cut",
-    "Susunan kasar pertama hasil pemotongan klip sesuai naskah.",
-  ],
-  [
-    "Picture Lock",
-    "Tahap ketika susunan gambar dianggap final dan tidak diubah lagi.",
-  ],
-  ["Color Grading", "Pengaturan warna dan mood visual video."],
-  ["Audio Mixing", "Menyeimbangkan dialog, efek suara, dan musik."],
-  [
-    "Royalty-Free",
-    "Musik atau aset yang dipakai dengan lisensi tanpa royalti berulang; tetap periksa syarat lisensinya.",
-  ],
-  [
-    "Copyright Strike",
-    "Peringatan atau klaim hak cipta terhadap konten yang memakai karya tanpa izin.",
-  ],
-  [
-    "Adendum",
-    "Tambahan kesepakatan pada kontrak, misalnya untuk revisi di luar kuota.",
-  ],
-  [
-    "Render / Export",
-    "Proses mengubah proyek editing menjadi berkas video akhir (misalnya MP4).",
-  ],
-];
 
 function renderGlossary() {
   const q = ($("gloss-q").value || "").toLowerCase().trim(),
@@ -2776,23 +2671,57 @@ function downloadFile(n, t, type) {
 }
 
 function exportResults() {
-  const p = state.player,
-    m = Object.values(state.missions).filter(Boolean).length,
-    g = Object.values(state.minigames).filter(Boolean).length,
-    pj = state.project || {},
-    rf = state.reflection || {};
-  const t = `HASIL STUDIO ADVENTURE\nNama: ${p.name}\nSekolah/Kelas: ${p.school}\nPeran: ${p.role}\nLevel: ${p.level}  XP: ${p.xp}\nStudi kasus selesai: ${m}/3\nMini game selesai: ${g}/3\nNilai kuis terbaik: ${state.quizScore}/100 (percobaan: ${state.quizTries || 0})\nProgres: ${pctDone(state)}%\nTanggal: ${new Date().toLocaleString("id-ID")}\n\nPROYEK\nClient: ${pj.client || "-"}\nPraproduksi: ${pj.pra || "-"}\nProduksi: ${pj.prod || "-"}\nPascaproduksi: ${pj.pasca || "-"}\n\nREFLEKSI\n1. ${rf.q1 || "-"}\n2. ${rf.q2 || "-"}\n`;
+  const p = state.player || {};
+  const m = Math.min(
+    3,
+    Math.max(
+      Object.values(state.missions || {}).filter(Boolean).length,
+      typeof getCompletedMissionNumbers === "function"
+        ? getCompletedMissionNumbers().size
+        : 0,
+    ),
+  );
+  const g = Math.min(
+    3,
+    Object.values(state.minigames || {}).filter(Boolean).length,
+  );
+  const bestQuiz = Math.max(
+    Number(state.quizScore) || 0,
+    typeof getBestQuizScore === "function" ? getBestQuizScore() : 0,
+  );
+  const tries = Math.max(
+    Number(state.quizTries) || 0,
+    typeof getQuizAttempts === "function" ? getQuizAttempts() : 0,
+  );
+  const xp = Math.max(
+    Number(p.xp) || 0,
+    typeof getRealPlayerXP === "function" ? getRealPlayerXP() : 0,
+  );
+  const level = Number(p.level) || Math.floor(xp / 100) + 1;
+
+  const rf = state.reflection || {};
+  const ref1 = rf.q1 || ($("ref-q1") ? $("ref-q1").value.trim() : "") || "-";
+  const ref2 = rf.q2 || ($("ref-q2") ? $("ref-q2").value.trim() : "") || "-";
+
+  const t = [
+    "HASIL STUDIO ADVENTURE",
+    `Nama: ${p.name || "Siswa DKV"}`,
+    `Sekolah/Kelas: ${p.school || "-"}`,
+    `Level: ${level}  XP: ${xp}`,
+    `Studi kasus selesai: ${m}/3`,
+    `Mini game selesai: ${g}/3`,
+    `Nilai kuis terbaik: ${bestQuiz}/100 (percobaan: ${tries})`,
+    `Progres: ${pctDone(state)}%`,
+    `Tanggal: ${new Date().toLocaleString("id-ID")}`,
+    "",
+    "REFLEKSI",
+    `1. ${ref1}`,
+    `2. ${ref2}`,
+    "",
+  ].join("\n");
+
   downloadFile("hasil-studio-adventure.txt", t, "text/plain");
   showToast("Hasil diunduh. Kirim berkasnya ke guru.", "success");
-}
-
-function exportBackup() {
-  downloadFile(
-    "cadangan-studio-adventure.json",
-    JSON.stringify(state),
-    "application/json",
-  );
-  showToast("Cadangan diunduh", "success");
 }
 
 function importBackup(ev) {
@@ -2959,7 +2888,6 @@ function storageCheck() {
   }
 }
 
-/* ===== 15. INIT ===== */
 function initPages() {
   $("input-player-name").value = state.player.name;
   $("input-player-school").value = state.player.school;
@@ -2983,8 +2911,6 @@ function initPages() {
     }
   });
 }
-
-/* ===== 16. TAMPILAN AWAL (WELCOME SCREEN) ===== */
 
 function confirmLogout() {
   stopGames();
@@ -3124,7 +3050,6 @@ function enterStudio() {
   }
 }
 
-/* ===== PEMULIHAN & SINKRONISASI TASKBAR ATAS & 3 MINI GAME ===== */
 const MAIN_NAV_ITEMS = [
   ["beranda", "🏠 Beranda"],
   ["materi", "📖 SOP Produksi"],
@@ -3202,7 +3127,6 @@ function switchMiniGameTabsRefresh() {
   renderMainNavTabs();
 }
 
-/* ===== GAME 2: TIMELINE & EQUIPMENT SLOT ARRANGER (ORIGINAL) ===== */
 const SLOT_BANK = [
   { id: "s1", ic: "📋", name: "Call Sheet Syuting", stage: "pra" },
   { id: "s2", ic: "📝", name: "Naskah & Storyboard", stage: "pra" },
@@ -3458,7 +3382,6 @@ renderMainNavTabs();
 renderMiniGameTabs();
 switchTab("beranda");
 
-/* ===== SINKRONISASI PROGRES, STUDI KASUS, GALERI LENCANA, SERTIFIKAT & KUIS ===== */
 let quizSessionLocked = false;
 const QUIZ_META_KEY = "studio_adventure_quiz_meta_v1";
 const USER_PROFILE_KEY = "studio_adventure_user_profile_v1";
@@ -3541,7 +3464,6 @@ const BADGE_CATALOG = [
   },
 ];
 
-/* ===== TAMPILKAN KOTAK LEVEL & XP DI HEADER (TANPA PERAN PRODUSER) ===== */
 function removeHeaderProducerBox() {
   const headerEl = document.querySelector("header");
   if (!headerEl) return;
@@ -3579,7 +3501,6 @@ function removeHeaderProducerBox() {
   }
 }
 
-/* ===== PROFIL PENGGUNA (NAMA, KELAS, SEKOLAH) ===== */
 function saveStudentProfileBackup(profile) {
   if (!profile || !profile.name) return;
   try {
@@ -3829,7 +3750,6 @@ function setQuizAttempts(val) {
   writeQuizMeta(getBestQuizScore(), clean);
 }
 
-/* ===== DETEKSI & SINKRONISASI STATUS MISI STUDI KASUS (SPESIFIK PER MISI) ===== */
 function getCompletedMissionNumbers() {
   const doneSet = new Set();
 
@@ -3840,7 +3760,6 @@ function getCompletedMissionNumbers() {
     });
   }
 
-  // Periksa langsung dari teks "Keputusan tepat" pada masing-masing kartu misi di DOM
   [1, 2, 3].forEach((mNum) => {
     const card = findMissionCardElement(mNum);
     if (card && /Keputusan tepat/i.test(card.textContent)) {
@@ -3990,7 +3909,6 @@ function persistStateSafely() {
   } catch (err) {}
 }
 
-/* ===== RENDER GALERI LENCANA (#content-lencana) ===== */
 function ensureGaleriLencanaContainer() {
   let sec =
     $("content-lencana") ||
@@ -4079,7 +3997,6 @@ function renderGaleriLencana() {
   `;
 }
 
-/* ===== SINKRONISASI SERTIFIKAT & FORMAT CETAK A4 LANDSCAPE ===== */
 function ensureCertificatePrintStyles() {
   let style = $("cert-a4-landscape-style");
   if (!style) {
@@ -4210,7 +4127,6 @@ function syncSertifikatUI() {
 
   const root = certCard || certSec;
 
-  // 1. Hapus lingkaran "STUDIO SEAL" di bagian bawah sertifikat
   Array.from(root.querySelectorAll("div, span, p")).forEach((el) => {
     if (/^STUDIO\s*SEAL$/i.test(el.textContent.trim())) {
       const sealBox =
@@ -4223,7 +4139,6 @@ function syncSertifikatUI() {
     }
   });
 
-  // 2. Tampilkan nama penerima sertifikat
   const byIdName = $("cert-name") || $("sertifikat-nama");
   if (byIdName) {
     byIdName.textContent = profile.name;
@@ -4294,7 +4209,6 @@ function syncSertifikatUI() {
     anchor.parentElement.insertBefore(descEl, anchor.nextSibling);
   }
 
-  // 4. Perbarui Total XP, Nilai Evaluasi, dan Tanggal Cetak
   const certMetrics = {
     "Total XP": xpVal,
     "Nilai Evaluasi": quizVal,
@@ -4334,7 +4248,6 @@ window.addEventListener("beforeprint", () => {
   syncSertifikatUI();
 });
 
-/* ===== SINKRONISASI KARTU PROGRES DI BERANDA ===== */
 function syncGamificationProgressUI() {
   if (typeof state === "undefined" || !state) return;
 
@@ -4407,7 +4320,6 @@ function syncGamificationProgressUI() {
   });
 }
 
-/* ===== PENGATURAN KUIS EVALUASI (1 PERCOBAAN & PEMBARUAN HEADER NILAI) ===== */
 function syncQuizHeaderDisplay() {
   const kuisSec = $("content-kuis");
   if (!kuisSec) return;
@@ -4768,7 +4680,6 @@ function restartShuffledQuiz(silent = false) {
   }
 }
 
-/* ===== RESET DATA MENYELURUH ===== */
 function performInstantFullReset() {
   if (typeof stopGames === "function") {
     try {
@@ -4849,7 +4760,6 @@ function performInstantFullReset() {
   syncSertifikatUI();
 }
 
-// 1. Pantau klik "Ya, hapus" pada konfirmasi Reset Data
 document.addEventListener(
   "click",
   (e) => {
@@ -4881,7 +4791,6 @@ document.addEventListener(
   true,
 );
 
-// 2. Pantau klik "Kirim Keputusan Misi X" — HANYA menandai misi X yang benar-benar dijawab tepat
 document.addEventListener(
   "click",
   (e) => {
@@ -4910,7 +4819,6 @@ document.addEventListener(
   true,
 );
 
-// 3. Tangkap klik tombol di dalam #content-kuis
 document.addEventListener(
   "click",
   (e) => {
@@ -4991,7 +4899,236 @@ if (typeof saveState === "function") {
   };
 }
 
-// Render awal saat halaman dibuka
+const TEAM_CREDITS_DATA = {
+  group: "Kelompok 9",
+  members: [
+    { name: "Radiet Febrian S", npm: "2513025006", initial: "RF" },
+    { name: "Larasati", npm: "2513025028", initial: "LR" },
+    { name: "Tyas Syafa Pratiwi", npm: "2513025042", initial: "TS" },
+    { name: "Mawaddatul Fadilah", npm: "2513025072", initial: "MF" },
+  ],
+};
+
+function renderTeamCredits() {
+  const tentangSec =
+    $("content-tentang") ||
+    $("content-rubrik") ||
+    Array.from(document.querySelectorAll(".tab-content, section")).find((el) =>
+      /Tentang\s*(&|dan)\s*Rubrik|Rubrik Penilaian/i.test(el.textContent),
+    );
+
+  if (tentangSec && !$("custom-team-credits")) {
+    const creditCard = document.createElement("div");
+    creditCard.id = "custom-team-credits";
+    creditCard.className =
+      "bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-6 space-y-4";
+
+    const membersHtml = TEAM_CREDITS_DATA.members
+      .map(
+        (m) => `
+        <div class="flex items-center gap-3.5 p-3.5 rounded-xl bg-slate-800/70 border border-slate-700/80 hover:border-cyanAccent/50 transition">
+          <div class="w-10 h-10 rounded-xl bg-cyanAccent/15 border border-cyanAccent/40 text-cyanAccent font-extrabold text-xs flex items-center justify-center shrink-0">
+            ${m.initial}
+          </div>
+          <div class="min-w-0">
+            <div class="font-bold text-sm text-warmWhite truncate">${m.name}</div>
+            <div class="text-xs text-slate-400 font-mono mt-0.5">NPM: ${m.npm}</div>
+          </div>
+        </div>
+      `,
+      )
+      .join("");
+
+    creditCard.innerHTML = `
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+        <div>
+          <h3 class="text-base md:text-lg font-extrabold text-goldenYellow">
+            👥 Tim Pengembang Media Pembelajaran
+          </h3>
+          <p class="text-xs text-slate-400 mt-0.5">
+            Perancang & Pengembang Aplikasi Creative Digital Studio Adventure
+          </p>
+        </div>
+        <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-goldenYellow/15 border border-goldenYellow/40 text-goldenYellow">
+          ${TEAM_CREDITS_DATA.group}
+        </span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        ${membersHtml}
+      </div>
+    `;
+
+    tentangSec.appendChild(creditCard);
+  }
+
+  const footerEl = document.querySelector("footer");
+  if (footerEl && !footerEl.dataset.creditAdded) {
+    footerEl.dataset.creditAdded = "1";
+    const baseText = footerEl.textContent.trim().replace(/\.$/, "");
+    footerEl.innerHTML = `
+      <span>${baseText}</span>
+      <span class="mx-1.5 text-slate-600">•</span>
+      <span class="text-slate-300 font-semibold">Dikembangkan oleh ${TEAM_CREDITS_DATA.group}</span>
+    `;
+  }
+}
+
+function ensureHiddenProyekPlaceholder() {
+  let proyekSec = $("content-proyek");
+  if (!proyekSec) {
+    const beranda = $("content-beranda");
+    const parent = beranda
+      ? beranda.parentElement
+      : document.querySelector("main") || document.body;
+    proyekSec = document.createElement("section");
+    proyekSec.id = "content-proyek";
+    parent.appendChild(proyekSec);
+  }
+  proyekSec.classList.add("hidden");
+  proyekSec.style.setProperty("display", "none", "important");
+}
+
+function removeTugasProyekFeature() {
+  ensureHiddenProyekPlaceholder();
+
+  Array.from(document.querySelectorAll("button, a")).forEach((el) => {
+    const txt = el.textContent.trim();
+    const onclickAttr = el.getAttribute("onclick") || "";
+    const isProyekTarget =
+      /Tugas Proyek/i.test(txt) || /switchTab\(['"]proyek['"]\)/i.test(onclickAttr);
+
+    if (!isProyekTarget) return;
+
+    if (/Lanjut/i.test(txt)) {
+      el.textContent = txt.replace(/Tugas Proyek/i, "Jurnal Refleksi");
+      el.setAttribute("onclick", "switchTab('refleksi')");
+      el.onclick = function (e) {
+        e.preventDefault();
+        if (typeof switchTab === "function") switchTab("refleksi");
+      };
+      return;
+    }
+
+    const beranda = $("content-beranda");
+    if (beranda && beranda.contains(el) && el.closest(".grid")) {
+      const card = el.closest(".grid > div, .grid > button");
+      if (card) card.remove();
+      else el.remove();
+    } else {
+      el.remove();
+    }
+  });
+
+  const beranda = $("content-beranda");
+  if (beranda) {
+    Array.from(beranda.querySelectorAll("li, p, div")).forEach((el) => {
+      if (el.children.length > 0 && el.tagName !== "LI") return;
+      if (/Tugas Proyek\s*(dan|,)\s*Jurnal Refleksi/i.test(el.innerHTML)) {
+        el.innerHTML = el.innerHTML.replace(
+          /(?:<b>)?Tugas Proyek(?:<\/b>)?\s*(?:dan|,)\s*/gi,
+          "",
+        );
+      }
+    });
+  }
+
+  const tentangSec =
+    $("content-tentang") ||
+    $("content-rubrik") ||
+    Array.from(document.querySelectorAll(".tab-content, section")).find((el) =>
+      /Tentang\s*(&|dan)\s*Rubrik|Rubrik Penilaian/i.test(el.textContent),
+    );
+
+  if (tentangSec) {
+    Array.from(tentangSec.querySelectorAll("tr, li")).forEach((row) => {
+      if (/Lembar Tugas Proyek|Tugas Proyek Produksi/i.test(row.textContent)) {
+        row.remove();
+      }
+    });
+
+    Array.from(tentangSec.querySelectorAll("p, div, span, td")).forEach((el) => {
+      if (el.children.length === 0 && /Tugas Proyek/i.test(el.textContent)) {
+        el.textContent = el.textContent
+          .replace(/,?\s*Tugas Proyek\s*(dan|,)?\s*/gi, " ")
+          .replace(/\s{2,}/g, " ")
+          .trim();
+      }
+    });
+  }
+}
+
+function recoverQuizAndPagesIfEmpty() {
+  ensureHiddenProyekPlaceholder();
+  const kuisSec = $("content-kuis");
+  const hasQuestions =
+    kuisSec && kuisSec.querySelectorAll('input[type="radio"]').length > 0;
+
+  if (!hasQuestions) {
+    try {
+      if (typeof initPages === "function") initPages();
+    } catch (e) {}
+    try {
+      if (typeof renderKuis === "function") renderKuis();
+    } catch (e) {}
+    try {
+      if (typeof updateUI === "function") updateUI();
+    } catch (e) {}
+  }
+
+  removeTugasProyekFeature();
+  if (typeof removeHeaderProducerBox === "function") removeHeaderProducerBox();
+  if (typeof syncMisiStatusUI === "function") syncMisiStatusUI();
+  if (typeof syncQuizHeaderDisplay === "function") syncQuizHeaderDisplay();
+  if (typeof syncGamificationProgressUI === "function") syncGamificationProgressUI();
+  if (typeof renderGaleriLencana === "function") renderGaleriLencana();
+  if (typeof renderGlosariumList === "function") renderGlosariumList();
+  if (typeof renderTeamCredits === "function") renderTeamCredits();
+  if (typeof syncSertifikatUI === "function") syncSertifikatUI();
+}
+
+if (typeof switchTab === "function") {
+  const _prevSwitchTabNoProyek = switchTab;
+  switchTab = function (t) {
+    ensureHiddenProyekPlaceholder();
+    if (String(t).toLowerCase() === "proyek") {
+      _prevSwitchTabNoProyek("refleksi");
+      removeTugasProyekFeature();
+      return;
+    }
+    _prevSwitchTabNoProyek(t);
+    if (String(t).toLowerCase() === "kuis") {
+      recoverQuizAndPagesIfEmpty();
+      if (!quizSessionLocked && typeof shuffleQuizQuestionsAndOptions === "function") {
+        shuffleQuizQuestionsAndOptions();
+      }
+    } else {
+      removeTugasProyekFeature();
+    }
+  };
+}
+
+if (typeof updateUI === "function") {
+  const _origUpdateUINoProyek = updateUI;
+  updateUI = function () {
+    ensureHiddenProyekPlaceholder();
+    try {
+      _origUpdateUINoProyek.apply(this, arguments);
+    } catch (e) {}
+    removeTugasProyekFeature();
+  };
+}
+
+recoverQuizAndPagesIfEmpty();
+
+if (typeof switchTab === "function") {
+  const _prevSwitchTabCredits = switchTab;
+  switchTab = function (t) {
+    _prevSwitchTabCredits(t);
+    renderTeamCredits();
+  };
+}
+
+renderTeamCredits();
 removeHeaderProducerBox();
 getStudentProfile();
 syncMisiStatusUI();
@@ -4999,12 +5136,9 @@ renderGaleriLencana();
 syncQuizHeaderDisplay();
 syncGamificationProgressUI();
 syncSertifikatUI();
-
-// Jalankan langsung saat halaman dimuat
 renderMainNavTabs();
 renderMiniGameTabs();
 switchTab("beranda");
-
 initPages();
 applySettings();
 renderGlossary();
