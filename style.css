@@ -162,7 +162,6 @@ summary {
   }
 }
 
-/* ===== WELCOME SCREEN ===== */
 @keyframes welcomeFloat {
   0%,
   100% {
@@ -189,7 +188,6 @@ summary {
   pointer-events: none;
 }
 
-/* ===== ANIMASI FEEDBACK KALIBRASI STUDIO ===== */
 @keyframes studioShake {
   0%,
   100% {
